@@ -1,0 +1,1 @@
+diente leon (score=0.93294);aloe vera (score=0.03810);geranio (score=0.00835);oreja de burro (score=0.00685);ajenjo (score=0.00605);

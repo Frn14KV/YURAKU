@@ -1,0 +1,1343 @@
+{% extends "soporte.html" %}
+{% block title %} Memorama - YURAKU {% endblock %}
+{% block content %}
+{% load staticfiles %}
+<title> Memorama - YURAKU </title>
+<script src="http://code.jquery.com/jquery-1.11.2.js" language="javascript" type="text/javascript"></script>
+<link href="{% static 'AdminLTE-2.4.2/memorama/css/estilo.css' %}" rel="stylesheet" />
+<html class="no-js" lang="es">
+    {% if user.groups.all|length > 0 %}
+        {% for u in user.groups.all%}
+            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                <body class="hold-transition skin-blue sidebar-mini">
+                    <div class="wrapper">
+                        <header class="main-header">
+                            <!-- Logo -->
+                            <a href="{% url 'homepage' %}" class="logo"><!-- mini logo for sidebar mini 50x50 pixels -->
+                                <span class="logo-mini"><b>Y</b>K</span>
+                                <!-- logo for regular state and mobile devices -->
+                                <span class="logo-lg">
+                                    <b>YURA</b>KU
+                                </span>
+                            </a>
+                            <!-- Header Navbar: style can be found in header.less -->
+                            <nav class="navbar navbar-static-top">
+                                <!-- Sidebar toggle button-->
+                                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                                    <span class="sr-only">Toggle navigation</span>
+                                </a>
+                                <div class="navbar-custom-menu">
+                                    <ul class="nav navbar-nav">
+                                        <!-- User Account: style can be found in dropdown.less -->
+                                        {% if user.is_authenticated %}
+                                            <li class="dropdown user user-menu">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    {% if perfiles %}
+                                                        {% for p in perfiles.all %}
+                                                            {% if p.Usuario_id.id == user.id %}
+                                                                {% if p.imagen_perfil %}
+                                                                    <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                    {% endif %}
+                                                    <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <!-- User image -->
+                                                    <li class="user-header">
+                                                        {% if perfiles %}
+                                                            {% for p in perfiles.all %}
+                                                                {% if p.Usuario_id.id == user.id %}
+                                                                    {% if p.imagen_perfil %}
+                                                                        <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                        {% endif %}
+                                                        <p>
+                                                            {{ user.first_name }} {{ user.last_name }}
+                                                            <small>{{ user.date_joined }}</small>
+                                                        </p>
+                                                    </li>
+                                                    <!-- Menu Footer-->
+                                                    <li class="user-footer">
+                                                        <div class="pull-left">
+                                                            {% if perfiles %}
+                                                                {% for p in perfiles.all %}
+                                                                    {% if p.Usuario_id.id == user.id %}
+                                                                        <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                    {% else %}
+                                                                        <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="pull-right">
+                                                            <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li class="dropdown user user-menu">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                                    <span class="hidden-xs">Sin Usuario</span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                      <!-- User image -->
+                                                      <li class="user-header">
+                                                          <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                          <p>
+                                                              Sin Usuario
+                                                          </p>
+                                                      </li>
+                                                      <!-- Menu Footer-->
+                                                      <li class="user-footer">
+                                                          <div class="pull-left">
+                                                              <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                          </div>
+                                                          <div class="pull-right">
+                                                              <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                          </div>
+                                                      </li>
+                                                  </ul>
+                                            </li>
+                                        {% endif %}
+                                        <!-- Control Sidebar Toggle Button -->
+                                        <li>
+                                            <a href="#" data-toggle=""><i class="fa fa-gears"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </header>
+                        <!-- Left side column. contains the logo and sidebar -->
+                        <aside class="main-sidebar">
+                            <!-- sidebar: style can be found in sidebar.less -->
+                            <section class="sidebar">
+                                <!-- Sidebar user panel -->
+                                <div class="user-panel">
+                                    {% if user.is_authenticated %}
+                                        <div class="pull-left image">
+                                            {% if perfiles %}
+                                                {% for p in perfiles.all %}
+                                                    {% if p.Usuario_id.id == user.id %}
+                                                        {% if p.imagen_perfil %}
+                                                            <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {{ user.id }}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                            {% endif %}
+                                        </div>
+                                        <div class="pull-left info">
+                                            <p>{{ user.first_name }} {{ user.last_name }}</p>
+                                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="pull-left image">
+                                            <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="img-circle" alt="User Image">
+                                        </div>
+                                        <div class="pull-left info">
+                                            <p>Sin Usuario</p>
+                                            <a href="#"><i class="fa fa-circle text-warning"></i> Offline</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <!-- search form -->
+                                <form action="{% url 'buscar_planta' %}" method="get" class="sidebar-form">
+                                    <div class="input-group">
+                                        <input type="text" name="q" class="form-control" placeholder="Buscar">
+                                        <span class="input-group-btn">
+                                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </form><!-- /.search form -->
+                                <!-- sidebar menu: : style can be found in sidebar.less -->
+                                <ul class="sidebar-menu" data-widget="tree">
+                                    <li class="header">Menú de Navegación</li>
+                                    <li>
+                                        <a href="{% url 'homepage' %}">
+                                            <i class="fa fa-home"></i> <span>Home</span>
+                                        </a>
+                                    </li>
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-pagelines"></i>
+                                                        <span>Plantas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                                        <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                        <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-pagelines"></i>
+                                                        <span>Plantas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                                        <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-pagelines"></i>
+                                                <span>Plantas</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                                <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                    <li>
+                                        <a href="{% url 'Reconocimiento' %}">
+                                            <i class="fa  fa-eye"></i> <span>Reconocimiento de Plantas</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="treeview active">
+                                        <a href="#">
+                                            <i class="fa fa-puzzle-piece"></i>
+                                            <span>Juegos</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                         <ul class="treeview-menu">
+                                             <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i> Lista de Juegos</a></li>
+                                             <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i>Adivina la Planta</a></li>
+                                             <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i>Sopa de letras</a></li>
+                                             <li class="active"><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
+                                         </ul>
+                                    </li>
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-users"></i> <span>Usuarios</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'usuarios' %}"><i class="fa fa-circle-o"></i>Listado de Usuarios</a></li>
+                                                        <li><a href="{% url 'agregar_usuario' %}"><i class="fa fa-circle-o"></i> Crear Usuario</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                    {% endif %}
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-file-pdf-o"></i>
+                                                        <span>Reportes</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'report_usuario' %}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% elif u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-file-pdf-o"></i>
+                                                        <span>Reportes</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'report_usuario' %}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                    {% endif %}
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                                        <li><a href="{% url 'guardar_escuela' %}"><i class="fa fa-circle-o"></i> Agregar Escuela</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% elif u.name == "Profesores" or u.name == "Estudiantes" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull- right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                    {% if user.is_authenticated %}
+                                        {% if perfiles %}
+                                            {% for p in perfiles.all %}
+                                                {% if p.Usuario_id.id == user.id %}
+                                                    <li>
+                                                        <a href="{% url 'perfil_detallado' user.id %}">
+                                                            <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                            <span class="pull-right-container">
+                                                                <i class="fa fa-angle-left pull-right"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{% url 'perfil' user.id %}">
+                                                            <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                            <span class="pull-right-container">
+                                                                <i class="fa fa-angle-left pull-right"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url 'perfil' user.id %}">
+                                                    <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                    <span class="pull-right-container">
+                                                        <i class="fa fa-angle-left pull-right"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li>
+                                            <a href="{% url 'registro'%}">
+                                                <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </section>
+                            <!-- /.sidebar -->
+                        </aside>
+                        <!-- Content Wrapper. Contains page content -->
+                        <div class="content-wrapper">
+                            <!-- Content Header (Page header) -->
+                            <section class="content-header">
+                                <h1>
+                                    Memorama
+                                    <small>YURAKU</small>
+                                </h1>
+                                    <ol class="breadcrumb">
+                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                        <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                        <li class="active">Memorama</li>
+                                    </ol>
+                            </section>
+                            <!-- Main content -->
+                            <section class="content">
+                                <div class="row box-footer">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Memorama</h3>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="box-footer">
+                                            <div style="text-align: center;">
+                                                <body>
+                                                    <label>Selecione la cantidad de palabras que desea que tenga el Memorama</label>
+                                                    <label>
+                                                        <select name="color1" class="form-control">
+                                                            <option value="10" selected>10</option>
+                                                            <option value="12">12</option>
+                                                            <option value="14">14</option>
+                                                            <option value="16">16</option>
+                                                            <option value="18">18</option>
+                                                            <option value="20">20</option>
+                                                        </select>
+                                                    </label>
+                                                    <button id="solve" onclick="Crear();startGame()" class="btn btn-primary btn-lg">Comenzar</button>
+                                                    <div id="game"><ul class="flex-container" id="cards"></ul>
+                                                    </div>
+                                                    <h2>
+                                                        <div id="screen" style="text-align: center;">00 : 00 : 00 : 00</div>
+                                                        <span id="result-msg" class="result-msg"></span>
+                                                    </h2>
+                                                </body>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row box-footer">
+                                    <div class="col-md-12">
+                                        <div class="box-header with-border">
+                                            <div style="text-align: center;">
+                                                <div id="buttons_container" style="text-align: center;">
+                                                    <form action="{% url 'record_memorama' %}" method="post" enctype="multipart/form-data" class="memorama" id="demo1-upload"> {% csrf_token %}
+                                                        <input id="id_nombre_juego" name="nombre_juego" type="text" class="form-control" style="display: none">
+                                                        <input id="id_aciertos" name="aciertos" type="text" class="form-control" style="display: none">
+                                                        <input id="id_intentos" name="intentos" type="text" class="form-control" style="display: none">
+                                                        <input id="id_tiempo" name="tiempo" type="text" class="form-control" style="display: none">
+                                                        <input id="id_fecha_juego" name="fecha_juego" type="date" class="form-control" style="display: none">
+                                                        <button onclick="guardar()" id="guardar"  type="submit" class="btn btn-primary btn-lg" disabled="true">Guardar Record</button>
+                                                    </form><!-- /.col -->
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row box-footer">
+                                    <div class="col-md-12">
+                                        <div class="box-header with-border">
+                                            <h4>Instrucciones</h4>
+                                            <p>
+                                                El memorama es un juego de encontrar pares de cartas con la misma figura. Debes encontrar dos cartas que sean iguales. Todas las cartas están boca abajo y puedes voltear dos.
+                                                Para jugar el memorama, se debe elegir un numero de nombre de palabras (10,12,14, 16,18 y 20 ), luego pulsar en el botón crear, para empezar basta con dar clic en una imagen
+                                                y para encontrar a la par dar clic en cualquier otra carta, si esta correcta se quedara mostrando la imagen, si no se dará la vuelta, recordar que cada vez que no se encuentre
+                                                la par se sumara un intento. Al completar todas las cartas con sus pares se detendrá el tiempo y se presentará un botón para guardar la partida.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section><!-- /.content -->
+                        </div>
+                        <!-- /.content-wrapper -->
+                        <footer class="main-footer">
+                            <div class="pull-right hidden-xs">
+                                <b>Versión</b> 1.0.0
+                            </div>
+                            <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                        </footer>
+                    </div><!-- page script -->
+                </body>
+            {% else %}
+                <body class="hold-transition skin-blue layout-top-nav">
+                    <div class="wrapper">
+                        <header class="main-header">
+                            <nav class="navbar navbar-static-top">
+                                <div class="container">
+                                    <div class="navbar-header">
+                                        <a href="{% url 'homepage' %}" class="navbar-brand"><b>YURA</b>KU</a>
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                    </div>
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
+                                                    <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
+                                            </li>
+                                            <li class="dropdown active">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                                    <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
+                                                    <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
+                                                    <li class="active"><a href="{% url 'juego_memorama' %}">Memorama</a></li>
+                                                </ul>
+                                            </li>
+                                            {% if user.is_authenticated %}
+                                                {% if perfiles %}
+                                                    {% for p in perfiles.all %}
+                                                        {% if p.Usuario_id.id == user.id %}
+                                                            <li>
+                                                                <a href="{% url 'perfil_detallado' user.id %}">Perfil</a>
+                                                            </li>
+                                                        {% else %}
+                                                            <li>
+                                                                <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% else %}
+                                                <li>
+                                                    <a href="{% url 'registro'%}">Perfil</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                        <form action="{% url 'buscar_planta' %}" class="navbar-form navbar-left" role="search" method="get">
+                                            <div class="form-group">
+                                                <input type="text" name="q" class="form-control" id="navbar-search-input" placeholder="Buscar">
+                                            </div>
+                                        </form>
+                                    </div><!-- /.navbar-collapse -->
+                                    <!-- Navbar Right Menu -->
+                                    <div class="navbar-custom-menu">
+                                        <ul class="nav navbar-nav"><!-- Messages: style can be found in dropdown.less-->
+                                            <!-- User Account Menu -->
+                                            {% if user.is_authenticated %}
+                                                <li class="dropdown user user-menu">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        {% if perfiles %}
+                                                            {% for p in perfiles.all %}
+                                                                {% if p.Usuario_id.id == user.id %}
+                                                                    {% if p.imagen_perfil %}
+                                                                        <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                        {% endif %}
+                                                        <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <!-- User image -->
+                                                        <li class="user-header">
+                                                            {% if perfiles %}
+                                                                {% for p in perfiles.all %}
+                                                                    {% if p.Usuario_id.id == user.id %}
+                                                                        {% if p.imagen_perfil %}
+                                                                            <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                                        {% else %}
+                                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                        {% endif %}
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                            {% endif %}
+                                                            <p>
+                                                                {{ user.first_name }} {{ user.last_name }}
+                                                                <small>{{ user.date_joined }}</small>
+                                                            </p>
+                                                        </li>
+                                                        <!-- Menu Footer-->
+                                                        <li class="user-footer">
+                                                            <div class="pull-left">
+                                                                {% if perfiles %}
+                                                                    {% for p in perfiles.all %}
+                                                                        {% if p.Usuario_id.id == user.id %}
+                                                                            <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                        {% else %}
+                                                                            <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% else %}
+                                                                    <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li class="dropdown user user-menu">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                                        <span class="hidden-xs">Sin Usuario</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <!-- User image -->
+                                                        <li class="user-header">
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                            <p>
+                                                                Sin Usuario
+                                                            </p>
+                                                        </li>
+                                                        <!-- Menu Footer-->
+                                                        <li class="user-footer">
+                                                            <div class="pull-left">
+                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div><!-- /.navbar-custom-menu -->
+                                </div><!-- /.container-fluid -->
+                            </nav>
+                        </header>
+                        <!-- Full Width Column -->
+                        <div class="content-wrapper">
+                            <div class="container"><!-- Content Header (Page header) -->
+                                <section class="content-header">
+                                    <h1>
+                                        Memorama
+                                        <small>YURAKU</small>
+                                    </h1>
+                                    <ol class="breadcrumb">
+                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                        <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                        <li class="active">Memorama</li>
+                                    </ol>
+                                </section>
+                                <!-- Main content -->
+                                <section class="content">
+                                    <div class="row box-footer">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Memorama</h3>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="box-footer">
+                                                <div style="text-align: center;">
+                                                    <body>
+                                                        <label>Selecione la cantidad de palabras que desea que tenga el Memorama</label>
+                                                        <label>
+                                                            <select name="color1" class="form-control">
+                                                                <option value="10" selected>10</option>
+                                                                <option value="12">12</option>
+                                                                <option value="14">14</option>
+                                                                <option value="16">16</option>
+                                                                <option value="18">18</option>
+                                                                <option value="20">20</option>
+                                                            </select>
+                                                        </label>
+                                                        <button id="solve" onclick="Crear();startGame()" class="btn btn-primary btn-lg">Comenzar</button>
+                                                        <div id="game"><ul class="flex-container" id="cards"></ul>
+                                                        </div>
+                                                        <h2>
+                                                            <div id="screen" style="text-align: center;">00 : 00 : 00 : 00</div>
+                                                            <span id="result-msg" class="result-msg"></span>
+                                                        </h2>
+                                                    </body>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row box-footer">
+                                        <div class="col-md-12">
+                                            <div class="box-header with-border">
+                                                <div style="text-align: center;">
+                                                    <div id="buttons_container" style="text-align: center;">
+                                                        <form action="{% url 'record_memorama' %}" method="post" enctype="multipart/form-data" class="memorama" id="demo1-upload"> {% csrf_token %}
+                                                            <input id="id_nombre_juego" name="nombre_juego" type="text" class="form-control" style="display: none">
+                                                            <input id="id_aciertos" name="aciertos" type="text" class="form-control" style="display: none">
+                                                            <input id="id_intentos" name="intentos" type="text" class="form-control" style="display: none">
+                                                            <input id="id_tiempo" name="tiempo" type="text" class="form-control" style="display: none">
+                                                            <input id="id_fecha_juego" name="fecha_juego" type="date" class="form-control" style="display: none">
+                                                            <button onclick="guardar()" id="guardar"  type="submit" class="btn btn-primary btn-lg" disabled="true">Guardar Record</button>
+                                                        </form><!-- /.col -->
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row box-footer">
+                                        <div class="col-md-12">
+                                            <div class="box-header with-border">
+                                                <h4>Instrucciones</h4>
+                                                <p>
+                                                    El memorama es un juego de encontrar pares de cartas con la misma figura. Debes encontrar dos cartas que sean iguales. Todas las cartas están boca abajo y puedes voltear dos.
+                                                    Para jugar el memorama, se debe elegir un numero de nombre de palabras (10,12,14, 16,18 y 20 ), luego pulsar en el botón crear, para empezar basta con dar clic en una imagen
+                                                    y para encontrar a la par dar clic en cualquier otra carta, si esta correcta se quedara mostrando la imagen, si no se dará la vuelta, recordar que cada vez que no se encuentre
+                                                    la par se sumara un intento. Al completar todas las cartas con sus pares se detendrá el tiempo y se presentará un botón para guardar la partida.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section><!-- /.content -->
+                            </div><!-- /.container -->
+                        </div><!-- /.content-wrapper -->
+                        <footer class="main-footer">
+                            <div class="container">
+                                <div class="pull-right hidden-xs">
+                                    <b>Versión</b> 1.0.0
+                                </div>
+                                <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                            </div><!-- /.container -->
+                        </footer>
+                        <div class="control-sidebar-bg"></div>
+                    </div><!-- ./wrapper -->
+                </body>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <body class="hold-transition skin-blue layout-top-nav">
+            <div class="wrapper">
+                <header class="main-header">
+                    <nav class="navbar navbar-static-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <a href="{% url 'homepage' %}" class="navbar-brand"><b>YURA</b>KU</a>
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="#">Home <span class="sr-only"></span></a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
+                                            <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
+                                    </li>
+                                    <li class="dropdown active">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                            <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
+                                            <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
+                                            <li class="active"><a href="{% url 'juego_memorama' %}">Memorama</a></li>
+                                        </ul>
+                                    </li>
+                                    {% if user.is_authenticated %}
+                                        {% if perfiles %}
+                                            {% for p in perfiles.all %}
+                                                {% if p.Usuario_id.id == user.id %}
+                                                    <li>
+                                                        <a href="{% url 'perfil_detallado' user.id %}">Perfil</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                            </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li>
+                                            <a href="{% url 'registro'%}">Perfil</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                                <form action="{% url 'buscar_planta' %}" class="navbar-form navbar-left" role="search" method="get">
+                                    <div class="form-group">
+                                        <label for="navbar-search-input"></label><input type="text" name="q" class="form-control" id="navbar-search-input" placeholder="Buscar">
+                                    </div>
+                                </form>
+                            </div><!-- /.navbar-collapse -->
+                            <!-- Navbar Right Menu -->
+                            <div class="navbar-custom-menu">
+                                <ul class="nav navbar-nav">
+                                    <!-- User Account Menu -->
+                                    {% if user.is_authenticated %}
+                                        <li class="dropdown user user-menu">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                {% if perfiles %}
+                                                    {% for p in perfiles.all %}
+                                                        {% if p.Usuario_id.id == user.id %}
+                                                            {% if p.imagen_perfil %}
+                                                                <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                {% endif %}
+                                                <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <!-- User image -->
+                                                <li class="user-header">
+                                                    {% if perfiles %}
+                                                        {% for p in perfiles.all %}
+                                                            {% if p.Usuario_id.id == user.id %}
+                                                                {% if p.imagen_perfil %}
+                                                                    <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                    {% endif %}
+                                                    <p>
+                                                        {{ user.first_name }} {{ user.last_name }}
+                                                        <small>{{ user.date_joined }}</small>
+                                                    </p>
+                                                </li>
+                                                <!-- Menu Footer-->
+                                                <li class="user-footer">
+                                                    <div class="pull-left">
+                                                        {% if perfiles %}
+                                                            {% for p in perfiles.all %}
+                                                                {% if p.Usuario_id.id == user.id %}
+                                                                    <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% else %}
+                                                                    <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li class="dropdown user user-menu">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                                <span class="hidden-xs">Sin Usuario</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <!-- User image -->
+                                                <li class="user-header">
+                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                    <p>
+                                                        Sin Usuario
+                                                    </p>
+                                                </li>
+                                                <!-- Menu Footer-->
+                                                <li class="user-footer">
+                                                    <div class="pull-left">
+                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div><!-- /.navbar-custom-menu -->
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                </header><!-- Full Width Column -->
+                <div class="content-wrapper">
+                    <div class="container">
+                        <!-- Content Header (Page header) -->
+                        <section class="content-header">
+                            <h1>
+                                Memorama
+                                <small>YURAKU</small>
+                            </h1>
+                            <ol class="breadcrumb">
+                                <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                <li class="active">Memorama</li>
+                            </ol>
+                        </section>
+                        <!-- Main content -->
+                        <section class="content">
+                            <div class="row box-footer">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Memorama</h3>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="box-footer">
+                                        <div style="text-align: center;">
+                                            <div class="container">
+                                                <body>
+                                                    <label>Selecione la cantidad de palabras que desea que tenga el Memorama</label>
+                                                    <label>
+                                                        <select name="color1" class="form-control">
+                                                            <option value="10" selected>10</option>
+                                                            <option value="12">12</option>
+                                                            <option value="14">14</option>
+                                                            <option value="16">16</option>
+                                                            <option value="18">18</option>
+                                                            <option value="20">20</option>
+                                                        </select>
+                                                    </label>
+                                                    <button id="solve" onclick="Crear();startGame()" class="btn btn-primary btn-lg">Comenzar</button>
+                                                    <div id="game"><ul class="flex-container" id="cards"></ul>
+                                                    </div>
+                                                    <h2>
+                                                        <div id="screen" style="text-align: center;">00 : 00 : 00 : 00</div>
+                                                        <span id="result-msg" class="result-msg"></span>
+                                                    </h2>
+                                                </body>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row box-footer">
+                                <div class="col-md-12">
+                                    <div class="box-header with-border">
+                                        <div style="text-align: center;">
+                                            <div id="buttons_container" style="text-align: center;">
+                                                <form action="{% url 'record_memorama' %}" method="post" enctype="multipart/form-data" class="memorama" id="demo1-upload"> {% csrf_token %}
+                                                    <input id="id_nombre_juego" name="nombre_juego" type="text" class="form-control" style="display: none">
+                                                    <input id="id_aciertos" name="aciertos" type="text" class="form-control" style="display: none">
+                                                    <input id="id_intentos" name="intentos" type="text" class="form-control" style="display: none">
+                                                    <input id="id_tiempo" name="tiempo" type="text" class="form-control" style="display: none">
+                                                    <input id="id_fecha_juego" name="fecha_juego" type="date" class="form-control" style="display: none">
+                                                    <button onclick="guardar()" id="guardar"  type="submit" class="btn btn-primary btn-lg" disabled="true">Guardar Record</button>
+                                                </form><!-- /.col -->
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row box-footer">
+                                <div class="col-md-12">
+                                    <div class="box-header with-border">
+                                        <h4>Instrucciones</h4>
+                                        <p>
+                                            El memorama es un juego de encontrar pares de cartas con la misma figura. Debes encontrar dos cartas que sean iguales. Todas las cartas están boca abajo y puedes voltear dos.
+                                            Para jugar el memorama, se debe elegir un numero de nombre de palabras (10,12,14, 16,18 y 20 ), luego pulsar en el botón crear, para empezar basta con dar clic en una imagen
+                                            y para encontrar a la par dar clic en cualquier otra carta, si esta correcta se quedara mostrando la imagen, si no se dará la vuelta, recordar que cada vez que no se encuentre
+                                            la par se sumara un intento. Al completar todas las cartas con sus pares se detendrá el tiempo y se presentará un botón para guardar la partida.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section><!-- /.content -->
+                    </div><!-- /.container -->
+                </div><!-- /.content-wrapper -->
+                <footer class="main-footer">
+                    <div class="container">
+                        <div class="pull-right hidden-xs">
+                            <b>Versión</b> 1.0.0
+                        </div>
+                        <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                    </div><!-- /.container -->
+                </footer>
+                <div class="control-sidebar-bg"></div>
+            </div><!-- ./wrapper -->
+        </body>
+    {% endif %}
+    <script>
+        window.onload = function() {
+            pantalla = document.getElementById("screen");
+        };
+        var isMarch = false;
+        var acumularTime = 0;
+        function start () {
+            if (isMarch === false) {
+                timeInicial = new Date();
+                control = setInterval(cronometro,10);
+                isMarch = true;
+            }
+        }
+        function cronometro () {
+            timeActual = new Date();
+            acumularTime = timeActual - timeInicial;
+            acumularTime2 = new Date();
+            acumularTime2.setTime(acumularTime);
+            cc = Math.round(acumularTime2.getMilliseconds()/10);
+            ss = acumularTime2.getSeconds();
+            mm = acumularTime2.getMinutes();
+            hh = acumularTime2.getHours()-19;
+            if (cc < 10) {cc = "0"+cc;}
+            if (ss < 10) {ss = "0"+ss;}
+            if (mm < 10) {mm = "0"+mm;}
+            if (hh < 10) {hh = "0"+hh;}
+            pantalla.innerHTML = hh+" : "+mm+" : "+ss+" : "+cc;
+        }
+        function stop () {
+            if (isMarch === true) {
+                clearInterval(control);
+                isMarch = false;
+            }
+        }
+        function resume () {
+            if (isMarch === false) {
+                timeActu2 = new Date();
+                timeActu2 = timeActu2.getTime();
+                acumularResume = timeActu2-acumularTime;
+                timeInicial.setTime(acumularResume);
+                control = setInterval(cronometro,10);
+                isMarch = true;
+            }
+        }
+        function reset () {
+            if (isMarch === true) {
+                clearInterval(control);
+                isMarch = false;
+            }
+            acumularTime = 0;
+            pantalla.innerHTML = "00 : 00 : 00 : 00";
+            $('#avanzar').attr("disabled", false);
+            $('#parar').attr("disabled", false);
+        }
+    </script>
+    <script>
+        var np = 10;
+        function Crear() {
+            np = 10;
+            np = $('select[name=color1]').val();
+        }
+        const NUM_MAX_CARDS = 10;
+        const NUM_TUPLE  = 2;
+        const nombre="Memorama";
+        // Contador de intentos
+        const intentos = 0;
+        // Nº minimo
+        var pal = 0;
+        // Nº aciertos
+        var acr = 10;
+        const Cards =
+            [
+                [1, {
+                    id:1,
+                    source: "{% static '/AdminLTE-2.4.2/img/memorama/ajenjo.png' %}"
+                }],[2,
+
+                {
+                    id:2,
+                    source: "{% static '/AdminLTE-2.4.2/img/memorama/uvilla.png' %}",
+                }],[3,
+
+                {
+                    id:3,
+                    source:"{% static '/AdminLTE-2.4.2/img/memorama/pata_con_panga.png' %}",
+                }],[4,
+
+                {
+                    id:4,
+                    source:"{% static '/AdminLTE-2.4.2/img/memorama/geranio.png' %}",
+                }],[5,
+
+                {
+                    id:5,
+                    source:"{% static '/AdminLTE-2.4.2/img/memorama/oreja_de_burro.png' %}",
+                }], [6,
+
+                {
+                    id:6,
+                    source:"{% static '/AdminLTE-2.4.2/img/memorama/Juego1.png' %}",
+                }],[7,
+
+                {
+                    id:7,
+                    source:"{% static '/AdminLTE-2.4.2/img/memorama/hierba_de_san_juan.png' %}",
+                }],[8,
+
+                {
+                    id:8,
+                    source:"{% static '/AdminLTE-2.4.2/img/memorama/anis.png' %}",
+                }],[9,
+
+                {
+                    id:9,
+                    source:"{% static '/AdminLTE-2.4.2/img/memorama/culantro.png' %}",
+                }],[10,
+
+                {
+                    id:10,
+                    source:"{% static '/AdminLTE-2.4.2/img/memorama/Casamarucha.png' %}",
+                }]
+
+            ];
+        class Card {
+            constructor(id, sourceFront) {
+                this.liCard = this.renderCard(id);
+                this.back = this.liCard.querySelector(".card-back");
+                this.front = this.liCard.querySelector(".card-front");
+                this.sourceFront = sourceFront;
+
+                this.isBack = true;
+                this.enabled = true;
+            }
+
+            flip(){
+                if(this.enabled == true) {
+                    this.front.src = this.sourceFront;
+                    this.back.classList.toggle("card-back-flip");
+                    this.front.classList.toggle("card-front-flip");
+                    this.enabled = false;
+                    this.isBack = false;
+                    return true;
+                }
+                return false;
+            }
+
+            cover(){
+                this.enabled = true;
+                this.isBack = true;
+                this.back.classList.toggle("card-back-flip");
+                this.front.classList.toggle("card-front-flip");
+                this.front.src = this.back.src
+            }
+
+            say(say){
+                this.front.classList.toggle("card-front-" + say)
+            }
+
+            renderCard(id) {
+                const src = "{% static '/AdminLTE-2.4.2/img/faviconplanta2.png' %}";
+                let cardBack = document.createElement('img');
+                cardBack.className = "card-back";
+                cardBack.src = src;
+
+                let cardFront = document.createElement('img');
+                cardFront.className = "card-front";
+                cardFront.src = src;
+
+                let divCard = document.createElement('div');
+                divCard.className = "card";
+                divCard.appendChild(cardBack);
+                divCard.insertBefore(cardFront, cardBack);
+
+                let li = document.createElement('li');
+                li.id = "card" + id;
+                li.className = "flex-item";
+                li.appendChild(divCard);
+
+                return li
+            }
+        }
+        class Game{
+            constructor(onEndGame, elCanvas) {
+                this.cards = new Map();
+                this.cardsSelected = new Array()
+                this.onEndGame = onEndGame.bind(this);
+                this.numTuplesOK = 0;
+                this.numClicks = 0;
+                this.resultArray = ["ʘ‿ʘ Excelente!", "(´･_･`) No esta mal ", "( u _ u ) Lo puedes hacer mejor "];
+                this.elCanvas = elCanvas;
+                this.shuffleNum = [];
+            }
+
+            init(){
+                let cardsMap = new Map(Cards);
+                this.shuffle();
+                this.cleanCanvas();
+
+                for(let i=0; i<this.shuffleNum.length; i++){
+                    let num = (this.shuffleNum[i] % (np/NUM_TUPLE)) +1;
+                    let card = cardsMap.get(num);
+                    let cardg = new Card(i, card.source);
+                    this.addCard(i, cardg)
+                }
+            }
+
+            addCard(id, card){
+                card.liCard.addEventListener('click',  this.onClick.bind(this, card));
+                this.cards.set(id, card);
+                this.elCanvas.appendChild(card.liCard)
+            }
+
+            onClick(card)
+            {
+                start();
+                let flip = false;
+                if(this.cardsSelected.length < NUM_TUPLE)
+                {
+                    if (card.flip()){
+                        this.cardsSelected.push(card);
+                        this.numClicks++
+                    }
+                    if(this.cardsSelected.length == NUM_TUPLE ){
+                        this.enabledCards(false);
+                        if(!this.checkTupla()){
+                            setTimeout(()=>this.coverCards(), 1700);
+                            this.cardsSay("no", 1500);
+                            setTimeout(()=>this.enabledCards(true), 2000);
+                            setTimeout(()=>{this.cardsSelected = new Array()}, 2000)
+                        }
+                        else{
+                            setTimeout(()=>this.enabledCards(true), 800);
+                            this.cardsSay("yes", 600);
+                            setTimeout(()=>{this.cardsSelected = new Array()}, 700);
+
+                          this.numTuplesOK++;
+                          if(this.numTuplesOK === np / NUM_TUPLE)
+                              setTimeout(()=>{this.endGame()}, 1000)
+                        }
+                    }
+                }
+            }
+
+            checkTupla()
+            {
+                if(this.cardsSelected.length > 0){
+                    let srcFilter = this.cardsSelected[0].sourceFront;
+                    let ce = this.cardsSelected.filter(card=> card.sourceFront ===  srcFilter);
+                    return ce.length === this.cardsSelected.length
+                }
+                return false
+            }
+
+            cardsSay(say, delay){
+                this.cardsSelected.forEach(function(card) {
+                  setTimeout(()=> card.say(say), delay - 350);
+                  setTimeout(()=> card.say(say), delay)
+                })
+            }
+
+            coverCards(){
+                this.cardsSelected.forEach(function(card){
+                  card.cover()
+                })
+            }
+
+            enabledCards(value){
+                this.cards.forEach(function(card) {
+                  if(card.isBack)
+                    card.enabled = value
+                })
+            }
+
+            endGame(){
+                let numClicksMin = np;
+                let resultIndex = this.resultArray.length - 1;
+
+                if(this.numClicks === numClicksMin)
+                  resultIndex = 0;
+
+                if(this.numClicks > numClicksMin && this.numClicks <= numClicksMin * 2 )
+                  resultIndex = 1;
+
+                if(this.numClicks >= numClicksMin * 2 )
+                  resultIndex = 2;
+
+                this.onEndGame( this.resultArray[resultIndex], this.numClicks);
+                stop();
+            }
+
+            cleanCanvas(){
+                while (this.elCanvas.firstChild) {
+                  this.elCanvas.removeChild(this.elCanvas.firstChild);
+                }
+            }
+
+            randomNum(min, max) { return Math.round(Math.random() * (max - min) + min) }
+
+            shuffle(){
+                this.shuffleNum = [];
+                for(var i=0; i<np; i++) {
+                  var num = this.randomNum(1,np);
+                  if(this.shuffleNum.indexOf(num) >= 0) {
+                      i = i-1;
+                  } else {
+                        this.shuffleNum[i] = num;
+                  }
+                }
+            }
+        }
+
+        function startGame(){
+          let cards = document.getElementById("cards");
+          let game = new Game(endGame, cards);
+          game.init()
+        }
+
+        function playNow(){
+          startGame();
+        }
+
+        function playAgain(){
+          startGame();
+        }
+
+        function endGame(resultGame, score){
+            $('#guardar').attr("disabled", false);
+            tiempo=($("#screen").text());
+            document.getElementById('result-msg').innerHTML = resultGame + " - " + score + " Clicks";
+            stop();
+            document.getElementById('id_nombre_juego').value=nombre;
+            document.getElementById('id_aciertos').value=acr;
+            document.getElementById('id_intentos').value=score;
+            document.getElementById('id_tiempo').value=tiempo;
+        }
+    </script>
+</html>
+{% endblock %}

@@ -1,0 +1,1705 @@
+{% extends "soporte.html" %}
+{% block title %} Reconocimiento de Plantas - YURAKU {% endblock %}
+{% block content %}
+{% load staticfiles %}
+<title> Reconocimiento de Plantas - YURAKU </title>
+<html class="no-js" lang="es">
+    {% if user.groups.all|length > 0 %}
+        {% for u in user.groups.all%}
+            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                <body class="hold-transition skin-blue sidebar-mini">
+                    <div class="wrapper">
+                        <header class="main-header">
+                            <!-- Logo -->
+                            <a href="{% url 'homepage' %}" class="logo">
+                                <!-- mini logo for sidebar mini 50x50 pixels -->
+                                <span class="logo-mini"><b>Y</b>K</span>
+                                <!-- logo for regular state and mobile devices -->
+                                <span class="logo-lg"><b>YURA</b>KU</span>
+                            </a>
+                            <!-- Header Navbar: style can be found in header.less -->
+                            <nav class="navbar navbar-static-top">
+                                <!-- Sidebar toggle button-->
+                                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                                    <span class="sr-only">Toggle navigation</span>
+                                </a>
+                                <div class="navbar-custom-menu">
+                                    <ul class="nav navbar-nav"><!-- User Account: style can be found in dropdown.less -->
+                                        {% if user.is_authenticated %}
+                                        <li class="dropdown user user-menu">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                {% if perfiles %}
+                                                    {% for p in perfiles.all %}
+                                                        {% if p.Usuario_id.id == user.id %}
+                                                            <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                {% endif %}
+                                                <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <!-- User image -->
+                                                <li class="user-header">
+                                                    {% if perfiles %}
+                                                        {% for p in perfiles.all %}
+                                                            {% if p.Usuario_id.id == user.id %}
+                                                                <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                    {% endif %}
+                                                    <p>
+                                                        {{ user.first_name }} {{ user.last_name }}
+                                                        <small>{{ user.date_joined }}</small>
+                                                    </p>
+                                                </li>
+                                                <!-- Menu Footer-->
+                                                <li class="user-footer">
+                                                    <div class="pull-left">
+                                                        {% if perfiles %}
+                                                            {% for p in perfiles.all %}
+                                                                {% if p.Usuario_id.id == user.id %}
+                                                                    <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% else %}
+                                                                    <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li class="dropdown user user-menu">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                                <span class="hidden-xs">Sin Usuario</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                  <!-- User image -->
+                                                  <li class="user-header">
+                                                      <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                      <p>
+                                                          Sin Usuario
+                                                      </p>
+                                                  </li>
+                                                  <!-- Menu Footer-->
+                                                  <li class="user-footer">
+                                                      <div class="pull-left">
+                                                          <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                      </div>
+                                                      <div class="pull-right">
+                                                          <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                      </div>
+                                                  </li>
+                                              </ul>
+                                        </li>
+                                    {% endif %}
+                                <!-- Control Sidebar Toggle Button -->
+                                <li>
+                                    <a href="#" data-toggle=""><i class="fa fa-gears"></i></a>
+                                </li>
+                            </ul>
+                                </div>
+                            </nav>
+                        </header>
+                        <!-- Left side column. contains the logo and sidebar -->
+                        <aside class="main-sidebar">
+                            <!-- sidebar: style can be found in sidebar.less -->
+                            <section class="sidebar">
+                                <!-- Sidebar user panel -->
+                                <div class="user-panel">
+                                    {% if user.is_authenticated %}
+                                        <div class="pull-left image">
+                                            {% if perfiles %}
+                                                {% for p in perfiles.all %}
+                                                    {% if p.Usuario_id.id == user.id %}
+                                                        <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
+                                                    {% else %}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                            {% endif %}
+                                        </div>
+                                        <div class="pull-left info">
+                                            <p>{{ user.first_name }} {{ user.last_name }}</p>
+                                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="pull-left image">
+                                            <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="img-circle" alt="User Image">
+                                        </div>
+                                        <div class="pull-left info">
+                                            <p>Sin Usuario</p>
+                                            <a href="#"><i class="fa fa-circle text-warning"></i> Offline</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <!-- search form -->
+                                <form action="{% url 'buscar_planta' %}" method="get" class="sidebar-form">
+                                    <div class="input-group">
+                                        <input type="text" name="q" class="form-control" placeholder="Buscar">
+                                        <span class="input-group-btn">
+                                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </form>
+                                <!-- /.search form -->
+                                <!-- sidebar menu: : style can be found in sidebar.less -->
+                                <ul class="sidebar-menu" data-widget="tree">
+                                    <li class="header">Menú de Navegación</li>
+                                    <li>
+                                        <a href="{% url 'homepage' %}">
+                                            <i class="fa fa-home"></i> <span>Home</span>
+                                        </a>
+                                    </li>
+                                    {% if user.groups.all|length > 0 %}
+                                    {% for u in user.groups.all%}
+                                        {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                            <li class="treeview">
+                                                <a href="#">
+                                                    <i class="fa fa-pagelines"></i>
+                                                    <span>Plantas</span>
+                                                    <span class="pull-right-container">
+                                                        <i class="fa fa-angle-left pull-right"></i>
+                                                    </span>
+                                                </a>
+                                                <ul class="treeview-menu">
+                                                    <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                    <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li class="treeview">
+                                                <a href="#">
+                                                    <i class="fa fa-pagelines"></i>
+                                                    <span>Plantas</span>
+                                                    <span class="pull-right-container">
+                                                        <i class="fa fa-angle-left pull-right"></i>
+                                                    </span>
+                                                </a>
+                                                <ul class="treeview-menu">
+                                                    <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                </ul>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-pagelines"></i>
+                                            <span>Plantas</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                    <li class="active">
+                                        <a href="{% url 'Reconocimiento' %}">
+                                            <i class="fa fa-eye"></i> <span>Reconocimiento de Plantas</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-puzzle-piece"></i>
+                                            <span>Juegos</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i> Lista de Juegos</a></li>
+                                            <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i> Adivina la Planta</a></li>
+                                            <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i> Sopa de letras</a></li>
+                                            <li><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
+                                        </ul>
+                                    </li>
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-users"></i> <span>Usuarios</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'usuarios' %}"><i class="fa fa-circle-o"></i>Listado de Usuarios</a></li>
+                                                        <li><a href="{% url 'agregar_usuario' %}"><i class="fa fa-circle-o"></i> Crear Usuario</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                    {% endif %}
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-file-pdf-o"></i>
+                                                        <span>Reportes</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'report_usuario' %}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% elif u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-file-pdf-o"></i>
+                                                        <span>Reportes</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'report_usuario' %}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                    {% endif %}
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                                        <li><a href="{% url 'guardar_escuela' %}"><i class="fa fa-circle-o"></i> Agregar Escuela</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% elif u.name == "Profesores" or u.name == "Estudiantes" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                    {% if user.is_authenticated %}
+                                        {% if perfiles %}
+                                            {% for p in perfiles.all %}
+                                                {% if p.Usuario_id.id == user.id %}
+                                                    <li>
+                                                        <a href="{% url 'perfil_detallado' user.id %}">
+                                                            <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                            <span class="pull-right-container">
+                                                                <i class="fa fa-angle-left pull-right"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{% url 'perfil' user.id %}">
+                                                            <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                            <span class="pull-right-container">
+                                                                <i class="fa fa-angle-left pull-right"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url 'perfil' user.id %}">
+                                                    <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                    <span class="pull-right-container">
+                                                        <i class="fa fa-angle-left pull-right"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li>
+                                            <a href="{% url 'login'%}">
+                                                <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                  </ul>
+                            </section>
+                            <!-- /.sidebar -->
+                        </aside>
+                        <!-- Content Wrapper. Contains page content -->
+                        <div class="content-wrapper">
+                            <!-- Content Header (Page header) -->
+                            <section class="content-header">
+                                <h1>
+                                    Reconocimiento de Plantas
+                                    <small> YURAKU </small>
+                                </h1>
+                                <ol class="breadcrumb">
+                                    <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                    <li class="active">Reconocimiento de Plantas</li>
+                                </ol>
+                            </section>
+                            <!-- Main content -->
+                            <section class="content">
+                                <!-- START ACCORDION & CAROUSEL-->
+                                <div class="row">
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="box box-solid">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Imagen de la Planta</h3>
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                                    </ol>
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            {% if pb.imagen_reconocimiento%}
+                                                                <img id="img1" src="{{ pb.imagen_reconocimiento.url }}" alt="First slide" style="width:800px;height:384px">
+                                                            {%else %}
+                                                                <img id ="img1" src="http://placehold.it/900x500/91A13F/ffffff&text=Foto+de+la+Planta" alt="First slide" style="width:800px;height:384px">
+                                                            {%endif%}
+                                                            <div class="carousel-caption">
+                                                                <h1>{{ planta.nombre_planta }}</h1>
+                                                            </div>
+                                                            <form action="{% url 'prueba' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+                                                                <div class="col-sm-8">
+                                                                    <div class="file-button">
+                                                                        Buscar
+                                                                        <input type="file" name="imagen_reconocimiento" id="id_imagen_reconocimiento" onchange="document.getElementById('append-big-btn').value = this.value;">
+                                                                    </div>
+                                                                    <input type="text" id="append-big-btn" value="{{ planta.imagen_planta.url }}" placeholder="no file selected" style="display:none">
+                                                                </div>
+                                                                <br>
+                                                                <div class="col-sm-2">
+                                                                    <button id="reconocer" type="submit" class="btn btn-primary" disabled="true">Reconocer</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+                                        <!-- /.box -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="box box-solid">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Información de la Planta</h3>
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                                <div class="box-group" id="accordion">
+                                                    <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                                                    <div class="panel box box-primary">
+                                                        <div class="box-header with-border">
+                                                            <h4 class="box-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> Datos Básico de la Planta
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                                            <div class="box-body">
+                                                                <label class="form-horizontal" for="id_nombre_planta">Nombre de la Planta</label>
+                                                                <output>
+                                                                    {% if planta.nombre_planta %}
+                                                                        {{ planta.nombre_planta }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_nombre_comun">Nombre Comun</label>
+                                                                <output>
+                                                                    {% if planta.nombre_comun %}
+                                                                        {{ planta.nombre_comun }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptacion</label>
+                                                                <output>
+                                                                    {% if planta.lugar_adaptacion %}
+                                                                        {{ planta.lugar_adaptacion }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_lugar_proviene">Lugar de donde Proviene</label>
+                                                                <output>
+                                                                    {% if planta.lugar_proviene %}
+                                                                        {{ planta.lugar_proviene }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel box box-danger">
+                                                        <div class="box-header with-border">
+                                                            <h4 class="box-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos cientificos de la Planta
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                                            <div class="box-body">
+                                                                <label class="form-horizontal" for="id_nombre_coentifico">Nombre cientifico:</label>
+                                                                <output>
+                                                                    {% if planta.nombre_cientifico %}
+                                                                        {{ planta.nombre_cientifico }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_reino">Reino:</label>
+                                                                <output>
+                                                                    {% if planta.reino %}
+                                                                        {{ planta.reino }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_tipo">Tipo de Planta:</label>
+                                                                <output>
+                                                                    {% if planta.tipo %}
+                                                                        {{ planta.tipo }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_clase">Clase de Planta:</label>
+                                                                <output>
+                                                                    {% if planta.clase %}
+                                                                        {{ planta.clase }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel box box-success">
+                                                        <div class="box-header with-border">
+                                                            <h4 class="box-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Datos Adicionales de la Planta
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseThree" class="panel-collapse collapse">
+                                                            <div class="box-body">
+                                                                <label class="form-horizontal" for="id_familia">Familia de la Planta:</label>
+                                                                <output>
+                                                                    {% if planta.familia %}
+                                                                        {{ planta.familia }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_genero">Genero:</label>
+                                                                <output>
+                                                                    {% if planta.genero %}
+                                                                        {{ planta.genero }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_especie">Especie:</label>
+                                                                <output>
+                                                                    {% if planta.especie %}
+                                                                        {{ planta.especie }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                                <br>
+                                                                <label class="form-horizontal" for="id_orden">Orden:</label>
+                                                                <output>
+                                                                    {% if planta.orden %}
+                                                                        {{ planta.orden }}
+                                                                    {% else %}
+                                                                        No se tiene asignado.
+                                                                    {% endif %}
+                                                                </output>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- /.box-body -->
+                                        </div><!-- /.box -->
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                                <!-- END ACCORDION & CAROUSEL-->
+                                <!-- START CUSTOM TABS -->
+                                <h2 class="page-header">Bondades de la Planta</h2>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- Custom Tabs -->
+                                        <div class="nav-tabs-custom">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#tab_1" data-toggle="tab">Uso</a></li>
+                                                <li><a href="#tab_2" data-toggle="tab">Ingerir </a></li>
+                                                <li><a href="#tab_3" data-toggle="tab">Dosis</a></li>
+                                                <li><a href="#tab_4" data-toggle="tab">Comentarios</a></li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="tab_1">
+                                                    <b>Para que sirve:</b>
+                                                    <p>
+                                                        {% if planta.uso %}
+                                                            {{ planta.uso }}
+                                                        {% else %}
+                                                            No se tiene asignado.
+                                                        {% endif %}
+                                                    </p>
+                                                </div>
+                                                <!-- /.tab-pane -->
+                                                <div class="tab-pane" id="tab_2">
+                                                    <b>Como ingerir:</b>
+                                                    <p>
+                                                        {% if planta.como_ingerir %}
+                                                            {{ planta.como_ingerir }}
+                                                        {% else %}
+                                                            No se tiene asignado.
+                                                        {% endif %}
+                                                    </p>
+                                                </div>
+                                                <!-- /.tab-pane -->
+                                                <div class="tab-pane" id="tab_3">
+                                                    <b>Cual es la Dosis:</b>
+                                                    <p>
+                                                        {% if planta.dosis %}
+                                                            {{ planta.dosis }}
+                                                        {% else %}
+                                                            No se tiene asignado.
+                                                        {% endif %}
+                                                    </p>
+                                                </div><!-- /.tab-pane -->
+                                                <div class="tab-pane" id="tab_4">
+                                                    <b>Los comentarios de esta planta fueron:</b>
+                                                    <p>
+                                                    <div class="box-footer box-comments">
+                                                        {% if comentarios %}
+                                                            {% for comentario in comentarios %}
+                                                                <div class="box-comment"><!-- User image -->
+                                                                    {% for p in perfilesc.all %}
+                                                                        {% if p.Usuario_id.id == comentario.Usuario_id.id %}
+                                                                            {% if p.imagen_perfil %}
+                                                                                <img src="{{ p.imagen_perfil.url }}" class="img-circle img-sm" alt="User Image">
+                                                                            {% else %}
+                                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle img-sm" alt="User Image">
+                                                                            {% endif %}
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    <div class="comment-text">
+                                                                        <span class="username">
+                                                                            <a href="#">{{ comentario.Usuario_id.first_name }} {{ comentario.Usuario_id.last_name }}</a>
+                                                                            <span class="text-muted pull-right">Comentado el: {{ comentario.fecha_comentario }}</span>
+                                                                        </span><!-- /.username -->
+                                                                        <b> {{ comentario.comentario }}</b>
+                                                                    </div><!-- /.comment-text -->
+                                                                </div><!-- /.box-comment -->
+                                                                <br>
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            No se tiene comentarios.
+                                                        {% endif %}
+                                                    </div>
+                                                </div><!-- /.tab-content -->
+                                            </div><!-- nav-tabs-custom -->
+                                        </div>
+                                    </div>
+                                    <!-- START ALERTS AND CALLOUTS -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box box-default">
+                                                <div class="box-header with-border">
+                                                    <i class="fa fa-warning"></i>
+                                                    <h3 class="box-title">Alerta</h3>
+                                                </div><!-- /.box-header -->
+                                                <div class="box-body">
+                                                    <div class="alert alert-danger alert-dismissible">
+                                                        Por favor, tenga en cuenta que hemos intentado ser lo más veraces posibles con respecto a esta información, pero dada
+                                                        la naturaleza de la misma, es obligatorio consultar a un especialista antes de usarla para cualquier tipo de tratamiento.
+                                                    </div>
+                                                </div><!-- /.box-body -->
+                                            </div><!-- /.box -->
+                                        </div><!-- /.col -->
+                                    </div><!-- /.row --><!-- END ALERTS AND CALLOUTS -->
+                            </section><!-- /.content -->
+                        </div>
+                        <footer class="main-footer">
+                            <div class="pull-right hidden-xs">
+                                <b>Versión</b> 1.0.0
+                            </div>
+                            <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                        </footer>
+                        <div class="control-sidebar-bg"></div>
+                    </div>
+                </body>
+            {% else %}
+                <body class="hold-transition skin-blue layout-top-nav">
+                    <div class="wrapper">
+                        <header class="main-header">
+                            <nav class="navbar navbar-static-top">
+                                <div class="container">
+                                    <div class="navbar-header">
+                                        <a href="{% url 'homepage' %}" class="navbar-brand"><b>YURA</b>KU</a>
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                    </div>
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                            <li>
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
+                                                    <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="active">
+                                                <a href="{%  url 'Reconocimiento' %}">Reconocimiento</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                                    <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
+                                                    <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
+                                                    <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
+                                                </ul>
+                                            </li>
+                                            {% if user.is_authenticated %}
+                                                {% if perfiles %}
+                                                    {% for p in perfiles.all %}
+                                                        {% if p.Usuario_id.id == user.id %}
+                                                            <li>
+                                                                <a href="{% url 'perfil_detallado' user.id %}">Perfil</a>
+                                                            </li>
+                                                        {% else %}
+                                                            <li>
+                                                                <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% else %}
+                                                <li>
+                                                    <a href="{% url 'registro'%}">Perfil</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                        <form action="{% url 'buscar_planta' %}" class="navbar-form navbar-left" role="search" method="get">
+                                            <div class="form-group">
+                                                <label for="navbar-search-input"></label><input type="text" name="q" class="form-control" id="navbar-search-input" placeholder="Buscar">
+                                            </div>
+                                        </form>
+                                    </div><!-- /.navbar-collapse -->
+                                    <!-- Navbar Right Menu -->
+                                    <div class="navbar-custom-menu">
+                                        <ul class="nav navbar-nav">
+                                            <!-- User Account Menu -->
+                                            {% if user.is_authenticated %}
+                                                <li class="dropdown user user-menu">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        {% if perfiles %}
+                                                            {% for p in perfiles.all %}
+                                                                {% if p.Usuario_id.id == user.id %}
+                                                                    {% if p.imagen_perfil %}
+                                                                        <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                        {% endif %}
+                                                        <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <!-- User image -->
+                                                        <li class="user-header">
+                                                            {% if perfiles %}
+                                                                {% for p in perfiles.all %}
+                                                                    {% if p.Usuario_id.id == user.id %}
+                                                                        {% if p.imagen_perfil %}
+                                                                            <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                                        {% else %}
+                                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                        {% endif %}
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                            {% endif %}
+                                                            <p>
+                                                                {{ user.first_name }} {{ user.last_name }}
+                                                                <small>{{ user.date_joined }}</small>
+                                                            </p>
+                                                        </li>
+                                                        <!-- Menu Footer-->
+                                                        <li class="user-footer">
+                                                            <div class="pull-left">
+                                                                {% if perfiles %}
+                                                                    {% for p in perfiles.all %}
+                                                                        {% if p.Usuario_id.id == user.id %}
+                                                                            <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                        {% else %}
+                                                                            <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% else %}
+                                                                    <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li class="dropdown user user-menu">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                                        <span class="hidden-xs">Sin Usuario</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <!-- User image -->
+                                                        <li class="user-header">
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                            <p>
+                                                                Sin Usuario
+                                                            </p>
+                                                        </li>
+                                                        <!-- Menu Footer-->
+                                                        <li class="user-footer">
+                                                            <div class="pull-left">
+                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div><!-- /.navbar-custom-menu -->
+                                </div><!-- /.container-fluid -->
+                            </nav>
+                        </header><!-- Full Width Column -->
+                        <div class="content-wrapper">
+                            <div class="container">
+                                <!-- Content Header (Page header) -->
+                                <section class="content-header">
+                                    <h1>
+                                        Reconocimiento de Plantas
+                                        <small>YURAKU</small>
+                                    </h1>
+                                    <ol class="breadcrumb">
+                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                        <li class="active"> Reconocimiento de Plantas</li>
+                                    </ol>
+                                </section>
+                                <!-- Main content -->
+                                <section class="content">
+                                    <!-- START ACCORDION & CAROUSEL-->
+                                    <div class="row"><!-- /.col -->
+                                        <div class="col-md-6">
+                                            <div class="box box-solid">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title">Imagen de la Planta</h3>
+                                                </div>
+                                                <!-- /.box-header -->
+                                                <div class="box-body">
+                                                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                        <ol class="carousel-indicators">
+                                                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                                        </ol>
+                                                        <div class="carousel-inner">
+                                                            <div class="item active">
+                                                                {% if pb.imagen_reconocimiento%}
+                                                                    <img id="img1" src="{{ pb.imagen_reconocimiento.url }}" alt="First slide" style="width:800px;height:384px">
+                                                                {%else %}
+                                                                    <img id ="img1" src="http://placehold.it/900x500/91A13F/ffffff&text=Foto+de+la+Planta" alt="First slide" style="width:800px;height:384px">
+                                                                {%endif%}
+                                                                <div class="carousel-caption">
+                                                                    <h1>{{ planta.nombre_planta }}</h1>
+                                                                </div>
+                                                                <form action="{% url 'prueba' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+                                                                    <div class="col-sm-8">
+                                                                        <div class="file-button">
+                                                                            Buscar
+                                                                            <input type="file" name="imagen_reconocimiento" id="id_imagen_reconocimiento" onchange="document.getElementById('append-big-btn').value = this.value;">
+                                                                        </div>
+                                                                        <input type="text" id="append-big-btn" value="{{ planta.imagen_planta.url }}" placeholder="no file selected" style="display:none">
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="col-sm-2">
+                                                                        <button id="reconocer" type="submit" class="btn btn-primary" disabled="true">Reconocer</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /.box-body -->
+                                            </div><!-- /.box -->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box box-solid">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title">Información de la Planta</h3>
+                                                </div><!-- /.box-header -->
+                                                <div class="box-body">
+                                                    <div class="box-group" id="accordion">
+                                                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                                                        <div class="panel box box-primary">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title">
+                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> Datos Básico de la Planta
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                                <div class="box-body">
+                                                                    <label class="form-horizontal" for="id_nombre_planta">Nombre de la Planta</label>
+                                                                    <output>
+                                                                        {% if planta.nombre_planta %}
+                                                                            {{ planta.nombre_planta }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_nombre_comun">Nombre Comun</label>
+                                                                    <output>
+                                                                        {% if planta.nombre_comun %}
+                                                                            {{ planta.nombre_comun }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptacion</label>
+                                                                    <output>
+                                                                        {% if planta.lugar_adaptacion %}
+                                                                            {{ planta.lugar_adaptacion }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_lugar_proviene">Lugar de donde Proviene</label>
+                                                                    <output>
+                                                                        {% if planta.lugar_proviene %}
+                                                                            {{ planta.lugar_proviene }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel box box-danger">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title">
+                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos cientificos de la Planta
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseTwo" class="panel-collapse collapse">
+                                                                <div class="box-body">
+                                                                    <label class="form-horizontal" for="id_nombre_coentifico">Nombre cientifico:</label>
+                                                                    <output>
+                                                                        {% if planta.nombre_cientifico %}
+                                                                            {{ planta.nombre_cientifico }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_reino">Reino:</label>
+                                                                    <output>
+                                                                        {% if planta.reino %}
+                                                                            {{ planta.reino }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_tipo">Tipo de Planta:</label>
+                                                                    <output>
+                                                                        {% if planta.tipo %}
+                                                                            {{ planta.tipo }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_clase">Clase de Planta:</label>
+                                                                    <output>
+                                                                        {% if planta.clase %}
+                                                                            {{ planta.clase }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel box box-success">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title">
+                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Datos Adicionales de la Planta
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseThree" class="panel-collapse collapse">
+                                                                <div class="box-body">
+                                                                    <label class="form-horizontal" for="id_familia">Familia de la Planta:</label>
+                                                                    <output>
+                                                                        {% if planta.familia %}
+                                                                            {{ planta.familia }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_genero">Genero:</label>
+                                                                    <output>
+                                                                        {% if planta.genero %}
+                                                                            {{ planta.genero }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_especie">Especie:</label>
+                                                                    <output>
+                                                                        {% if planta.especie %}
+                                                                            {{ planta.especie }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                    <br>
+                                                                    <label class="form-horizontal" for="id_orden">Orden:</label>
+                                                                    <output>
+                                                                        {% if planta.orden %}
+                                                                            {{ planta.orden }}
+                                                                        {% else %}
+                                                                            No se tiene asignado.
+                                                                        {% endif %}
+                                                                    </output>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /.box-body -->
+                                            </div><!-- /.box -->
+                                        </div><!-- /.col -->
+                                    </div><!-- /.row -->
+                                    <!-- END ACCORDION & CAROUSEL-->
+                                    <!-- START CUSTOM TABS -->
+                                    <h2 class="page-header">Bondades de la Planta</h2>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <!-- Custom Tabs -->
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#tab_1" data-toggle="tab">Uso</a></li>
+                                                    <li><a href="#tab_2" data-toggle="tab">Ingerir </a></li>
+                                                    <li><a href="#tab_3" data-toggle="tab">Dosis</a></li>
+                                                    <li><a href="#tab_4" data-toggle="tab">Comentarios</a></li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="tab_1">
+                                                        <b>Para que sirve:</b>
+                                                        <p>
+                                                            {% if planta.uso %}
+                                                                {{ planta.uso }}
+                                                            {% else %}
+                                                                No se tiene asignado.
+                                                            {% endif %}
+                                                        </p>
+                                                    </div>
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="tab_2">
+                                                        <b>Como ingerir:</b>
+                                                        <p>
+                                                            {% if planta.como_ingerir %}
+                                                                {{ planta.como_ingerir }}
+                                                            {% else %}
+                                                                No se tiene asignado.
+                                                            {% endif %}
+                                                        </p>
+                                                    </div>
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="tab_3">
+                                                        <b>Cual es la Dosis:</b>
+                                                        <p>
+                                                            {% if planta.dosis %}
+                                                                {{ planta.dosis }}
+                                                            {% else %}
+                                                                No se tiene asignado.
+                                                            {% endif %}
+                                                        </p>
+                                                    </div><!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="tab_4">
+                                                        <b>Los comentarios de esta planta fueron:</b>
+                                                        <p>
+                                                        <div class="box-footer box-comments">
+                                                        {% if comentarios %}
+                                                            {% for comentario in comentarios %}
+                                                                <div class="box-comment"><!-- User image -->
+                                                                    {% for p in perfilesc.all %}
+                                                                        {% if p.Usuario_id.id == comentario.Usuario_id.id %}
+                                                                            {% if p.imagen_perfil %}
+                                                                                <img src="{{ p.imagen_perfil.url }}" class="img-circle img-sm" alt="User Image">
+                                                                            {% else %}
+                                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle img-sm" alt="User Image">
+                                                                            {% endif %}
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                    <div class="comment-text">
+                                                                        <span class="username">
+                                                                            <a href="#">{{ comentario.Usuario_id.first_name }} {{ comentario.Usuario_id.last_name }}</a>
+                                                                            <span class="text-muted pull-right">Comentado el: {{ comentario.fecha_comentario }}</span>
+                                                                        </span><!-- /.username -->
+                                                                        <b> {{ comentario.comentario }}</b>
+                                                                    </div><!-- /.comment-text -->
+                                                                </div><!-- /.box-comment -->
+                                                                <br>
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            No se tiene comentarios.
+                                                        {% endif %}
+                                                    </div>
+                                                    </div><!-- /.tab-content -->
+                                                </div><!-- nav-tabs-custom -->
+                                            </div>
+                                        </div>
+                                        <!-- START ALERTS AND CALLOUTS -->
+                                        <div class="col-md-12">
+                                            <div class="box box-default">
+                                                <div class="box-header with-border">
+                                                    <i class="fa fa-warning"></i>
+                                                    <h3 class="box-title">Alerta</h3>
+                                                </div><!-- /.box-header -->
+                                                <div class="box-body">
+                                                    <div class="alert alert-danger alert-dismissible">
+                                                        Por favor, tenga en cuenta que hemos intentado ser lo más veraces posibles con respecto a esta información, pero dada
+                                                        la naturaleza de la misma, es obligatorio consultar a un especialista antes de usarla para cualquier tipo de tratamiento.
+                                                    </div>
+                                                </div><!-- /.box-body -->
+                                            </div><!-- /.box -->
+                                        </div><!-- /.col -->
+                                </section><!-- /.content -->
+                            </div><!-- /.container -->
+                        </div><!-- /.content-wrapper -->
+                        <footer class="main-footer">
+                            <div class="container">
+                                <div class="pull-right hidden-xs">
+                                    <b>Versión</b> 1.0.0
+                                </div>
+                                <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                            </div><!-- /.container -->
+                        </footer>
+                        <div class="control-sidebar-bg"></div>
+                    </div><!-- ./wrapper -->
+                </body>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <body class="hold-transition skin-blue layout-top-nav">
+            <div class="wrapper">
+                <header class="main-header">
+                    <nav class="navbar navbar-static-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <a href="{% url 'homepage' %}" class="navbar-brand"><b>YURA</b>KU</a>
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                    <li>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
+                                            <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="active">
+                                        <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                            <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
+                                            <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
+                                            <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
+                                        </ul>
+                                    </li>
+                                    {% if user.is_authenticated %}
+                                        {% if perfiles %}
+                                            {% for p in perfiles.all %}
+                                                {% if p.Usuario_id.id == user.id %}
+                                                    <li>
+                                                        <a href="{% url 'perfil_detallado' user.id %}">Perfil</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                            </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li>
+                                            <a href="{% url 'registro'%}">Perfil</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                                <form action="{% url 'buscar_planta' %}" class="navbar-form navbar-left" role="search" method="get">
+                                    <div class="form-group">
+                                        <label for="navbar-search-input"></label><input type="text" name="q" class="form-control" id="navbar-search-input" placeholder="Buscar">
+                                    </div>
+                                </form>
+                            </div><!-- /.navbar-collapse -->
+                            <!-- Navbar Right Menu -->
+                            <div class="navbar-custom-menu">
+                                <ul class="nav navbar-nav">
+                                    <!-- User Account Menu -->
+                                    {% if user.is_authenticated %}
+                                        <li class="dropdown user user-menu">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                {% if perfiles %}
+                                                    {% for p in perfiles.all %}
+                                                        {% if p.Usuario_id.id == user.id %}
+                                                            {% if p.imagen_perfil %}
+                                                                <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                {% endif %}
+                                                <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <!-- User image -->
+                                                <li class="user-header">
+                                                    {% if perfiles %}
+                                                        {% for p in perfiles.all %}
+                                                            {% if p.Usuario_id.id == user.id %}
+                                                                {% if p.imagen_perfil %}
+                                                                    <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                    {% endif %}
+                                                    <p>
+                                                        {{ user.first_name }} {{ user.last_name }}
+                                                        <small>{{ user.date_joined }}</small>
+                                                    </p>
+                                                </li>
+                                                <!-- Menu Footer-->
+                                                <li class="user-footer">
+                                                    <div class="pull-left">
+                                                        {% if perfiles %}
+                                                            {% for p in perfiles.all %}
+                                                                {% if p.Usuario_id.id == user.id %}
+                                                                    <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% else %}
+                                                                    <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <li class="dropdown user user-menu">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                                <span class="hidden-xs">Sin Usuario</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <!-- User image -->
+                                                <li class="user-header">
+                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                    <p>
+                                                        Sin Usuario
+                                                    </p>
+                                                </li>
+                                                <!-- Menu Footer-->
+                                                <li class="user-footer">
+                                                    <div class="pull-left">
+                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div><!-- /.navbar-custom-menu -->
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                </header><!-- Full Width Column -->
+                <div class="content-wrapper">
+                    <div class="container">
+                        <!-- Content Header (Page header) -->
+                        <section class="content-header">
+                            <h1>
+                                Reconocimiento de la Planta
+                                <small>YURAKU</small>
+                            </h1>
+                            <ol class="breadcrumb">
+                                <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                <li class="active">Reconocimiento de Plantas</li>
+                            </ol>
+                        </section>
+                        <!-- Main content -->
+                        <section class="content">
+                            <!-- START ACCORDION & CAROUSEL-->
+                            <div class="row"><!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="box box-solid">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Imagen de la Planta</h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                                </ol>
+                                                <div class="carousel-inner">
+                                                    <div class="item active">
+                                                        {% if pb.imagen_reconocimiento%}
+                                                            <img id="img1" src="{{ pb.imagen_reconocimiento.url }}" alt="First slide" style="width:800px;height:384px">
+                                                        {%else %}
+                                                            <img id ="img1" src="http://placehold.it/900x500/91A13F/ffffff&text=Foto+de+la+Planta" alt="First slide" style="width:800px;height:384px">
+                                                        {%endif%}
+                                                        <div class="carousel-caption">
+                                                            <h1>{{ planta.nombre_planta }}</h1>
+                                                        </div>
+                                                        <form action="{% url 'Reconocimiento' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+                                                            <div class="col-sm-8">
+                                                                <div class="file-button">
+                                                                    Buscar
+                                                                    <input type="file" name="imagen_reconocimiento" id="id_imagen_reconocimiento" onchange="document.getElementById('append-big-btn').value = this.value;">
+                                                                </div>
+                                                                <input type="text" id="append-big-btn" value="{{ planta.imagen_planta.url }}" placeholder="no file selected" style="display:none">
+                                                            </div>
+                                                            <br>
+                                                            <div class="col-sm-2">
+                                                                <button id="reconocer" type="submit" class="btn btn-primary" disabled="true">Reconocer</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="box box-solid">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Información de la Planta</h3>
+                                        </div><!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div class="box-group" id="accordion">
+                                                <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                                                <div class="panel box box-primary">
+                                                    <div class="box-header with-border">
+                                                        <h4 class="box-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> Datos Básico de la Planta
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                                        <div class="box-body">
+                                                            <label class="form-horizontal" for="id_nombre_planta">Nombre de la Planta</label>
+                                                            <output>
+                                                                {% if planta.nombre_planta %}
+                                                                    {{ planta.nombre_planta }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_nombre_comun">Nombre Comun</label>
+                                                            <output>
+                                                                {% if planta.nombre_comun %}
+                                                                    {{ planta.nombre_comun }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptacion</label>
+                                                            <output>
+                                                                {% if planta.lugar_adaptacion %}
+                                                                    {{ planta.lugar_adaptacion }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_lugar_proviene">Lugar de donde Proviene</label>
+                                                            <output>
+                                                                {% if planta.lugar_proviene %}
+                                                                    {{ planta.lugar_proviene }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel box box-danger">
+                                                    <div class="box-header with-border">
+                                                        <h4 class="box-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos cientificos de la Planta
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                                        <div class="box-body">
+                                                            <label class="form-horizontal" for="id_nombre_coentifico">Nombre cientifico:</label>
+                                                            <output>
+                                                                {% if planta.nombre_cientifico %}
+                                                                    {{ planta.nombre_cientifico }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_reino">Reino:</label>
+                                                            <output>
+                                                                {% if planta.reino %}
+                                                                    {{ planta.reino }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_tipo">Tipo de Planta:</label>
+                                                            <output>
+                                                                {% if planta.tipo %}
+                                                                    {{ planta.tipo }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_clase">Clase de Planta:</label>
+                                                            <output>
+                                                                {% if planta.clase %}
+                                                                    {{ planta.clase }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel box box-success">
+                                                    <div class="box-header with-border">
+                                                        <h4 class="box-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Datos Adicionales de la Planta
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapseThree" class="panel-collapse collapse">
+                                                        <div class="box-body">
+                                                            <label class="form-horizontal" for="id_familia">Familia de la Planta:</label>
+                                                            <output>
+                                                                {% if planta.familia %}
+                                                                    {{ planta.familia }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_genero">Genero:</label>
+                                                            <output>
+                                                                {% if planta.genero %}
+                                                                    {{ planta.genero }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_especie">Especie:</label>
+                                                            <output>
+                                                                {% if planta.especie %}
+                                                                    {{ planta.especie }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                            <br>
+                                                            <label class="form-horizontal" for="id_orden">Orden:</label>
+                                                            <output>
+                                                                {% if planta.orden %}
+                                                                    {{ planta.orden }}
+                                                                {% else %}
+                                                                    No se tiene asignado.
+                                                                {% endif %}
+                                                            </output>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                            <!-- END ACCORDION & CAROUSEL-->
+                            <!-- START CUSTOM TABS -->
+                            <h2 class="page-header">Bondades de la Planta</h2>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- Custom Tabs -->
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#tab_1" data-toggle="tab">Uso</a></li>
+                                            <li><a href="#tab_2" data-toggle="tab">Ingerir </a></li>
+                                            <li><a href="#tab_3" data-toggle="tab">Dosis</a></li>
+                                            <li><a href="#tab_4" data-toggle="tab">Comentarios</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab_1">
+                                                <b>Para que sirve:</b>
+                                                <p>
+                                                    {% if planta.uso %}
+                                                        {{ planta.uso }}
+                                                    {% else %}
+                                                        No se tiene asignado.
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                            <div class="tab-pane" id="tab_2">
+                                                <b>Como ingerir:</b>
+                                                <p>
+                                                    {% if planta.como_ingerir %}
+                                                        {{ planta.como_ingerir }}
+                                                    {% else %}
+                                                        No se tiene asignado.
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                            <div class="tab-pane" id="tab_3">
+                                                <b>Cual es la Dosis:</b>
+                                                <p>
+                                                    {% if planta.dosis %}
+                                                        {{ planta.dosis }}
+                                                    {% else %}
+                                                        No se tiene asignado.
+                                                    {% endif %}
+                                                </p>
+                                            </div><!-- /.tab-pane -->
+                                            <div class="tab-pane" id="tab_4">
+                                                <b>Los comentarios de esta planta fueron:</b>
+                                                <p>
+                                                <div class="box-footer box-comments">
+                                                {% if comentarios %}
+                                                    {% for comentario in comentarios %}
+                                                        <div class="box-comment"><!-- User image -->
+                                                            {% for p in perfilesc.all %}
+                                                                {% if p.Usuario_id.id == comentario.Usuario_id.id %}
+                                                                    {% if p.imagen_perfil %}
+                                                                        <img src="{{ p.imagen_perfil.url }}" class="img-circle img-sm" alt="User Image">
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle img-sm" alt="User Image">
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            <div class="comment-text">
+                                                                <span class="username">
+                                                                    <a href="#">{{ comentario.Usuario_id.first_name }} {{ comentario.Usuario_id.last_name }}</a>
+                                                                    <span class="text-muted pull-right">Comentado el: {{ comentario.fecha_comentario }}</span>
+                                                                </span><!-- /.username -->
+                                                                <b> {{ comentario.comentario }}</b>
+                                                            </div><!-- /.comment-text -->
+                                                        </div><!-- /.box-comment -->
+                                                        <br>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    No se tiene comentarios.
+                                                {% endif %}
+                                            </div>
+                                            </div><!-- /.tab-content -->
+                                        </div><!-- nav-tabs-custom -->
+                                    </div>
+                                </div>
+                                <!-- START ALERTS AND CALLOUTS -->
+                                <div class="col-md-12">
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-warning"></i>
+                                            <h3 class="box-title">Alerta</h3>
+                                        </div><!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div class="alert alert-danger alert-dismissible">
+                                                Por favor, tenga en cuenta que hemos intentado ser lo más veraces posibles con respecto a esta información, pero dada
+                                                la naturaleza de la misma, es obligatorio consultar a un especialista antes de usarla para cualquier tipo de tratamiento.
+                                            </div>
+                                        </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                </div><!-- /.col -->
+                        </section><!-- /.content -->
+                    </div><!-- /.container -->
+                </div><!-- /.content-wrapper -->
+                <footer class="main-footer">
+                    <div class="container">
+                        <div class="pull-right hidden-xs">
+                            <b>Versión</b> 1.0.0
+                        </div>
+                        <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                    </div><!-- /.container -->
+                </footer>
+                <div class="control-sidebar-bg"></div>
+            </div><!-- ./wrapper -->
+        </body>
+    {% endif %}
+    <script>
+    function init() {
+      var inputFile = document.getElementById('id_imagen_reconocimiento');
+      inputFile.addEventListener('change', mostrarImagen, false);
+    }
+    function mostrarImagen(event) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      $('#reconocer').attr("disabled", false);
+      reader.onload = function(event) {
+        var img = document.getElementById('img1');
+        img.src= event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+    window.addEventListener('load', init, false);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        setTimeout(function() {
+            $(".content1").fadeOut(1500);
+        },3000);
+
+        setTimeout(function() {
+            $(".content2").fadeIn(1500);
+        },6000);
+    });
+    </script>
+</html>
+{% endblock %}

@@ -1,0 +1,1 @@
+achira (score=0.74765);escancel (score=0.19391);ruda (score=0.04751);alchojcha (score=0.00401);geranio (score=0.00193);

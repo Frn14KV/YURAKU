@@ -1,0 +1,78 @@
+{% extends "soporte.html" %}
+{% block title %} Registro de Usuario - YURAKO {% endblock %}
+{% block content %}
+{% load staticfiles %}
+<html class="no-js" lang="en">
+    <title> Registro de Usuario - YURAKO </title>
+    <body class="hold-transition register-page">
+        <div class="register-box">
+            <div class="login-logo">
+                <a href="{% url 'homepage' %}">
+                    <img src="{% static '/AdminLTE-2.4.2/img/faviconplanta-01.png' %}" class="user-image" alt="User Image">
+                    <b>YURA</b>KU
+                </a>
+            </div>
+            {% if message is not null %}
+				<div class="alert alert-danger alert-mg-b" role="alert">
+                    <strong>{{ message }}</strong> Ingrese los datos correctos.
+				</div>
+			{% endif %}
+            <div class="register-box-body">
+                <p class="login-box-msg">Registro de un nuevo Usuario</p>
+                <form action="" id="loginForm" method="post" class="add-user"> {% csrf_token %}
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control" placeholder="Nombre" name="first_name" id="id_first_name" title="first_name" autofocus="">
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+				    <div class="form-group has-feedback">
+                        <input type="text" class="form-control" placeholder="Apellido" name="last_name" id="id_last_name" title="last_name" >
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="email" class="form-control" placeholder="Email" name="email" id="id_email" title="email">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+	                    <input type="email" class="form-control" placeholder="Repetir Email" name="email1" id="id_email1" title="email1">
+	                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+	                </div>
+				    <div class="form-group has-feedback">
+	                    <input type="text" class="form-control" placeholder="Usuario" name="username" id="id_username" title="username">
+	                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+	                <div class="form-group has-feedback">
+	                    <input type="password" class="form-control example1" placeholder="Clave" name="password1" id="id_password1" title="password1">
+	                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+	                </div>
+	                <div class="form-group has-feedback">
+	                    <input type="password" class="form-control example" placeholder="Repetir Clave" name="password2" id="id_password2" title="password2">
+	                    <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+	                </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input id="id_typeuser" name="typeuser" type="checkbox" value="Estudiantes" checked > Soy Estudiante <a href="#">?</a>
+                                </label>
+                            </div>
+                        </div><!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat" value="Registro">Registro</button>
+                        </div><!-- /.col -->
+                    </div>
+                    <div class="social-auth-links text-center">
+                        <p style="text-align: center;">o Registrese con:</p>
+                        <a href="{% url 'social:begin' 'github' %}" class="btn btn-block btn-social btn-github btn-flat"><i class="fa fa-github"></i>GitHub</a>
+                        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i>Google+</a>
+                    </div>
+	            </form>
+                <a href="{% url 'login' %}" class="text-center">Ya tengo una cuenta</a>
+			    <a type="button" class="btn btn-close btn-block button-down-drop" href="{% url 'homepage' %}">Cancelar</a>
+	        </div><!-- /.form-box -->
+        </div>
+    </body><!-- /.register-box -->
+    <div class="text-center login-footer">
+        <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+    </div>
+</html>
+{% endblock %}

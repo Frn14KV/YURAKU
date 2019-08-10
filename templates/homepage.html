@@ -1,0 +1,1223 @@
+{% block content %}
+{% load staticfiles %}
+<html class="no-js" lang="es">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" type="image/x-icon" href={% static 'AdminLTE-2.4.2/img/faviconplanta-01.png'%}>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.7 -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/bower_components/bootstrap/dist/css/bootstrap.min.css'%}>
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/bower_components/font-awesome/css/font-awesome.min.css'%}>
+        <!-- Ionicons -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/bower_components/Ionicons/css/ionicons.min.css'%}>
+        <!-- DataTables -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css'%}>
+        <!-- Theme style -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/dist/css/AdminLTE.min.css'%}>
+        <!-- iCheck -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/plugins/iCheck/square/blue.css'%}>
+        <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/dist/css/skins/_all-skins.min.css'%}>
+        <!-- Morris chart -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/bower_components/morris.js/morris.css'%}>
+        <!-- jvectormap -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/bower_components/jvectormap/jquery-jvectormap.css'%}>
+        <!-- Date Picker -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'%}>
+        <!-- Daterange picker -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/bower_components/bootstrap-daterangepicker/daterangepicker.css'%}>
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'%}>
+        <!------------------------------------------->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/vendors/linericon/style.css'%}>
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/css/font-awesome.min.css'%}>
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/vendors/owl-carousel/owl.carousel.min.css'%}>
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/vendors/lightbox/simpleLightbox.css'%}>
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/vendors/nice-select/css/nice-select.css'%}>
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/vendors/animate-css/animate.css'%}>
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/vendors/popup/magnific-popup.css'%}>
+        <!-- main css -->
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/css/style.css'%}>
+        <link rel="stylesheet" href={% static 'AdminLTE-2.4.2/home/css/responsive.css'%}>
+        <title> Home - YURAKU </title>
+    </head>
+    <!--================Header Menu Area =================-->
+    {% if user.groups.all|length > 0 %}
+        {% for u in user.groups.all%}
+            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                <body class="hold-transition skin-blue sidebar-mini">
+                    <div class="wrapper">
+                        <header class="main-header">
+                            <!-- Logo -->
+                            <a href="{% url 'homepage' %}" class="logo"><!-- mini logo for sidebar mini 50x50 pixels -->
+                                <span class="logo-mini"><b>Y</b>K</span>
+                                <!-- logo for regular state and mobile devices -->
+                                <span class="logo-lg">
+                                    <b>YURA</b>KU
+                                </span>
+                            </a>
+                            <!-- Header Navbar: style can be found in header.less -->
+                            <nav class="navbar navbar-static-top">
+                                <!-- Sidebar toggle button-->
+                                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                                    <span class="sr-only">Toggle navigation</span>
+                                </a>
+                                <div class="navbar-custom-menu">
+                                    <ul class="nav navbar-nav">
+                                        <!-- User Account: style can be found in dropdown.less -->
+                                        {% if user.is_authenticated %}
+                                            <li class="dropdown user user-menu">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    {% if perfiles %}
+                                                        {% for p in perfiles.all %}
+                                                            {% if p.Usuario_id.id == user.id %}
+                                                                {% if p.imagen_perfil %}
+                                                                    <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                    {% endif %}
+                                                    <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <!-- User image -->
+                                                    <li class="user-header">
+                                                        {% if perfiles %}
+                                                            {% for p in perfiles.all %}
+                                                                {% if p.Usuario_id.id == user.id %}
+                                                                    {% if p.imagen_perfil %}
+                                                                        <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                        {% endif %}
+                                                        <p>
+                                                            {{ user.first_name }} {{ user.last_name }}
+                                                            <small>{{ user.date_joined }}</small>
+                                                        </p>
+                                                    </li>
+                                                    <!-- Menu Footer-->
+                                                    <li class="user-footer">
+                                                        <div class="pull-left">
+                                                            {% if perfiles %}
+                                                                {% for p in perfiles.all %}
+                                                                    {% if p.Usuario_id.id == user.id %}
+                                                                        <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                    {% else %}
+                                                                        <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="pull-right">
+                                                            <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li class="dropdown user user-menu">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                                    <span class="hidden-xs">Sin Usuario</span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                      <!-- User image -->
+                                                      <li class="user-header">
+                                                          <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                          <p>
+                                                              Sin Usuario
+                                                          </p>
+                                                      </li>
+                                                      <!-- Menu Footer-->
+                                                      <li class="user-footer">
+                                                          <div class="pull-left">
+                                                              <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                          </div>
+                                                          <div class="pull-right">
+                                                              <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                          </div>
+                                                      </li>
+                                                  </ul>
+                                            </li>
+                                        {% endif %}
+                                        <!-- Control Sidebar Toggle Button -->
+                                        <li>
+                                            <a href="#" data-toggle=""><i class="fa fa-gears"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </header>
+                        <!-- Left side column. contains the logo and sidebar -->
+                        <aside class="main-sidebar">
+                            <!-- sidebar: style can be found in sidebar.less -->
+                            <section class="sidebar">
+                                <!-- Sidebar user panel -->
+                                <div class="user-panel">
+                                    {% if user.is_authenticated %}
+                                        <div class="pull-left image">
+                                            {% if perfiles %}
+                                                {% for p in perfiles.all %}
+                                                    {% if p.Usuario_id.id == user.id %}
+                                                        {% if p.imagen_perfil %}
+                                                            <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {{ user.id }}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                            {% endif %}
+                                        </div>
+                                        <div class="pull-left info">
+                                            <p>{{ user.first_name }} {{ user.last_name }}</p>
+                                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="pull-left image">
+                                            <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="img-circle" alt="User Image">
+                                        </div>
+                                        <div class="pull-left info">
+                                            <p>Sin Usuario</p>
+                                            <a href="#"><i class="fa fa-circle text-warning"></i> Offline</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <!-- search form -->
+                                <form action="{% url 'buscar_planta' %}" method="get" class="sidebar-form">
+                                    <div class="input-group">
+                                        <input type="text" name="q" class="form-control" placeholder="Buscar">
+                                        <span class="input-group-btn">
+                                            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                        </span>
+                                    </div>
+                                </form><!-- /.search form -->
+                                <!-- sidebar menu: : style can be found in sidebar.less -->
+                                <ul class="sidebar-menu" data-widget="tree">
+                                    <li class="header">Menú de Navegación</li>
+                                    <li>
+                                        <a href="{% url 'homepage' %}">
+                                            <i class="fa fa-home"></i> <span>Home</span>
+                                        </a>
+                                    </li>
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-pagelines"></i>
+                                                        <span>Plantas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                                        <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                        <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-pagelines"></i>
+                                                        <span>Plantas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                                        <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-pagelines"></i>
+                                                <span>Plantas</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
+                                                <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                    <li>
+                                        <a href="{% url 'Reconocimiento' %}">
+                                            <i class="fa  fa-eye"></i> <span>Reconocimiento de Plantas</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="treeview">
+                                        <a href="#">
+                                            <i class="fa fa-puzzle-piece"></i>
+                                            <span>Juegos</span>
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                         <ul class="treeview-menu">
+                                             <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i> Lista de Juegos</a></li>
+                                             <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i> Adivina la Planta</a></li>
+                                             <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i> Sopa de letras</a></li>
+                                             <li><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
+                                         </ul>
+                                    </li>
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-users"></i> <span>Usuarios</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'usuarios' %}"><i class="fa fa-circle-o"></i>Listado de Usuarios</a></li>
+                                                        <li><a href="{% url 'agregar_usuario' %}"><i class="fa fa-circle-o"></i> Crear Usuario</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                    {% endif %}
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-file-pdf-o"></i>
+                                                        <span>Reportes</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'report_usuario' %}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% elif u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-file-pdf-o"></i>
+                                                        <span>Reportes</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'report_usuario' %}"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                    {% endif %}
+                                    {% if user.groups.all|length > 0 %}
+                                        {% for u in user.groups.all%}
+                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                                        <li><a href="{% url 'guardar_escuela' %}"><i class="fa fa-circle-o"></i> Agregar Escuela</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% elif u.name == "Profesores" or u.name == "Estudiantes" %}
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                        <span class="pull-right-container">
+                                                            <i class="fa fa-angle-left pull-right"></i>
+                                                        </span>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
+                                            </ul>
+                                        </li>
+                                    {% endif %}
+                                    {% if user.is_authenticated %}
+                                        {% if perfiles %}
+                                            {% for p in perfiles.all %}
+                                                {% if p.Usuario_id.id == user.id %}
+                                                    <li>
+                                                        <a href="{% url 'perfil_detallado' user.id %}">
+                                                            <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                            <span class="pull-right-container">
+                                                                <i class="fa fa-angle-left pull-right"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{% url 'perfil' user.id %}">
+                                                            <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                            <span class="pull-right-container">
+                                                                <i class="fa fa-angle-left pull-right"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url 'perfil' user.id %}">
+                                                    <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                    <span class="pull-right-container">
+                                                        <i class="fa fa-angle-left pull-right"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li>
+                                            <a href="{% url 'registro'%}">
+                                                <i class="fa fa-user-plus"></i> <span>Perfil</span>
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </section>
+                            <!-- /.sidebar -->
+                        </aside>
+                        <!-- Content Wrapper. Contains page content -->
+                        <div class="content-wrapper">
+                            <!-- Content Header (Page header) -->
+                            <section class="content-header">
+                                <h1>
+                                    Home
+                                    <small>YURAKU</small>
+                                </h1>
+                                    <ol class="breadcrumb">
+                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home active"></i> Home</a></li>
+                                    </ol>
+                            </section>
+                            <!-- Main content -->
+                            <section class="content">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- AREA CHART -->
+                                        <div class="box box-solid">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Plantas</h3>
+                                            </div><!-- /.box-header -->
+                                            <div class="box-body">
+                                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                                                        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                                                    </ol>
+                                                    <div class="carousel-inner">
+                                                        {% for planta in plantas %}
+                                                            {% if forloop.counter == 1 %}
+                                                                <div class="item active">
+                                                            {% else %}
+                                                                <div class="item">
+                                                            {% endif %}
+                                                        {% if planta.imagen_planta %}
+                                                            <img src="{{ planta.imagen_planta.url }}" alt="Second slide" style="width:760px;height:347px">
+                                                        {% else %}
+                                                            <img src="http://placehold.it/900x500/39CCCC/ffffff&text=Planta+sin+Imagen" alt="First slide">
+                                                        {% endif %}
+                                                        <div class="carousel-caption">
+                                                            {{ planta.nombre_planta }}
+                                                        </div>
+                                                        </div>
+                                                        {% endfor %}
+                                                        </div>
+                                                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                                            <span class="fa fa-angle-left"></span>
+                                                        </a>
+                                                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                                            <span class="fa fa-angle-right"></span>
+                                                        </a>
+                                                    </div>
+                                                </div><!-- /.box-body -->
+                                            </div><!-- /.box -->
+                                        </div><!-- /.col (LEFT) -->
+                                    <div class="col-md-6">
+                                        <!-- LINE CHART -->
+                                        <div class="nav-tabs-custom">
+                                            <!-- Tabs within a box -->
+                                            <div class="box box-primary">
+                                                <!-- Morris chart - Sales -->
+                                                <div id="container"></div>
+                                            </div>
+                                        </div><!-- /.box -->
+                                        <!-- BAR CHART -->
+                                    </div><!-- /.col (RIGHT) -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <!-- interactive chart -->
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <div id="container1"></div>
+                                            </div><!-- /.box-body-->
+                                        </div><!-- /.box -->
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </section><!-- /.content -->
+                        </div>
+                        <!-- /.content-wrapper -->
+                        <footer class="main-footer">
+                            <div class="pull-right hidden-xs">
+                                <b>Versión</b> 1.0.0
+                            </div>
+                            <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                        </footer>
+                    </div>
+                    <!-- page script -->
+                    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+                    <script>
+                        Highcharts.chart('container', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Historia de Búsquedas'
+                            },
+                            xAxis: {
+                                categories: [
+                                    {% for entry in dataset %}'{{ entry.fecha_busqueda__month_class }} {{ entry.fecha_busqueda__month }}'{% if not forloop.last %}, {% endif %}{% endfor %}
+                                ]
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Cantidad de veces'}
+                            },
+                            series: [{
+                                name: 'Búsqueda por mes',
+                                data: [
+                                    {% for entry in dataset %}{{ entry.fecha_busqueda_count }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                                ],
+                                color: 'green'
+                                }]
+                        });
+                    </script>
+                    <script>
+                        Highcharts.chart('container1', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Plantas más Buscadas'
+                            },
+                            xAxis: {
+                                categories: [
+                                    {% for entry in dataset1 %}'{{ entry.Planta_class }} {{ entry.Planta__nombre_planta }}'{% if not forloop.last %}, {% endif %}{% endfor %}
+                                ]
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Candidad de veces'}
+                            },
+                            series: [{
+                                name: 'Cantidad de busquedas',
+                                colorByPoint: true,
+                                data: [
+                                    {% for entry in dataset1 %}{{ entry.count }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                                ],
+                                color: 'green'
+                                }]
+                        });
+                    </script>
+                </body>
+            {% else %}
+                <body class="hold-transition skin-blue layout-top-nav">
+                    <div >
+                        <header class="main-header">
+                            <nav class="navbar navbar-static-top">
+                                <div class="container">
+                                    <div class="navbar-header">
+                                        <a href="{% url 'homepage' %}" class="navbar-brand"><b>YURA</b>KU</a>
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                            <i class="fa fa-bars"></i>
+                                        </button>
+                                    </div>
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                                        <ul class="nav navbar-nav">
+                                            <li class="active"><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
+                                                    <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                                    <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
+                                                    <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
+                                                    <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
+                                                </ul>
+                                            </li>
+                                            {% if user.is_authenticated %}
+                                                {% if perfiles %}
+                                                    {% for p in perfiles.all %}
+                                                        {% if p.Usuario_id.id == user.id %}
+                                                            <li>
+                                                                <a href="{% url 'perfil_detallado' user.id %}">Perfil</a>
+                                                            </li>
+                                                        {% else %}
+                                                            <li>
+                                                                <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <li>
+                                                        <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% else %}
+                                                <li>
+                                                    <a href="{% url 'registro'%}">Perfil</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                        <form action="{% url 'buscar_planta' %}" class="navbar-form navbar-left" role="search" method="get">
+                                            <div class="form-group">
+                                                <input type="text" name="q" class="form-control" id="navbar-search-input" placeholder="Buscar">
+                                            </div>
+                                        </form>
+                                    </div><!-- /.navbar-collapse -->
+                                    <!-- Navbar Right Menu -->
+                                    <div class="navbar-custom-menu">
+                                        <ul class="nav navbar-nav"><!-- Messages: style can be found in dropdown.less-->
+                                            <!-- User Account Menu -->
+                                            {% if user.is_authenticated %}
+                                                <li class="dropdown user user-menu">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        {% if perfiles %}
+                                                            {% for p in perfiles.all %}
+                                                                {% if p.Usuario_id.id == user.id %}
+                                                                    {% if p.imagen_perfil %}
+                                                                        <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                        {% endif %}
+                                                        <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <!-- User image -->
+                                                        <li class="user-header">
+                                                            {% if perfiles %}
+                                                                {% for p in perfiles.all %}
+                                                                    {% if p.Usuario_id.id == user.id %}
+                                                                        {% if p.imagen_perfil %}
+                                                                            <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                                        {% else %}
+                                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                        {% endif %}
+                                                                    {% else %}
+                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                            {% endif %}
+                                                            <p>
+                                                                {{ user.first_name }} {{ user.last_name }}
+                                                                <small>{{ user.date_joined }}</small>
+                                                            </p>
+                                                        </li>
+                                                        <!-- Menu Footer-->
+                                                        <li class="user-footer">
+                                                            <div class="pull-left">
+                                                                {% if perfiles %}
+                                                                    {% for p in perfiles.all %}
+                                                                        {% if p.Usuario_id.id == user.id %}
+                                                                            <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                        {% else %}
+                                                                            <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% else %}
+                                                                    <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li class="dropdown user user-menu">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                                        <span class="hidden-xs">Sin Usuario</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <!-- User image -->
+                                                        <li class="user-header">
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                            <p>
+                                                                Sin Usuario
+                                                            </p>
+                                                        </li>
+                                                        <!-- Menu Footer-->
+                                                        <li class="user-footer">
+                                                            <div class="pull-left">
+                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                            </div>
+                                                            <div class="pull-right">
+                                                                <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div><!-- /.navbar-custom-menu -->
+                                </div><!-- /.container-fluid -->
+                                <section class="home_banner_area">
+                                    <div class="box_1620">
+                                    <div class="banner_inner d-flex align-items-center">
+                                        <div class="container">
+                                        <div class="banner_content text-center">
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <h3>YURAKU</h3>
+                                            <h2>Plantas Medicinales</h2>
+                                            <h1>Plataforma para reconocimiento de plantas utilizadas para  la medicina ancestral de la provincia del Azuay</h1>
+                                            <a class="main_btn" href="#footer">Explorar</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                                <section class="home_blog_area pad_top">
+                                    <div class="container">
+                                        <div class="home_blog_inner">
+                                            <div class="row h_blog_item">
+                                                <div class="col-lg-6">
+                                                    <div class="h_blog_img">
+                                                        <img class="img-fluid" src="{% static '/AdminLTE-2.4.2/img/Yurakufinal.png' %}" alt="" width="750" height="500">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="h_blog_text">
+                                                        <div class="h_blog_text_inner left" id="footer">
+                                                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                                                            <h4>Aplicación Movil <br />Android</h4>
+                                                            <p>La aplaicion movil permite tener información de las plantas y el reconocimiento de las mismas.</p>
+                                                            <a class="main_btn2" href="{% url 'apliacion' %}">Explora más</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row h_blog_item">
+                                                <div class="col-lg-6">
+                                                    <div class="h_blog_text">
+                                                        <div class="h_blog_text_inner right">
+                                                            <h4>Reconocimiento de<br />Plantas</h4>
+                                                            <p>El reconocimento de plantas permite identificar cualquier planta medicinal basado en una red neuronal.</p>
+                                                            <a class="main_btn2" href="{% url 'Reconocimiento' %}">Explorar más</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="h_blog_img">
+                                                        <img class="img-fluid" src="{% static '/AdminLTE-2.4.2/img/plantita.jpg' %}" alt="" width="350" height="500">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row h_blog_item">
+                                                <div class="col-lg-6">
+                                                    <div class="h_blog_img">
+                                                        <img class="img-fluid" src="{% static '/AdminLTE-2.4.2/img/plantas_medicinales.jpg' %}" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="h_blog_text">
+                                                        <div class="h_blog_text_inner left">
+                                                            <h4>Plantas <br />Medicinales</h4>
+                                                            <p>Muestra un listado de plantas medicinales de la provinial del Azuay con sus datos respectivos.</p>
+                                                            <a class="main_btn2" href="{% url 'Planta' %}">Explorar más</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row h_blog_item">
+                                                <div class="col-lg-6">
+                                                    <div class="h_blog_text">
+                                                        <div class="h_blog_text_inner right">
+                                                            <h4>Juegos <br />Educativos</h4>
+                                                            <p>Permite aprender más de las plantas medicinales mediante juegos.</p>
+                                                            <a class="main_btn2" href="{% url 'Juego' %}">Explorar más</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="h_blog_img">
+                                                        <img class="img-fluid" src="{% static '/AdminLTE-2.4.2/img/alegre-01.png' %}" alt="" width="500" height="500">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <footer class="main-footer">
+                                        <div class="container">
+                                            <div class="pull-right hidden-xs">
+                                                <b>Versión</b> 1.0.0
+                                            </div>
+                                            <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                                        </div><!-- /.container -->
+                                    </footer>
+                                    <div class="control-sidebar-bg"></div>
+                                </section>
+                            </nav>
+                        </header>
+                    </div>
+                </body>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <body class="hold-transition skin-blue layout-top-nav">
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a href="{% url 'homepage' %}" class="navbar-brand"><b>YURA</b>KU</a>
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
+                                        <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
+                                        <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
+                                        <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
+                                        <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
+                                    </ul>
+                                </li>
+                                {% if user.is_authenticated %}
+                                    {% if perfiles %}
+                                        {% for p in perfiles.all %}
+                                            {% if p.Usuario_id.id == user.id %}
+                                                <li>
+                                                    <a href="{% url 'perfil_detallado' user.id %}">Perfil</a>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <li>
+                                            <a href="{% url 'perfil' user.id %}">Perfil</a>
+                                        </li>
+                                    {% endif %}
+                                {% else %}
+                                    <li>
+                                        <a href="{% url 'login'%}">Perfil</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <form action="{% url 'buscar_planta' %}" class="navbar-form navbar-left" role="search" method="get">
+                                <div class="form-group">
+                                    <input type="text" name="q" class="form-control" id="navbar-search-input" placeholder="Buscar">
+                                </div>
+                            </form>
+                        </div><!-- /.navbar-collapse -->
+                        <!-- Navbar Right Menu -->
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav"><!-- Messages: style can be found in dropdown.less-->
+                                <!-- User Account Menu -->
+                                {% if user.is_authenticated %}
+                                    <li class="dropdown user user-menu">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            {% if perfiles %}
+                                                {% for p in perfiles.all %}
+                                                    {% if p.Usuario_id.id == user.id %}
+                                                        {% if p.imagen_perfil %}
+                                                            <img src="{{ p.imagen_perfil.url }}" class="user-image" alt="User Image">
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="user-image" alt="User Image">
+                                            {% endif %}
+                                            <span class="hidden-xs">{{ user.first_name }} {{ user.last_name }}</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <!-- User image -->
+                                            <li class="user-header">
+                                                {% if perfiles %}
+                                                    {% for p in perfiles.all %}
+                                                        {% if p.Usuario_id.id == user.id %}
+                                                            {% if p.imagen_perfil %}
+                                                                <img src="{{ p.imagen_perfil.url }}" alt="" />
+                                                            {% else %}
+                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="" />
+                                                {% endif %}
+                                                <p>
+                                                    {{ user.first_name }} {{ user.last_name }}
+                                                    <small>{{ user.date_joined }}</small>
+                                                </p>
+                                            </li>
+                                            <!-- Menu Footer-->
+                                            <li class="user-footer">
+                                                <div class="pull-left">
+                                                    {% if perfiles %}
+                                                        {% for p in perfiles.all %}
+                                                            {% if p.Usuario_id.id == user.id %}
+                                                                <a href="{% url 'perfil_detallado' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                            {% else %}
+                                                                <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <a href="{% url 'perfil' user.id %}" class="btn btn-default btn-flat">Perfil</a>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="pull-right">
+                                                    <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Salir</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li class="dropdown user user-menu">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" class="user-image" alt="User Image">
+                                            <span class="hidden-xs">Sin Usuario</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <!-- User image -->
+                                            <li class="user-header">
+                                                <img src="{% static '/AdminLTE-2.4.2/img/product/sinusuario.jpg' %}" alt="" />
+                                                <p>
+                                                    Sin Usuario
+                                                </p>
+                                            </li>
+                                            <!-- Menu Footer-->
+                                            <li class="user-footer">
+                                                <div class="pull-left">
+                                                    <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                </div>
+                                                <div class="pull-right">
+                                                    <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div><!-- /.navbar-custom-menu -->
+                    </div><!-- /.container-fluid -->
+                    <section class="home_banner_area">
+                        <div class="box_1620">
+                            <div class="banner_inner d-flex align-items-center">
+                                <div class="container">
+                                    <div class="banner_content text-center">
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <h3>YURAKU</h3>
+                                        <h2>Plantas Medicinales</h2>
+                                        <h1>Plataforma para reconocimiento de plantas utilizadas para  la medicina ancestral de la provincia del Azuay</h1>
+                                        <a class="main_btn" href="#footer">Explorar más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="home_blog_area pad_top">
+                        <div class="container">
+                            <div class="home_blog_inner">
+                                <div class="row h_blog_item">
+                                    <div class="col-lg-6">
+                                        <div class="h_blog_img">
+                                            <img class="img-fluid" src="{% static '/AdminLTE-2.4.2/img/Yurakufinal.png' %}" alt="" width="750" height="500">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="h_blog_text">
+                                            <div class="h_blog_text_inner left" id="footer">
+                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                                                <h4>Aplicación Movil <br />Android</h4>
+                                                <p>La aplaicion movil permite tener información de las plantas y el reconocimiento de las mismas.</p>
+                                                <a class="main_btn2" href="{% url 'apliacion' %}">Explora más</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row h_blog_item">
+                                    <div class="col-lg-6">
+                                        <div class="h_blog_text">
+                                            <div class="h_blog_text_inner right">
+                                                <h4>Reconocimiento de<br />Plantas</h4>
+                                                <p>El reconocimento de plantas permite identificar cualquier planta medicinal basado en una red neuronal.</p>
+                                                <a class="main_btn2" href="{% url 'Reconocimiento' %}">Explorar más</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="h_blog_img">
+                                            <img class="img-fluid" src="{% static '/AdminLTE-2.4.2/img/plantita.jpg' %}" alt="" width="350" height="500">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row h_blog_item">
+                                    <div class="col-lg-6">
+                                        <div class="h_blog_img">
+                                            <img class="img-fluid" src="{% static '/AdminLTE-2.4.2/img/plantas_medicinales.jpg' %}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="h_blog_text">
+                                            <div class="h_blog_text_inner left">
+                                                <h4>Plantas <br />Medicinales</h4>
+                                                <p>Muestra un listado de plantas medicinales de la provinial del Azuay con sus datos respectivos.</p>
+                                                <a class="main_btn2" href="{% url 'Planta' %}">Explorar más</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row h_blog_item">
+                                    <div class="col-lg-6">
+                                        <div class="h_blog_text">
+                                            <div class="h_blog_text_inner right">
+                                                <h4>Juegos <br />Educativos</h4>
+                                                <p>Permite aprender más de las plantas medicinales mediante juegos.</p>
+                                                <a class="main_btn2" href="{% url 'Juego' %}">Explorar más</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="h_blog_img">
+                                            <img class="img-fluid" src="{% static '/AdminLTE-2.4.2/img/alegre-01.png' %}" alt="" width="500" height="500">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Full Width Column -->
+                        <footer class="main-footer">
+                            <div class="container">
+                                <div class="pull-right hidden-xs">
+                                    <b>Versión</b> 1.0.0
+                                </div>
+                                <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                            </div><!-- /.container -->
+                        </footer>
+                        <div class="control-sidebar-bg"></div>
+                    </section>
+                </nav>
+            </header>
+        </body>
+    {% endif %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src={% static 'AdminLTE-2.4.2/home/js/jquery-3.3.1.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/js/popper.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/js/bootstrap.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/js/stellar.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/vendors/lightbox/simpleLightbox.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/vendors/nice-select/js/jquery.nice-select.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/vendors/isotope/imagesloaded.pkgd.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/vendors/isotope/isotope.pkgd.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/vendors/owl-carousel/owl.carousel.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/vendors/popup/jquery.magnific-popup.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/js/jquery.ajaxchimp.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/vendors/counter-up/jquery.waypoints.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/vendors/counter-up/jquery.counterup.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/js/mail-script.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/home/js/theme.js'%}></script>
+    <!-- jQuery 3 -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/jquery/dist/jquery.min.js'%}></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/jquery-ui/jquery-ui.min.js'%}></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/bootstrap/dist/js/bootstrap.min.js'%}></script>
+    <!-- DataTables -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/datatables.net/js/jquery.dataTables.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'%}></script>
+    <!-- iCheck -->
+    <script src={% static 'AdminLTE-2.4.2/plugins/iCheck/icheck.min.js'%}></script>
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' // optional
+        });
+      });
+    </script>
+    <!-- Morris.js charts -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/raphael/raphael.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/bower_components/morris.js/morris.min.js'%}></script>
+    <!-- jQuery Knob Chart -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/jquery-knob/dist/jquery.knob.min.js'%}></script>
+    <!-- daterangepicker -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/moment/min/moment.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/bower_components/bootstrap-daterangepicker/daterangepicker.js'%}></script>
+    <!-- datepicker -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src={% static 'AdminLTE-2.4.2/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js'%}></script>
+    <!-- FastClick -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/fastclick/lib/fastclick.js'%}></script>
+    <!-- AdminLTE App -->
+    <script src={% static 'AdminLTE-2.4.2/dist/js/adminlte.min.js'%}></script>
+    <!-- Sparkline -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js'%}></script>
+    <!-- jvectormap  -->
+    <script src={% static 'AdminLTE-2.4.2/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'%}></script>
+    <script src={% static 'AdminLTE-2.4.2/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'%}></script>
+    <!-- SlimScroll -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/jquery-slimscroll/jquery.slimscroll.min.js'%}></script>
+    <!-- FastClick -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/fastclick/lib/fastclick.js'%}></script>
+    <!-- ChartJS -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/Chart.js/Chart.js'%}></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src={% static 'AdminLTE-2.4.2/dist/js/pages/dashboard.js'%}></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src={% static 'AdminLTE-2.4.2/dist/js/demo.js'%}></script>
+    <!-- FLOT CHARTS -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/Flot/jquery.flot.js'%}></script>
+    <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/Flot/jquery.flot.resize.js'%}></script>
+    <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/Flot/jquery.flot.pie.js'%}></script>
+    <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+    <script src={% static 'AdminLTE-2.4.2/bower_components/Flot/jquery.flot.categories.js'%}></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+        $('#example1').DataTable();
+        $('#example2').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false
+        })
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+          $('a[href^="-"]').click(function() {
+            var destino = $(this.hash); //this.hash lee el atributo href de este
+            $('html, body').animate({ scrollTop: destino.offset().top }, 700); //Llega a su destino con el tiempo deseado
+            return false;
+          });
+        });
+    </script>
+</html>
+{% endblock %}

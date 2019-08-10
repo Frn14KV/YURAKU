@@ -1,0 +1,39 @@
+{% extends "soporte.html" %}
+{% block title %} 404 - YURAKU {% endblock %}
+{% block content %}
+{% load staticfiles %}
+<html class="no-js" lang="es">
+    <title> 404 - YURAKU  </title>
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="{% url 'homepage' %}">
+                    <img src="{% static '/AdminLTE-2.4.2/img/faviconplanta-01.png' %}" class="user-image" alt="User Image">
+                    <b>YURA</b>KU
+                </a>
+            </div>
+            {% if message is not null %}
+                <div class="alert alert-danger alert-mg-b" role="alert">
+                    <strong>Datos Erroneos</strong> {{ message }}
+                </div>
+            {% endif %}<!-- /.login-logo -->
+            <div class="login-box-body">
+                <h3><i class="fa fa-warning text-yellow"></i> Oops! Error página no econtrada.</h3>
+                <p>
+                    Lo sentimos, pero la página que estás buscando no ha sido encontrada. Intente revisar la URL para detectar el error.
+                </p>
+                <form class="search-form">
+                    <div class="input-group">
+                        <div class="login-logo" style="text-align: center;">
+                            <a href="{% url 'homepage' %}"><b>YURA</b>KU</a>
+                        </div>
+                    </div><!-- /.input-group -->
+                </form>
+            </div><!-- /.login-box-body -->
+        </div><!-- /.login-box -->
+    </body>
+    <div class="text-center login-footer">
+        <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+    </div>
+</html>
+{% endblock %}
