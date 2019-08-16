@@ -74,10 +74,10 @@ if __name__ == "__main__":
   f.close()
   nombrep = nopl[0]
   nombreu = nopl[1]
-  file_name = "D:/Tesis/TesisVF/media/" + nombrep
+  file_name = "D:/Tesis/YURAKU/media/" + nombrep
   # "tf_files/flower_photos/daisy/3475870145_685a19116d.jpg"
-  model_file = "D:/Tesis/TesisVF/gestionplantas/tf_files/retrained_graph.pb"
-  label_file = "D:/Tesis/TesisVF/gestionplantas/tf_files/retrained_labels.txt"
+  model_file = "D:/Tesis/YURAKU/gestionplantas/tf_files/retrained_graph.pb"
+  label_file = "D:/Tesis/YURAKU/gestionplantas/tf_files/retrained_labels.txt"
   input_height = 224
   input_width = 224
   input_mean = 128
@@ -125,8 +125,8 @@ if __name__ == "__main__":
 
   input_name = "import/" + input_layer
   output_name = "import/" + output_layer
-  input_operation = graph.get_operation_by_name(input_name);
-  output_operation = graph.get_operation_by_name(output_name);
+  input_operation = graph.get_operation_by_name(input_name)
+  output_operation = graph.get_operation_by_name(output_name)
 
   with tf.Session(graph=graph) as sess:
     start = time.time()
@@ -143,7 +143,7 @@ if __name__ == "__main__":
   # archivo-salida.py
   f = open('media/datos/'+ nombreu + '.txt', 'w')
   for i in top_k:
-    #print(template.format(labels[i], results[i]))
+    print(template.format(labels[i], results[i]))
     f.write(template.format(labels[i], results[i]) + ";")
 
   f.close()

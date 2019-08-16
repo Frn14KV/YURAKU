@@ -23,7 +23,6 @@ from django.views.static import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    #path('carreraw/', gestioncarrera.views.postList.as_view()),
     path('admin/doc', include('django.contrib.admindocs.urls')),
     #//////////////////webservice
     #login
@@ -113,7 +112,7 @@ urlpatterns = [
     path('planta/buscar', gestionplantas.views.buscar_plantas, name = 'buscar_planta'),
     path('planta/guardar', gestionplantas.views.guardar_planta, name='guardar_planta'),
     path('planta/reconocimiento',gestionplantas.views.reconocimeinto, name= 'Reconocimiento'),
-    path('planta/prueba',gestionplantas.views.contar, name= 'prueba'),
+    path('planta/reconocido',gestionplantas.views.reconocimiento, name= 'prueba'),
     re_path(r'^planta/editar/(?P<planta_id>\d+)/$', gestionplantas.views.editar_planta, name='editar_planta'),
     re_path(r'^planta/infor/(?P<planta_id>\d+)/$', gestionplantas.views.planta_detalle, name='planta_detalle'),
     re_path(r'^planta/eliminar/(?P<planta_id>\d+)/$', gestionplantas.views.eliminar_planta, name='eliminar_planta')

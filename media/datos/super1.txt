@@ -1,1 +1,1 @@
-penco (score=0.78511);aguacate (score=0.19396);floripondio (score=0.01087);achira (score=0.00248);col (score=0.00213);
+ataco (score=0.99964);apio (score=0.00029);lengua de tigre (score=0.00007);malva (score=0.00000);stevia (score=0.00000);

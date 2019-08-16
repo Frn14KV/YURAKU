@@ -532,7 +532,7 @@ def ranking_memorama(request):
 @login_required
 def eliminar_ranking_adivina(request, juego_id):
     juego = get_object_or_404(Juego, id=juego_id)
-    if juego.nombre_juego == "Adivina la_Planta":
+    if juego.nombre_juego == "Adivina la Planta":
         juego.delete()
         return redirect('Ranking_Adivina')
     elif juego.nombre_juego == "Memorama":

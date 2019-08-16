@@ -349,7 +349,7 @@ def reconocimeinto(request):
             f.write(str(pb.imagen_reconocimiento)+";")
             f.write(str(nombre))
             f.close()
-            process1 = subprocess.run(['python', 'D:/Tesis/TesisVF/gestionplantas/scripts/label_image.py '])
+            process1 = subprocess.run(['python', 'D:/Tesis/YURAKU/gestionplantas/scripts/label_image.py '])
             # process1 = subprocess.Popen(['python', 'D:/Tesis/TesisVF/gestionplantas/scripts/label_image.py --graph=D:/Tesis/TesisVF/gestionplantas/tf_files/retrained_graph.pb --image = D:/Tesis/TesisVF/gestionplantas/rosas.jpg'])
             print(process1.returncode)
             while process1 == 0:
@@ -369,7 +369,7 @@ def reconocimeinto(request):
                     qset = (
                         Q(nombre_planta__icontains=query)
                     )
-                    plantas_encontradas = Planta.objects.filter(qset).all()
+                    plantas_encontradas = Planta.objects.filter(qset).all().first()
                     # userid = request.user.id
                     # if userid != None:
                     #   usuario = get_object_or_404(User, id=userid)
@@ -408,9 +408,9 @@ def reconocimeinto(request):
 from ratelimit.decorators import ratelimit
 #hilo de reconocimiento
 @login_required
-@ratelimit(key="ip", rate="5/s")
-def contar(request):
-    global nombre
+@ratelimit(key="ip", rate="15/s")
+def reconocimiento(request):
+    global nombre, planta_id
     if request.user.id:
         usuario = User.objects.get(id=request.user.id)
         id = usuario.id
@@ -461,6 +461,11 @@ def contar(request):
                     plantas_encontradas = []
                     message = None
                 perfilesc = Perfil.objects.all()
+                #if len(plantas_encontradas)>1:
+                 #   for p in plantas_encontradas[0:1]:
+                  #      planta_id = p.id
+                #else:
+                 #   planta_id = plantas_encontradas.get().id
                 planta_id = plantas_encontradas.get().id
                 planta = get_object_or_404(Planta, pk=planta_id)
                 comentarios = Comentario.objects.filter(Planta_id=planta_id)
@@ -492,4 +497,14 @@ def servicio():
     f.write(str(threading.currentThread().getName()))
     f.close()
     #process1 = subprocess.Popen(['python', 'D:/Tesis/TesisVF/gestionplantas/scripts/label_image.py '])
-    p = subprocess.run(["python", 'D:/Tesis/TesisVF/gestionplantas/scripts/label_image.py'])
+    p = subprocess.run(["python", 'D:/Tesis/YURAKU/gestionplantas/scripts/label_image.py'])
+
+
+def send_simple_message():
+    return requests.post(
+		"https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages",
+		auth=("api", "YOUR_API_KEY"),
+		data={"from": "Excited User <mailgun@YOUR_DOMAIN_NAME>",
+			"to": ["bar@example.com", "YOU@YOUR_DOMAIN_NAME"],
+			"subject": "Hello",
+			"text": "Testing some Mailgun awesomness!"})
