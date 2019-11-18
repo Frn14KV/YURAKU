@@ -1,3 +1,5 @@
+"""Tesis YURAKU de Christian Flores y Franklin Villavicencio 2019"""
+
 """
 Django settings for YURAKU project.
 
@@ -27,8 +29,8 @@ SECRET_KEY = 'w4u0_l3(bnkyw9-pdj$656lzj&wod+a@#mf05&4$fb^fyd-c-!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.139', '192.168.137.160', '172.16.218.64', '192.168.1.11']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.128', '192.168.137.160', '172.16.218.64', '192.168.1.11','0.0.0.0']
+#ALLOWED_HOSTS = ['franklin.pythonanywhere.com']
 
 # Application definition
 
@@ -43,12 +45,11 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework',
     'gestionplantas',
-    'gestionescuela',
     'gestionperfil',
     'gestionbusqueda',
     'chartjs',
-    'gestionayuda',
-    'gestionayudar',
+    'gestionreconocimiento',
+    'gestionresultado',
     'gestioncomentario',
     'gestionjuego',
 ]
@@ -101,6 +102,11 @@ DATABASES = {
         'PASSWORD': 'Yuraku',
         'HOST': '127.0.0.1',
         'PORT': '5432',
+        #'NAME': 'yuraku',
+        #'USER': 'yuraku',
+        #'PASSWORD': 'Yuraku',
+        #'HOST': 'franklin-1276.postgres.pythonanywhere-services.com',
+        #'PORT': '11276',
     }
 }
 
@@ -149,18 +155,17 @@ STATICFILES_DIRS = (
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 
-#MEDIA_ROOT = 'C:/Users/villa/Downloads/Seguimiento_Proyectos/media'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_PORT = 25
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'villa.chispo@gmail.com'
+#EMAIL_HOST_USER = 'yuraku2019@gmail.com'
 EMAIL_HOST_PASSWORD= 'Frn14k9542@@'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
@@ -170,3 +175,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'k6IHijbWBU-DwyXApEuSfYsq'
 
 SOCIAL_AUTH_GITHUB_KEY ='ee0d76d261070bcb8e10'
 SOCIAL_AUTH_GITHUB_SECRET = '0f52ff30a45ce825af28bdb8200d3e5b6066c822'
+
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '573942488723-6jgjqneq56k25u41ic9nusok89tq7lfa.apps.googleusercontent.com'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'Hm3SCjlnSLsvCh67XXKm22G6'
+
+#SOCIAL_AUTH_GITHUB_KEY = 'bff4d54eafc9650b37ee'
+#SOCIAL_AUTH_GITHUB_SECRET = 'a0ca5db081e8988381bd61578286144a0d3d135b'

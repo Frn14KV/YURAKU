@@ -1,5 +1,33 @@
-from datetime import date
+"""Tesis YURAKU de Christian Flores y Franklin Villavicencio 2019"""
 
+"""
+    librerias importadas
+    date: libreria propia de django para manejar fechas y todo lo que conlleve estas.
+    login_required: libreria propia de django para controlar que este iniciado sesion para acceder a una funcion.
+    permission_required: libreria propia de django para verificar si tiene permisos para realizar ciertas funciones.
+    reverse_lazy: libreria propia de django para retornar a una pagina espeficica si no tiene permisos.
+    colors: libreria propia de django para manejar colores de letra en la hoja de reportes.
+    TA_CENTER: libreria propia de django para centrar cualquier tipo de texto en la hoja de reportes.
+    getSampleStyleSheet: libreria propia de django para manejar las cabeceras de las tablas.
+    cm: libreria propia de jango para manejar la posicion que tendra la tabla en la hoja para los reportes.
+    A4: libreria propia de django para manejar el estilo de la hoja para los reportes.
+    TableStyle: libreria propia de django para manejar los estilos de tablas en los reportes.
+    Table: libreria propia de django para manejar las tablas para los reportes.
+    Paragraph: libreria propia para crear cada uno de los encabesados de la cabecera de la tabla de los reportes.
+    HttpResponse: libreria propia de django para generar respuestas web mas simples.
+    redirect: libreria propia de django para acceder a una pagina de manera mas rapida sin paso de datos.
+    get_object_or_404: libreria propia de django para realizar una busqueda de un objeto de un modelo.
+    render: libreria propia de django para retornar una pagina web con sus resultados.
+    User: importa el modelo llamado User que representa los usuarios del Sistema.
+    GuardarJuegoForm: importa el formulario llamado GuardarJuegoForm.
+    Juego: importa el modelo llamado Juego.
+    Perfil: importa el modelo llamado Perfil.
+    Planta: importa el modelo llamado Planta.
+    BytesIO: libreria propia de django que permite tratar un array de bytes como un fichero binario, se utiliza como almacenamiento temporal
+    canvas: libreria propia de django que permite hacer el reporte con coordenadas X y Y
+    View: libreria propia de dajngo para usar una vista basica.
+"""
+from datetime import date
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
 from reportlab.lib import colors
@@ -8,22 +36,24 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import TableStyle, Table, Paragraph
-
 from django.http import HttpResponse
-from gestioncomentario.models import Comentario
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.models import User
-
 from gestionjuego.form import GuardarJuegoForm
 from gestionjuego.models import Juego
 from gestionperfil.models import Perfil
 from gestionplantas.models import Planta
-
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from django.views.generic import View
 
-
+"""
+    Funcion reporte_usuario
+    Funcion creada para guardar acceder a la pagina de reportes siempre y cuando este iniciado sesion y tenga el permiso para usar esta funcion, si lo tiene retorna una pagina web de reportes;
+    Si no tiene regresara a la pagina principal.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+"""
 # Reportes
 @permission_required('gestionescuela.agregar_escuela',reverse_lazy('homepage'))
 @login_required
@@ -41,7 +71,13 @@ def reporte_usuario(request):
     usuarios = User.objects.all().order_by('id')
     return render(request, 'reporte/reporte_usuario.html', {'usuarios': usuarios, 'perfiles': perfiles})
 
-
+"""
+    Funcion reporte_adivina_pdf
+    Funcion creada para generar reportes de un usuario especifico del juego Adivina la Palabra y retorna un archivo pdf con los resultados.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+        usuario_id: representa el id del usuario del que se quiere realizar el reporte.
+"""
 # reporte del juego Adivina
 def reporte_adivina_pdf(request, usuario_id):
     # Indicamos el tipo de contenido a devolver, en este caso un pdf
@@ -53,10 +89,12 @@ def reporte_adivina_pdf(request, usuario_id):
     # cabecera
     pdf.setLineWidth(.3)
     # Utilizamos el archivo logo_django.png que está guardado en la carpeta media/imagenes
-    archivo_imagen = 'D:/Tesis/TesisVF/static/AdminLTE-2.4.2/img/reporte/logo.png'
+    #archivo_imagen = '/home/franklin/YURAKU/static/AdminLTE-2.4.2/img/reporte/logo.png'
+    archivo_imagen = 'D:/Tesis/YURAKU/static/AdminLTE-2.4.2/img/reporte/logo.png'
     # Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
     pdf.drawImage(archivo_imagen, 430, 700, 150, 150, preserveAspectRatio=True)
-    log_imagen = 'D:/Tesis/TesisVF/static/AdminLTE-2.4.2/img/reporte/hoja.png'
+    #log_imagen = '/home/franklin/YURAKU/static/AdminLTE-2.4.2/img/reporte/hoja.png'
+    log_imagen = 'D:/Tesis/YURAKU/static/AdminLTE-2.4.2/img/reporte/hoja.png'
     # Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
     pdf.drawImage(log_imagen, 30, 740, 50, 50, preserveAspectRatio=True)
     #
@@ -116,7 +154,13 @@ def reporte_adivina_pdf(request, usuario_id):
     response.write(pdf)
     return response
 
-
+"""
+    Funcion reporte_sopa_pdf
+    Funcion creada para generar reportes de un usuario especifico del juego Sopa de Letras y retorna un archivo pdf con los resultados.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+        usuario_id: representa el id del usuario del que se quiere realizar el reporte.
+"""
 # reporte del juego Sopa de Letras
 def reporte_sopa_pdf(request, usuario_id):
     # Indicamos el tipo de contenido a devolver, en este caso un pdf
@@ -128,10 +172,12 @@ def reporte_sopa_pdf(request, usuario_id):
     # cabecera
     pdf.setLineWidth(.3)
     # Utilizamos el archivo logo_django.png que está guardado en la carpeta media/imagenes
-    archivo_imagen = 'D:/Tesis/TesisVF/static/AdminLTE-2.4.2/img/reporte/logo.png'
+    #archivo_imagen = '/home/franklin/YURAKU/static/AdminLTE-2.4.2/img/reporte/logo.png'
+    archivo_imagen = 'D:/Tesis/YURAKU/static/AdminLTE-2.4.2/img/reporte/logo.png'
     # Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
     pdf.drawImage(archivo_imagen, 430, 700, 150, 150, preserveAspectRatio=True)
-    log_imagen = 'D:/Tesis/TesisVF/static/AdminLTE-2.4.2/img/reporte/hoja.png'
+    #log_imagen = '/home/franklin/YURAKU/static/AdminLTE-2.4.2/img/reporte/hoja.png'
+    log_imagen = 'D:/Tesis/YURAKU/static/AdminLTE-2.4.2/img/reporte/hoja.png'
     # Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
     pdf.drawImage(log_imagen, 30, 740, 50, 50, preserveAspectRatio=True)
     #
@@ -191,7 +237,13 @@ def reporte_sopa_pdf(request, usuario_id):
     response.write(pdf)
     return response
 
-
+"""
+    Funcion reporte_memorama_pdf
+    Funcion creada para generar reportes de un usuario especifico del juego Memorama y retorna un archivo pdf con los resultados.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+        usuario_id: representa el id del usuario del que se quiere realizar el reporte.
+"""
 # reporte del juego Memorama
 def reporte_memorama_pdf(request, usuario_id):
     # Indicamos el tipo de contenido a devolver, en este caso un pdf
@@ -203,10 +255,12 @@ def reporte_memorama_pdf(request, usuario_id):
     # cabecera
     pdf.setLineWidth(.3)
     # Utilizamos el archivo logo_django.png que está guardado en la carpeta media/imagenes
-    archivo_imagen = 'D:/Tesis/TesisVF/static/AdminLTE-2.4.2/img/reporte/logo.png'
+    #archivo_imagen = '/home/franklin/YURAKU/static/AdminLTE-2.4.2/img/reporte/logo.png'
+    archivo_imagen = 'D:/Tesis/YURAKU/static/AdminLTE-2.4.2/img/reporte/logo.png'
     # Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
     pdf.drawImage(archivo_imagen, 430, 700, 150, 150, preserveAspectRatio=True)
-    log_imagen = 'D:/Tesis/TesisVF/static/AdminLTE-2.4.2/img/reporte/hoja.png'
+    #log_imagen = '/home/franklin/YURAKU/static/AdminLTE-2.4.2/img/reporte/hoja.png'
+    log_imagen = 'D:/Tesis/YURAKU/static/AdminLTE-2.4.2/img/reporte/hoja.png'
     # Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
     pdf.drawImage(log_imagen, 30, 740, 50, 50, preserveAspectRatio=True)
     #
@@ -266,18 +320,49 @@ def reporte_memorama_pdf(request, usuario_id):
     response.write(pdf)
     return response
 
+"""
+    Clase ReportePersonasPDF
+    Clase creada para generar reportes de todos los juegos con todos los uruarios que hayan jugado.
+        Parametro
+        View: para generar una vista basica para los reportes.
 
-# Reportes
+        Funcion cabecera
+        Funcion creada para generar la cabecera que tendra el reporte. 
+        En esta parte se le agrega una imagen, posicion, tamaño de la imagne, estilo de letra para el titulo y para todo el texto del reporte..
+            Parametro
+            self:  es un objeto instanciado de esa clase ReportePersonasPDF invocando por esta funcion.
+            pdf: objeto que representa el reporte en conrdenadas X y Y.
+
+        Funcion tabla
+        Funcion creada para generar el cuerpo de la tabla que tendra el reporte. 
+        En esta parte se le agrega el encabezado, se le asigna estilos y datos al encabezado, se le coloca los datos en la tabla y se define las cordenadas que ocupara dicha tabla.
+            Parametro
+            self:  es un objeto instanciado de esa clase ReportePersonasPDF invocando por esta funcion.
+            pdf: objeto que representa el reporte en conrdenadas X y Y.
+
+        Funcion get
+        Funcion creada para generar el pdf y llamar a las funciones anteriores (cabecera y tabla) para compeltar el proceso.
+        En esta funcion se le indica que tipo de archivo va a generar, se le asigna el estilo de la hoja, se le configura para que en caso de compeltar
+        una hoja pase a la siguente los datos, retornado un archivo pdf con el response.
+            Parametros
+        	self: es un objeto instanciado de esa clase ReportePersonasPDF invocando por esta funcion.
+        	request: para manejar las peticiones HTTP, FTP.
+        	*args: se usa para enviar una lista de argumentos de longitud variable sin palabras clave a la función. 
+        	**kwargs: permite pasar una longitud variable de argumentos con palabras clave a una función. Debe usar ** kwargs si desea manejar argumentos con nombre en una función. 
+"""
+# Reportes de todos los juego
 class ReportePersonasPDF(View):
 
     def cabecera(self, pdf):
         # cabecera
         pdf.setLineWidth(.3)
         # Utilizamos el archivo logo_django.png que está guardado en la carpeta media/imagenes
-        archivo_imagen = 'D:/Tesis/TesisVF/static/AdminLTE-2.4.2/img/reporte/logo.png'
+        #archivo_imagen = '/home/franklin/YURAKU/static/AdminLTE-2.4.2/img/reporte/logo.png'
+        archivo_imagen = 'D:/Tesis/YURAKU/static/AdminLTE-2.4.2/img/reporte/logo.png'
         # Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
         pdf.drawImage(archivo_imagen, 430, 700, 150, 150, preserveAspectRatio=True)
-        log_imagen = 'D:/Tesis/TesisVF/static/AdminLTE-2.4.2/img/reporte/hoja.png'
+        #log_imagen = '/home/franklin/YURAKU/static/AdminLTE-2.4.2/img/reporte/hoja.png'
+        log_imagen = 'D:/Tesis/YURAKU/static/AdminLTE-2.4.2/img/reporte/hoja.png'
         # Definimos el tamaño de la imagen a cargar y las coordenadas correspondientes
         pdf.drawImage(log_imagen, 30, 740, 50, 50, preserveAspectRatio=True)
         #
@@ -338,7 +423,6 @@ class ReportePersonasPDF(View):
         pdf = canvas.Canvas(buffer, pagesize=A4)
         # Llamo al método cabecera donde están definidos los datos que aparecen en la cabecera del reporte.
         self.cabecera(pdf)
-        y = 580
         self.tabla(pdf)
         # Con show page hacemos un corte de página para pasar a la siguiente
         pdf.showPage()
@@ -348,7 +432,12 @@ class ReportePersonasPDF(View):
         response.write(pdf)
         return response
 
-
+"""
+    Funcion agregar_record_adivina
+    Funcion creada para guardar los record de los usuarios que juege el Adivina la Palabra siempre y cuando este iniciado sesion y retorna a la misma pagina.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+"""
 #Guardar Record Adivina
 @login_required
 def agregar_record_adivina(request):
@@ -375,7 +464,7 @@ def agregar_record_adivina(request):
             a, b = 'áéíóúüñ', 'aeiouun'
             trans = str.maketrans(a, b)
             palabras.append(plantas[p].nombre_planta.translate(trans))
-            palabrasimagen.append(plantas[p].imagen_planta)
+            palabrasimagen.append(plantas[p].imagen_planta.name)
             palabrasnc.append(plantas[p].nombre_cientifico)
     tamanio = (len(palabras))
     if request.method == 'POST':
@@ -385,23 +474,28 @@ def agregar_record_adivina(request):
             juego = form.save(commit=False)
             juego.Usuario_id=usuario
             juego.save()
-            #form = GuardarJuegoForm()
+            print(palabrasimagen)
             return render(request, 'juego/adivina.html',
                           {'perfiles': perfiles, 'palabras': palabras, 'palabrasimagen': palabrasimagen,
                            'palabrasnc': palabrasnc, 'tamanio': tamanio})
         else:
             form = GuardarJuegoForm(request.POST)
-            message = "datos faltantes para registrar la Escuela"
             return render(request, 'juego/adivina.html',
                           {'perfiles': perfiles, 'palabras': palabras, 'palabrasimagen': palabrasimagen,
                            'palabrasnc': palabrasnc, 'tamanio': tamanio})
     else:
         form = GuardarJuegoForm()
+        print(palabrasimagen)
     return render(request, 'juego/adivina.html',
                   {'perfiles': perfiles, 'palabras': palabras, 'palabrasimagen': palabrasimagen,
                    'palabrasnc': palabrasnc, 'tamanio': tamanio})
 
-
+"""
+    Funcion agregar_record_sopa
+    Funcion creada para guardar los record de los usuarios que juege la Sopa de Letras siempre y cuando este iniciado sesion y retorna a la misma pagina.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+"""
 #Guardar Sopa de Letras
 @login_required
 def agregar_redord_sopa(request):
@@ -436,7 +530,6 @@ def agregar_redord_sopa(request):
                           {'palabras': palabras, 'perfiles': perfiles})
         else:
             form = GuardarJuegoForm(request.POST)
-            message = "datos faltantes para registrar la Escuela"
             return render(request, 'juego/sopa_de_letras.html',
                           {'palabras': palabras, 'perfiles': perfiles})
     else:
@@ -444,7 +537,12 @@ def agregar_redord_sopa(request):
     return render(request, 'juego/sopa_de_letras.html',
                   {'palabras': palabras, 'perfiles': perfiles})
 
-
+"""
+    Funcion agregar_record_memorama
+    Funcion creada para guardar los record de los usuarios que juege el Memorama siempre y cuando este iniciado sesion y retorna a la misma pagina.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+"""
 #Guardar Record Memorama
 @login_required
 def agregar_redord_memorama(request):
@@ -471,7 +569,6 @@ def agregar_redord_memorama(request):
                           {'perfiles': perfiles})
         else:
             form = GuardarJuegoForm(request.POST)
-            message = "datos faltantes para registrar la Escuela"
             return render(request, 'juego/memorama.html',
                           {'perfiles': perfiles})
     else:
@@ -479,7 +576,12 @@ def agregar_redord_memorama(request):
     return render(request, 'juego/memorama.html',
                   {'perfiles': perfiles})
 
-
+"""
+    Funcion ranking_adivina
+    Funcion creada para obtener las posiciones que tienen los usuarios que jugaron el Adivina la Palabra y retorna a la misma pagina con dichos datos.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+"""
 #ranklin de Juego Adivina
 def ranking_adivina(request):
     if request.user.id:
@@ -495,7 +597,12 @@ def ranking_adivina(request):
     ranking = Juego.objects.all().order_by('aciertos','-tiempo').reverse().filter(nombre_juego="Adivina la Planta")
     return render(request, 'reporte/ranking.html', {'ranking': ranking, 'perfiles': perfiles})
 
-
+"""
+    Funcion ranking_sopa
+    Funcion creada para obtener las posiciones que tienen los usuarios que jugaron la Sopa de Letras y retorna a la misma pagina con dichos datos.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+"""
 #ranklin de Juego Sopa de Letras
 def ranking_sopa(request):
     if request.user.id:
@@ -511,7 +618,12 @@ def ranking_sopa(request):
     ranking = Juego.objects.all().order_by('aciertos','-tiempo').reverse().filter(nombre_juego="Sopa de Letras")
     return render(request, 'reporte/ranking.html', {'ranking': ranking, 'perfiles': perfiles})
 
-
+"""
+    Funcion ranking_memorama
+    Funcion creada para obtener las posiciones que tienen los usuarios que jugaron el Memorama y retorna a la misma pagina con dichos datos.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+"""
 #ranklin de Juego Memorama
 def ranking_memorama(request):
     if request.user.id:
@@ -527,10 +639,16 @@ def ranking_memorama(request):
     ranking = Juego.objects.all().order_by('aciertos','-tiempo').reverse().filter(nombre_juego="Memorama")
     return render(request, 'reporte/ranking.html', {'ranking': ranking, 'perfiles': perfiles})
 
-
-#Eliminar Comentario
+"""
+    Funcion eliminar_ranking_adivina
+    Funcion creada para eliminar un registro de un cualquier juego que le usuario quiera eliminar simpre y cuando este iniciado sesion y retorna a la misma pagina con las posiciones actualizadas.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+        juego_id: para encontrar los datos del juego que se quiere eliminar
+"""
+#Eliminar Ranking
 @login_required
-def eliminar_ranking_adivina(request, juego_id):
+def eliminar_ranking(request, juego_id):
     juego = get_object_or_404(Juego, id=juego_id)
     if juego.nombre_juego == "Adivina la Planta":
         juego.delete()
@@ -542,3 +660,46 @@ def eliminar_ranking_adivina(request, juego_id):
         juego.delete()
         return redirect('Ranking_Sopa')
 
+"""
+    Funcion eliminar_memorama_ranking
+    Funcion creada para eliminar un registro del juego Memorama que le usuario quiera eliminar simpre y cuando este iniciado sesion y retorna a la misma pagina con las posiciones actualizadas.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+        juego_id: para encontrar los datos del juego que se quiere eliminar
+"""
+#Eliminar Ranking Memorama
+@login_required
+def eliminar_memorama_ranking(request, juego_id):
+    juego = get_object_or_404(Juego, id=juego_id)
+    juego.delete()
+    print("Memorma")
+    return redirect('juego_memorama')
+
+"""
+    Funcion eliminar_adivina_ranking
+    Funcion creada para eliminar un registro del juego Adivina la Planta que le usuario quiera eliminar simpre y cuando este iniciado sesion y retorna a la misma pagina con las posiciones actualizadas.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+        juego_id: para encontrar los datos del juego que se quiere eliminar
+"""
+#Eliminar Ranking Advina
+@login_required
+def eliminar_adivina_ranking(request, juego_id):
+    juego = get_object_or_404(Juego, id=juego_id)
+    juego.delete()
+    print("ADIVINA")
+    return redirect('juego_adivina')
+
+"""
+    Funcion eliminar_sopa_sopa
+    Funcion creada para eliminar un registro del juego Sopa de Letras que le usuario quiera eliminar simpre y cuando este iniciado sesion y retorna a la misma pagina con las posiciones actualizadas.
+        Parametro
+        request: para manejar las peticiones HTTP, FTP.
+        juego_id: para encontrar los datos del juego que se quiere eliminar
+"""
+#Eliminar Ranking Sopa de Letras
+@login_required
+def eliminar_sopa_sopa_ranking(request, juego_id):
+    juego = get_object_or_404(Juego, id=juego_id)
+    juego.delete()
+    return redirect('juego_sopa_de_letras')

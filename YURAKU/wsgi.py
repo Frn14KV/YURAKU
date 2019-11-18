@@ -1,9 +1,15 @@
+"""Tesis YURAKU de Christian Flores y Franklin Villavicencio 2019"""
+
 """
-WSGI config for YURAKU project.
+La comunidad web Python ha creado un estándar llamado Web Server Gateway Interface,
+o por sus siglas, WSGI. Este standar nos permite escribir programas los cuales puedan
+comunicarse a través del protocolo HTTP, es decir, Internet.
 
-It exposes the WSGI callable as a module-level variable named ``application``.
+WSGI de configuracion para proyecto YURAKU .
 
-For more information on this file, see
+El WSGI invocado como una variable de nivel de módulo se lo denomina "application".
+
+Para obtener más información sobre este archivo, vea
 https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 """
 

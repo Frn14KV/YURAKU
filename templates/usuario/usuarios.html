@@ -96,7 +96,7 @@
                                   <!-- Menu Footer-->
                                   <li class="user-footer">
                                       <div class="pull-left">
-                                          <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                          <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                       </div>
                                       <div class="pull-right">
                                           <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -162,7 +162,7 @@
                         <li class="header">Menú de Navegación</li>
                         <li>
                             <a href="{% url 'homepage' %}">
-                                <i class="fa fa-home"></i> <span>Home</span>
+                                <i class="fa fa-home"></i> <span>Inicio</span>
                             </a>
                         </li>
                         {% if user.groups.all|length > 0 %}
@@ -171,14 +171,14 @@
                                     <li class="treeview">
                                         <a href="#">
                                             <i class="fa fa-pagelines"></i>
-                                            <span>Plantas</span>
+                                            <span>Plantas Medicinales</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
                                         <ul class="treeview-menu">
                                             <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                             <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
                                         </ul>
                                     </li>
@@ -186,14 +186,14 @@
                                     <li class="treeview">
                                         <a href="#">
                                             <i class="fa fa-pagelines"></i>
-                                            <span>Plantas</span>
+                                            <span>Plantas Medicinales</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
                                         <ul class="treeview-menu">
                                             <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                         </ul>
                                     </li>
                                 {% endif %}
@@ -202,39 +202,34 @@
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-pagelines"></i>
-                                    <span>Plantas</span>
+                                    <span>Plantas Medicinales</span>
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                 </ul>
                             </li>
                         {% endif %}
                         <li>
                             <a href="{% url 'Reconocimiento' %}">
-                                <i class="fa fa-eye"></i> <span>Reconocimiento de Plantas</span>
+                                <i class="fa fa-eye"></i>
+                                <span>Reconocimiento de Plantas</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
+                        <li>
+                            <a href="{% url 'Juego' %}">
                                 <i class="fa fa-puzzle-piece"></i>
                                 <span>Juegos</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i> Lista de Juegos</a></li>
-                                <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i> Adivina la Planta</a></li>
-                                <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i> Sopa de letras</a></li>
-                                <li><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
-                            </ul>
                         </li>
                         <li class="treeview active">
                             <a href="#">
@@ -279,48 +274,6 @@
                                 {% endif %}
                             {% endfor %}
                         {% else %}
-                        {% endif %}
-                        {% if user.groups.all|length > 0 %}
-                            {% for u in user.groups.all%}
-                                {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
-                                    <li class="treeview">
-                                        <a href="#">
-                                            <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                            <span class="pull-right-container">
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </span>
-                                        </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                            <li><a href="{% url 'guardar_escuela' %}"><i class="fa fa-circle-o"></i> Agregar Escuela</a></li>
-                                        </ul>
-                                    </li>
-                                {% elif u.name == "Profesores" or u.name == "Estudiantes" %}
-                                    <li class="treeview">
-                                        <a href="#">
-                                            <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                            <span class="pull-right-container">
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </span>
-                                        </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                        </ul>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                </ul>
-                            </li>
                         {% endif %}
                         {% if user.is_authenticated %}
                             {% if perfiles %}
@@ -378,7 +331,7 @@
                         <small>YURAKU </small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i>Inicio</a></li>
                         <li class="active">Listado de Usuarios</li>
                     </ol>
                 </section>

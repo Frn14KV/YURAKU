@@ -98,7 +98,7 @@
                                                   <!-- Menu Footer-->
                                                   <li class="user-footer">
                                                       <div class="pull-left">
-                                                          <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                          <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                       </div>
                                                       <div class="pull-right">
                                                           <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -164,7 +164,7 @@
                                     <li class="header">Menú de Navegación</li>
                                     <li>
                                         <a href="{% url 'homepage' %}">
-                                            <i class="fa fa-home"></i> <span>Home</span>
+                                            <i class="fa fa-home"></i> <span>Inicio</span>
                                         </a>
                                     </li>
                                     {% if user.groups.all|length > 0 %}
@@ -173,14 +173,14 @@
                                             <li class="treeview">
                                                 <a href="#">
                                                     <i class="fa fa-pagelines"></i>
-                                                    <span>Plantas</span>
+                                                    <span>Plantas Medicinales</span>
                                                     <span class="pull-right-container">
                                                         <i class="fa fa-angle-left pull-right"></i>
                                                     </span>
                                                 </a>
                                                 <ul class="treeview-menu">
                                                     <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                                     <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
                                                 </ul>
                                             </li>
@@ -195,7 +195,7 @@
                                                 </a>
                                                 <ul class="treeview-menu">
                                                     <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                                 </ul>
                                             </li>
                                         {% endif %}
@@ -211,7 +211,7 @@
                                         </a>
                                         <ul class="treeview-menu">
                                             <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                         </ul>
                                     </li>
                                 {% endif %}
@@ -223,20 +223,14 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="treeview">
-                                        <a href="#">
+                                    <li>
+                                        <a href="{% url 'Juego' %}">
                                             <i class="fa fa-puzzle-piece"></i>
                                             <span>Juegos</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i> Lista de Juegos</a></li>
-                                            <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i> Adivina la Planta</a></li>
-                                            <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i> Sopa de letras</a></li>
-                                            <li><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
-                                        </ul>
                                     </li>
                                     {% if user.groups.all|length > 0 %}
                                         {% for u in user.groups.all%}
@@ -288,48 +282,6 @@
                                             {% endif %}
                                         {% endfor %}
                                     {% else %}
-                                    {% endif %}
-                                    {% if user.groups.all|length > 0 %}
-                                        {% for u in user.groups.all%}
-                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
-                                                <li class="treeview">
-                                                    <a href="#">
-                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                        <span class="pull-right-container">
-                                                            <i class="fa fa-angle-left pull-right"></i>
-                                                        </span>
-                                                    </a>
-                                                    <ul class="treeview-menu">
-                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                                        <li><a href="{% url 'guardar_escuela' %}"><i class="fa fa-circle-o"></i> Agregar Escuela</a></li>
-                                                    </ul>
-                                                </li>
-                                            {% elif u.name == "Profesores" or u.name == "Estudiantes" %}
-                                                <li class="treeview">
-                                                    <a href="#">
-                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                        <span class="pull-right-container">
-                                                            <i class="fa fa-angle-left pull-right"></i>
-                                                        </span>
-                                                    </a>
-                                                    <ul class="treeview-menu">
-                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                                    </ul>
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% else %}
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                <span class="pull-right-container">
-                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                            </ul>
-                                        </li>
                                     {% endif %}
                                     {% if user.is_authenticated %}
                                         {% if perfiles %}
@@ -417,7 +369,7 @@
                                                             <div class="carousel-caption">
                                                                 <h1>{{ planta.nombre_planta }}</h1>
                                                             </div>
-                                                            <form action="{% url 'prueba' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+                                                            <form action="{% url 'Reconocimiento' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
                                                                 <div class="col-sm-8">
                                                                     <div class="file-button">
                                                                         Buscar
@@ -461,7 +413,7 @@
                                                                     {% if planta.nombre_planta %}
                                                                         {{ planta.nombre_planta }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe el nombre que tiene la Planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
@@ -470,16 +422,16 @@
                                                                     {% if planta.nombre_comun %}
                                                                         {{ planta.nombre_comun }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe los nombres comunes que tiene la Planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
-                                                                <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptacion</label>
+                                                                <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptación</label>
                                                                 <output>
                                                                     {% if planta.lugar_adaptacion %}
                                                                         {{ planta.lugar_adaptacion }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe el lugar donde se puede adaptar la planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
@@ -488,7 +440,7 @@
                                                                     {% if planta.lugar_proviene %}
                                                                         {{ planta.lugar_proviene }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe el lugar de donde proviene la planta.
                                                                     {% endif %}
                                                                 </output>
                                                             </div>
@@ -497,18 +449,18 @@
                                                     <div class="panel box box-danger">
                                                         <div class="box-header with-border">
                                                             <h4 class="box-title">
-                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos cientificos de la Planta
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos científicos de la Planta
                                                                 </a>
                                                             </h4>
                                                         </div>
                                                         <div id="collapseTwo" class="panel-collapse collapse">
                                                             <div class="box-body">
-                                                                <label class="form-horizontal" for="id_nombre_coentifico">Nombre cientifico:</label>
+                                                                <label class="form-horizontal" for="id_nombre_coentifico">Nombre científico:</label>
                                                                 <output>
                                                                     {% if planta.nombre_cientifico %}
                                                                         {{ planta.nombre_cientifico }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe el nombre científico que tiene la planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
@@ -517,7 +469,7 @@
                                                                     {% if planta.reino %}
                                                                         {{ planta.reino }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe el reino al que pertenece la planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
@@ -526,7 +478,7 @@
                                                                     {% if planta.tipo %}
                                                                         {{ planta.tipo }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe el tipo al que pertenece la planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
@@ -535,7 +487,7 @@
                                                                     {% if planta.clase %}
                                                                         {{ planta.clase }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe la clase a la que pertenece la planta.
                                                                     {% endif %}
                                                                 </output>
                                                             </div>
@@ -555,7 +507,7 @@
                                                                     {% if planta.familia %}
                                                                         {{ planta.familia }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe la familia a la que pertenece la planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
@@ -564,7 +516,7 @@
                                                                     {% if planta.genero %}
                                                                         {{ planta.genero }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe el genero al que pertenece la planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
@@ -573,7 +525,7 @@
                                                                     {% if planta.especie %}
                                                                         {{ planta.especie }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe la especie a la que pertenece la planta.
                                                                     {% endif %}
                                                                 </output>
                                                                 <br>
@@ -582,7 +534,7 @@
                                                                     {% if planta.orden %}
                                                                         {{ planta.orden }}
                                                                     {% else %}
-                                                                        No se tiene asignado.
+                                                                        Describe el orden al que pertenece la planta.
                                                                     {% endif %}
                                                                 </output>
                                                             </div>
@@ -594,6 +546,72 @@
                                     </div><!-- /.col -->
                                 </div><!-- /.row -->
                                 <!-- END ACCORDION & CAROUSEL-->
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">Resultados del Reconocimiento</h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body no-padding">
+                                        <table class="table table-condensed">
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>Posibles Resultados</th>
+                                                <th>Progreso</th>
+                                                <th style="width: 40px">Porcentaje</th>
+                                            </tr>
+                                            <tr>
+                                                <td>1.</td>
+                                                <td>{{ result.Planta_id.nombre_planta }}</td>
+                                                <td>
+                                                    <div class="progress progress-xs progress-striped active">
+                                                        <div class="progress-bar progress-bar-success" style="width: {{ result.puntuacion }}%"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-green">{{ result.puntuacion }}%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2.</td>
+                                                <td>{{ datos.Nombre1 }}</td>
+                                                <td>
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar progress-bar-primary" style="width: {{ datos.Porcentaje1 }}%"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-blue">{{ datos.Porcentaje1 }}%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3.</td>
+                                                <td>{{ datos.Nombre2 }}</td>
+                                                <td>
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar progress-bar-yellow" style="width: {{ datos.Porcentaje2 }}%"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-yellow">{{ datos.Porcentaje2 }}%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>4.</td>
+                                                <td>{{ datos.Nombre3 }}</td>
+                                                <td>
+                                                    <div class="progress progress-xs progress-striped active">
+                                                        <div class="progress-bar progress-bar-light-blue" style="width: {{ datos.Porcentaje3 }}%"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-light-blue">{{ datos.Porcentaje3 }}%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>5.</td>
+                                                <td>{{ datos.Nombre4 }}</td>
+                                                <td>
+                                                    <div class="progress progress-xs progress-striped active">
+                                                        <div class="progress-bar progress-bar-danger" style="width: {{ datos.Porcentaje4 }}%"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-red">{{ datos.Porcentaje4 }}%</span></td>
+                                            </tr>
+                                        </table>
+                                    </div><!-- /.box-body -->
+                                </div><!-- /.box -->
                                 <!-- START CUSTOM TABS -->
                                 <h2 class="page-header">Bondades de la Planta</h2>
                                 <div class="row">
@@ -613,7 +631,7 @@
                                                         {% if planta.uso %}
                                                             {{ planta.uso }}
                                                         {% else %}
-                                                            No se tiene asignado.
+                                                            Describe el uso medicinal que se le da a la planta.
                                                         {% endif %}
                                                     </p>
                                                 </div>
@@ -624,7 +642,7 @@
                                                         {% if planta.como_ingerir %}
                                                             {{ planta.como_ingerir }}
                                                         {% else %}
-                                                            No se tiene asignado.
+                                                            Describe la forma en la que hay que preparar la planta.
                                                         {% endif %}
                                                     </p>
                                                 </div>
@@ -635,7 +653,7 @@
                                                         {% if planta.dosis %}
                                                             {{ planta.dosis }}
                                                         {% else %}
-                                                            No se tiene asignado.
+                                                            Describe la cantidad de uso que se le da planta.
                                                         {% endif %}
                                                     </p>
                                                 </div><!-- /.tab-pane -->
@@ -721,20 +739,14 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
-                                                    <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                                    <li><a href="{% url 'Planta' %}">Mis Plantas</a></li>
                                                 </ul>
                                             </li>
                                             <li class="active">
                                                 <a href="{%  url 'Reconocimiento' %}">Reconocimiento</a>
                                             </li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
-                                                    <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
-                                                    <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
-                                                    <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
-                                                </ul>
+                                            <li>
+                                                <a href="{% url 'Juego' %}">Juegos</a>
                                             </li>
                                             {% if user.is_authenticated %}
                                                 {% if perfiles %}
@@ -851,7 +863,7 @@
                                                         <!-- Menu Footer-->
                                                         <li class="user-footer">
                                                             <div class="pull-left">
-                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                             </div>
                                                             <div class="pull-right">
                                                                 <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -903,7 +915,7 @@
                                                                 <div class="carousel-caption">
                                                                     <h1>{{ planta.nombre_planta }}</h1>
                                                                 </div>
-                                                                <form action="{% url 'prueba' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+                                                                <form action="{% url 'Reconocimiento' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
                                                                     <div class="col-sm-8">
                                                                         <div class="file-button">
                                                                             Buscar
@@ -944,7 +956,7 @@
                                                                         {% if planta.nombre_planta %}
                                                                             {{ planta.nombre_planta }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe el nombre que tiene la Planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
@@ -953,16 +965,16 @@
                                                                         {% if planta.nombre_comun %}
                                                                             {{ planta.nombre_comun }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe los nombres comunes que tiene la Planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
-                                                                    <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptacion</label>
+                                                                    <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptación</label>
                                                                     <output>
                                                                         {% if planta.lugar_adaptacion %}
                                                                             {{ planta.lugar_adaptacion }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe el lugar donde se puede adaptar la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
@@ -971,7 +983,7 @@
                                                                         {% if planta.lugar_proviene %}
                                                                             {{ planta.lugar_proviene }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe el lugar de donde proviene la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                 </div>
@@ -980,18 +992,18 @@
                                                         <div class="panel box box-danger">
                                                             <div class="box-header with-border">
                                                                 <h4 class="box-title">
-                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos cientificos de la Planta
+                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos científicos de la Planta
                                                                     </a>
                                                                 </h4>
                                                             </div>
                                                             <div id="collapseTwo" class="panel-collapse collapse">
                                                                 <div class="box-body">
-                                                                    <label class="form-horizontal" for="id_nombre_coentifico">Nombre cientifico:</label>
+                                                                    <label class="form-horizontal" for="id_nombre_coentifico">Nombre científico:</label>
                                                                     <output>
                                                                         {% if planta.nombre_cientifico %}
                                                                             {{ planta.nombre_cientifico }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe el nombre científico que tiene la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
@@ -1000,7 +1012,7 @@
                                                                         {% if planta.reino %}
                                                                             {{ planta.reino }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                             Describe el reino al que pertenece la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
@@ -1009,7 +1021,7 @@
                                                                         {% if planta.tipo %}
                                                                             {{ planta.tipo }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe el tipo al que pertenece la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
@@ -1018,7 +1030,7 @@
                                                                         {% if planta.clase %}
                                                                             {{ planta.clase }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe la clase a la que pertenece la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                 </div>
@@ -1038,7 +1050,7 @@
                                                                         {% if planta.familia %}
                                                                             {{ planta.familia }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe la familia a la que pertenece la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
@@ -1047,7 +1059,7 @@
                                                                         {% if planta.genero %}
                                                                             {{ planta.genero }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe el genero al que pertenece la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
@@ -1056,7 +1068,7 @@
                                                                         {% if planta.especie %}
                                                                             {{ planta.especie }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe la especie a la que pertenece la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                     <br>
@@ -1065,7 +1077,7 @@
                                                                         {% if planta.orden %}
                                                                             {{ planta.orden }}
                                                                         {% else %}
-                                                                            No se tiene asignado.
+                                                                            Describe el orden al que pertenece la planta.
                                                                         {% endif %}
                                                                     </output>
                                                                 </div>
@@ -1077,6 +1089,72 @@
                                         </div><!-- /.col -->
                                     </div><!-- /.row -->
                                     <!-- END ACCORDION & CAROUSEL-->
+                                    <div class="box">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Resultados del Reconocimiento</h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body no-padding">
+                                            <table class="table table-condensed">
+                                                <tr>
+                                                    <th style="width: 10px">#</th>
+                                                    <th>Posibles Resultados</th>
+                                                    <th>Progreso</th>
+                                                    <th style="width: 40px">Porcentaje</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>1.</td>
+                                                    <td>{{ result.Planta_id.nombre_planta }}</td>
+                                                    <td>
+                                                        <div class="progress progress-xs progress-striped active">
+                                                            <div class="progress-bar progress-bar-success" style="width: {{ result.puntuacion }}%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-green">{{ result.puntuacion }}%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2.</td>
+                                                    <td>{{ datos.Nombre1 }}</td>
+                                                    <td>
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar progress-bar-primary" style="width: {{ datos.Porcentaje1 }}%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-blue">{{ datos.Porcentaje1 }}%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3.</td>
+                                                    <td>{{ datos.Nombre2 }}</td>
+                                                    <td>
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar progress-bar-yellow" style="width: {{ datos.Porcentaje2 }}%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-yellow">{{ datos.Porcentaje2 }}%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4.</td>
+                                                    <td>{{ datos.Nombre3 }}</td>
+                                                    <td>
+                                                        <div class="progress progress-xs progress-striped active">
+                                                            <div class="progress-bar progress-bar-light-blue" style="width: {{ datos.Porcentaje3 }}%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-light-blue">{{ datos.Porcentaje3 }}%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5.</td>
+                                                    <td>{{ datos.Nombre4 }}</td>
+                                                    <td>
+                                                        <div class="progress progress-xs progress-striped active">
+                                                            <div class="progress-bar progress-bar-danger" style="width: {{ datos.Porcentaje4 }}%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-red">{{ datos.Porcentaje4 }}%</span></td>
+                                                </tr>
+                                            </table>
+                                        </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
                                     <!-- START CUSTOM TABS -->
                                     <h2 class="page-header">Bondades de la Planta</h2>
                                     <div class="row">
@@ -1096,7 +1174,7 @@
                                                             {% if planta.uso %}
                                                                 {{ planta.uso }}
                                                             {% else %}
-                                                                No se tiene asignado.
+                                                                Describe el uso medicinal que se le da a la planta.
                                                             {% endif %}
                                                         </p>
                                                     </div>
@@ -1107,7 +1185,7 @@
                                                             {% if planta.como_ingerir %}
                                                                 {{ planta.como_ingerir }}
                                                             {% else %}
-                                                                No se tiene asignado.
+                                                                Describe la forma en la que hay que preparar la planta.
                                                             {% endif %}
                                                         </p>
                                                     </div>
@@ -1118,7 +1196,7 @@
                                                             {% if planta.dosis %}
                                                                 {{ planta.dosis }}
                                                             {% else %}
-                                                                No se tiene asignado.
+                                                                Describe la cantidad de uso que se le da planta.
                                                             {% endif %}
                                                         </p>
                                                     </div><!-- /.tab-pane -->
@@ -1207,20 +1285,14 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                            <li><a href="{% url 'Planta' %}">Mis Plantas</a></li>
                                         </ul>
                                     </li>
                                     <li class="active">
                                         <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
-                                            <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
-                                            <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
-                                            <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="{% url 'Juego' %}">Juegos</a>
                                     </li>
                                     {% if user.is_authenticated %}
                                         {% if perfiles %}
@@ -1337,7 +1409,7 @@
                                                 <!-- Menu Footer-->
                                                 <li class="user-footer">
                                                     <div class="pull-left">
-                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                     </div>
                                                     <div class="pull-right">
                                                         <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -1430,7 +1502,7 @@
                                                                 {% if planta.nombre_planta %}
                                                                     {{ planta.nombre_planta }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe el nombre que tiene la Planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
@@ -1439,16 +1511,16 @@
                                                                 {% if planta.nombre_comun %}
                                                                     {{ planta.nombre_comun }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe los nombres comunes que tiene la Planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
-                                                            <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptacion</label>
+                                                            <label class="form-horizontal" for="id_lugar_adaptacion">Lugar de Adaptación</label>
                                                             <output>
                                                                 {% if planta.lugar_adaptacion %}
                                                                     {{ planta.lugar_adaptacion }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe el lugar donde se puede adaptar la planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
@@ -1457,7 +1529,7 @@
                                                                 {% if planta.lugar_proviene %}
                                                                     {{ planta.lugar_proviene }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe el lugar de donde proviene la planta.
                                                                 {% endif %}
                                                             </output>
                                                         </div>
@@ -1466,18 +1538,18 @@
                                                 <div class="panel box box-danger">
                                                     <div class="box-header with-border">
                                                         <h4 class="box-title">
-                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos cientificos de la Planta
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Datos científicos de la Planta
                                                             </a>
                                                         </h4>
                                                     </div>
                                                     <div id="collapseTwo" class="panel-collapse collapse">
                                                         <div class="box-body">
-                                                            <label class="form-horizontal" for="id_nombre_coentifico">Nombre cientifico:</label>
+                                                            <label class="form-horizontal" for="id_nombre_coentifico">Nombre científico:</label>
                                                             <output>
                                                                 {% if planta.nombre_cientifico %}
                                                                     {{ planta.nombre_cientifico }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe el nombre científico que tiene la planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
@@ -1486,7 +1558,7 @@
                                                                 {% if planta.reino %}
                                                                     {{ planta.reino }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                     Describe el reino al que pertenece la planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
@@ -1495,7 +1567,7 @@
                                                                 {% if planta.tipo %}
                                                                     {{ planta.tipo }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe el tipo al que pertenece la planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
@@ -1504,7 +1576,7 @@
                                                                 {% if planta.clase %}
                                                                     {{ planta.clase }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe la clase a la que pertenece la planta.
                                                                 {% endif %}
                                                             </output>
                                                         </div>
@@ -1524,7 +1596,7 @@
                                                                 {% if planta.familia %}
                                                                     {{ planta.familia }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe la familia a la que pertenece la planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
@@ -1533,7 +1605,7 @@
                                                                 {% if planta.genero %}
                                                                     {{ planta.genero }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe el genero al que pertenece la planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
@@ -1542,7 +1614,7 @@
                                                                 {% if planta.especie %}
                                                                     {{ planta.especie }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe la especie a la que pertenece la planta.
                                                                 {% endif %}
                                                             </output>
                                                             <br>
@@ -1551,7 +1623,7 @@
                                                                 {% if planta.orden %}
                                                                     {{ planta.orden }}
                                                                 {% else %}
-                                                                    No se tiene asignado.
+                                                                    Describe el orden al que pertenece la planta.
                                                                 {% endif %}
                                                             </output>
                                                         </div>
@@ -1563,6 +1635,72 @@
                                 </div><!-- /.col -->
                             </div><!-- /.row -->
                             <!-- END ACCORDION & CAROUSEL-->
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Resultados del Reconocimiento</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body no-padding">
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>Posibles Resultados</th>
+                                            <th>Progreso</th>
+                                            <th style="width: 40px">Porcentaje</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>{{ result.Planta_id.nombre_planta }}</td>
+                                            <td>
+                                                <div class="progress progress-xs progress-striped active">
+                                                    <div class="progress-bar progress-bar-success" style="width: {{ result.puntuacion }}%"></div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-green">{{ result.puntuacion }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2.</td>
+                                            <td>{{ datos.Nombre1 }}</td>
+                                            <td>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-primary" style="width: {{ datos.Porcentaje1 }}%"></div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-blue">{{ datos.Porcentaje1 }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.</td>
+                                            <td>{{ datos.Nombre2 }}</td>
+                                            <td>
+                                                <div class="progress progress-xs">
+                                                    <div class="progress-bar progress-bar-yellow" style="width: {{ datos.Porcentaje2 }}%"></div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-yellow">{{ datos.Porcentaje2 }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4.</td>
+                                            <td>{{ datos.Nombre3 }}</td>
+                                            <td>
+                                                <div class="progress progress-xs progress-striped active">
+                                                    <div class="progress-bar progress-bar-light-blue" style="width: {{ datos.Porcentaje3 }}%"></div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-light-blue">{{ datos.Porcentaje3 }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.</td>
+                                            <td>{{ datos.Nombre4 }}</td>
+                                            <td>
+                                                <div class="progress progress-xs progress-striped active">
+                                                    <div class="progress-bar progress-bar-danger" style="width: {{ datos.Porcentaje4 }}%"></div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-red">{{ datos.Porcentaje4 }}%</span></td>
+                                        </tr>
+                                    </table>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
                             <!-- START CUSTOM TABS -->
                             <h2 class="page-header">Bondades de la Planta</h2>
                             <div class="row">
@@ -1582,7 +1720,7 @@
                                                     {% if planta.uso %}
                                                         {{ planta.uso }}
                                                     {% else %}
-                                                        No se tiene asignado.
+                                                        Describe el uso medicinal que se le da a la planta.
                                                     {% endif %}
                                                 </p>
                                             </div>
@@ -1593,7 +1731,7 @@
                                                     {% if planta.como_ingerir %}
                                                         {{ planta.como_ingerir }}
                                                     {% else %}
-                                                        No se tiene asignado.
+                                                        Describe la forma en la que hay que preparar la planta.
                                                     {% endif %}
                                                 </p>
                                             </div>
@@ -1604,7 +1742,7 @@
                                                     {% if planta.dosis %}
                                                         {{ planta.dosis }}
                                                     {% else %}
-                                                        No se tiene asignado.
+                                                        Describe la cantidad de uso que se le da planta.
                                                     {% endif %}
                                                 </p>
                                             </div><!-- /.tab-pane -->
@@ -1673,21 +1811,21 @@
         </body>
     {% endif %}
     <script>
-    function init() {
-      var inputFile = document.getElementById('id_imagen_reconocimiento');
-      inputFile.addEventListener('change', mostrarImagen, false);
-    }
-    function mostrarImagen(event) {
-      var file = event.target.files[0];
-      var reader = new FileReader();
-      $('#reconocer').attr("disabled", false);
-      reader.onload = function(event) {
-        var img = document.getElementById('img1');
-        img.src= event.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-    window.addEventListener('load', init, false);
+        function init() {
+          var inputFile = document.getElementById('id_imagen_reconocimiento');
+          inputFile.addEventListener('change', mostrarImagen, false);
+        }
+        function mostrarImagen(event) {
+          var file = event.target.files[0];
+          var reader = new FileReader();
+          $('#reconocer').attr("disabled", false);
+          reader.onload = function(event) {
+            var img = document.getElementById('img1');
+            img.src= event.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+        window.addEventListener('load', init, false);
     </script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script type="text/javascript">

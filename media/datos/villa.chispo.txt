@@ -1,0 +1,1 @@
+achira (score=0.87576);ruda (score=0.07957);diente leon (score=0.01288);escancel (score=0.00919);geranio (score=0.00566);

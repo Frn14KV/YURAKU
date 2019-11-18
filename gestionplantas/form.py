@@ -1,7 +1,29 @@
+"""Tesis YURAKU de Christian Flores y Franklin Villavicencio 2019"""
+
+"""
+    librerias importadas
+    forms: libreria propia de django para crear formularios
+    Planta: importa el modelo llamado Planta.
+"""
 from django import forms
 from gestionplantas.models import Planta
 
+"""
+    Clase GuardarPlantaForm
+    Clase creada para generar el formulario de Planta basado en los
+    campos que tiene el modelo Planta
+        Parametros
+        :param forms.ModelForm: Modelo basico propio de Django.
 
+    Subclase Meta
+        Clase creada para pasarle los atributos del moledo Comentario al
+        nuevo Formulario.
+            Atributos:
+                model : moldelo que tengra el fomulario (en esta caso sera del modelo Planta)
+                fields : campos que tendra el formulario (en este caso sera del modelo Planta)
+                labels : mensajes que tendra en cada campo del formulario
+                widgets : estilos que tendran cada campo.
+"""
 class GuardarPlantaForm(forms.ModelForm):
     class Meta:
         model = Planta

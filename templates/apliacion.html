@@ -108,7 +108,7 @@
                                                   <!-- Menu Footer-->
                                                   <li class="user-footer">
                                                       <div class="pull-left">
-                                                          <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                          <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                       </div>
                                                       <div class="pull-right">
                                                           <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -194,7 +194,7 @@
                                                 </a>
                                                 <ul class="treeview-menu">
                                                     <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                                     <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
                                                 </ul>
                                             </li>
@@ -209,7 +209,7 @@
                                                 </a>
                                                 <ul class="treeview-menu">
                                                     <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                                 </ul>
                                             </li>
                                         {% endif %}
@@ -225,7 +225,7 @@
                                         </a>
                                         <ul class="treeview-menu">
                                             <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                         </ul>
                                     </li>
                                 {% endif %}
@@ -237,20 +237,14 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li class="treeview">
-                                    <a href="#">
+                                <li>
+                                    <a href="{% url 'Juego' %}">
                                         <i class="fa fa-puzzle-piece"></i>
                                         <span>Juegos</span>
                                         <span class="pull-right-container">
                                             <i class="fa fa-angle-left pull-right"></i>
                                         </span>
                                     </a>
-                                     <ul class="treeview-menu">
-                                         <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i>Lista de Juegos</a></li>
-                                         <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i> Adivina la Planta</a></li>
-                                         <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i> Sopa de letras</a></li>
-                                         <li><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
-                                     </ul>
                                 </li>
                                 {% if user.groups.all|length > 0 %}
                                     {% for u in user.groups.all%}
@@ -494,20 +488,14 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
-                                                    <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                                    <li><a href="{% url 'Planta' %}">Mis Plantas</a></li>
                                                 </ul>
                                             </li>
                                             <li>
                                                 <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
                                             </li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
-                                                    <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
-                                                    <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
-                                                    <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
-                                                </ul>
+                                            <li>
+                                                <a href="{% url 'Juego' %}">Juegos</a>
                                             </li>
                                             {% if user.is_authenticated %}
                                                 {% if perfiles %}
@@ -624,7 +612,7 @@
                                                         <!-- Menu Footer-->
                                                         <li class="user-footer">
                                                             <div class="pull-left">
-                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                             </div>
                                                             <div class="pull-right">
                                                                 <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -746,20 +734,14 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                            <li><a href="{% url 'Planta' %}">Mis Plantas</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
-                                            <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
-                                            <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
-                                            <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="{% url 'Juego' %}">Juegos</a>
                                     </li>
                                     {% if user.is_authenticated %}
                                         {% if perfiles %}
@@ -876,7 +858,7 @@
                                                 <!-- Menu Footer-->
                                                 <li class="user-footer">
                                                     <div class="pull-left">
-                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                     </div>
                                                     <div class="pull-right">
                                                         <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>

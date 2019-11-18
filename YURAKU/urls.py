@@ -1,25 +1,50 @@
-from django.contrib import admin
+"""Tesis YURAKU de Christian Flores y Franklin Villavicencio 2019"""
 
+"""
+    librerias importadas
+    url: libreria propia de django para crear ulr(direciones) para acceder a funciones que estan en los views.
+    format_suffix_patterns:  libreria propia de django que es un booleano que indica si los sufijos en las URL 
+    deben ser opcionales u obligatorios. El valor predeterminado es False, lo que significa que los sufijos son 
+    opcionales de forma predeterminada, y se le agrega format para definir el formato.
+    admin: admin: administrador de Django
+    admin.autodiscover(): carga todo admin.py desde las carpetas de aplicaciones.
+    include: lbreria propia de django para incluir las demas urls de las otras carpetar del proyecto.
+    path: Devuelve un elemento para incluir en urlpatterns.
+    re_path: Devuelve un elemento para incluir en urlpatterns pero que tenga parametros.
+    views as auth_views: libreria propia de dajngo para usar una vista basica para recuperar la cuenta de un usuario.
+    staticfiles_urlpatterns: recopila archivos estáticos de cada una de sus aplicaciones (y cualquier otro lugar que especifique) en una única ubicación que se pueda servir fácilmente en producción.
+    static: libreria propia de django para servir los achivos estaticos que no sean de django (ejemplo archviso html, css, etc.)
+    YURAKU.views: importamos el archivo views de la carpeta YURAKU, donde esta las funciones sobre le modelo de YURAKU.
+    gestionplantas.views: importamos el archivo views de la carpeta gestionplantas, donde esta las funciones sobre le modelo de Planta.
+    gestionperfil.views: importamos el archivo views de la carpeta gestionperfil, donde esta las funciones sobre le modelo de Perfil.
+    gestioncomentario.views: importamos el archivo views de la carpeta gestioncomentario, donde esta las funciones sobre le modelo de Comentario.
+    gestionjuego.views: importamos el archivo views de la carpeta gestionjuego, donde esta las funciones sobre le modelo de Juego.
+    gestioncomentario: importamos la carpeta completa gestion comentario, donde estan todos los archivos.
+    gestionplantas.scripts: importamos el directorio scripts de la carpeta gestionplantas, donde esta las funciones para hacer el reconocimiento de Plantas.
+    settings: libreria propia de django para dirigir a django a localizar los archivos a servir.
+    serve: libreria propia de django para servir imaganes.
+"""
+from django.contrib import admin
 admin.autodiscover()
 from django.urls import include, path, re_path
 from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
-
 import YURAKU.views
 import gestionplantas.views
-import gestionescuela.views
 import gestionperfil.views
 import gestioncomentario.views
 import gestionjuego.views
 import gestioncomentario
 import gestionplantas.scripts
-
-
-
 from django.conf import settings
 from django.views.static import serve
 
+"""
+    En esta parte esta las url que permiten tener un enlaces a las funciones que estan en la views de todo el proyecto YURAKU.
+    En la parte final estan un codigo (urlpatterns) el que permite que se pueda cceder y mostrar los archivos estaticos, es decir los
+    archivos que usa la pagina web.
+"""
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -27,8 +52,6 @@ urlpatterns = [
     #//////////////////webservice
     #login
     re_path(r'^weblogin/$', YURAKU.views.weblogin),
-    #escuelas
-    re_path(r'^',include('gestionescuela.urls')),
     #perfil
     re_path(r'^',include('gestionperfil.urls')),
     #plantas
@@ -41,8 +64,6 @@ urlpatterns = [
     path('loginv', YURAKU.views.login_view, name="loginv"),
     path('logout', YURAKU.views.logout_view, name="logout"),
     path('registro', YURAKU.views.registro, name='registro'),
-    path('registroad', YURAKU.views.registroad, name='registroad'),
-    path('registrosp', YURAKU.views.registrosp, name='registrosp'),
     re_path(r'^oauth/', include('social_django.urls', namespace="social")),
 
     # carga de imagenes
@@ -59,7 +80,10 @@ urlpatterns = [
     path('juegos/ranking_sopa', gestionjuego.views.ranking_sopa, name='Ranking_Sopa'),
     path('juegos/ranking_adivina', gestionjuego.views.ranking_adivina, name='Ranking_Adivina'),
     path('juegos/ranking_memorama', gestionjuego.views.ranking_memorama, name='Ranking_Memorama'),
-    re_path(r'^juegos/ranking/eliminar/(?P<juego_id>\d+)/$', gestionjuego.views.eliminar_ranking_adivina, name='eliminar_ranking'),
+    re_path(r'^juegos/ranking/eliminar/(?P<juego_id>\d+)/$', gestionjuego.views.eliminar_ranking, name='eliminar_ranking'),
+    re_path(r'^juegos/memorama/eliminar/(?P<juego_id>\d+)/$', gestionjuego.views.eliminar_memorama_ranking, name='eliminar_ranking_memorama'),
+    re_path(r'^juegos/adivina/eliminar/(?P<juego_id>\d+)/$', gestionjuego.views.eliminar_adivina_ranking, name='eliminar_ranking_adivina'),
+    re_path(r'^juegos/sopa_de_letras/eliminar/(?P<juego_id>\d+)/$', gestionjuego.views.eliminar_sopa_sopa_ranking, name='eliminar_ranking_sopa'),
 
     #reporte
     path('reporteusuario', gestionjuego.views.reporte_usuario, name="report_usuario"),
@@ -88,12 +112,6 @@ urlpatterns = [
     re_path(r'^password-reset/complete/$',auth_views.PasswordResetCompleteView.as_view(template_name='registro/password_reset_complete.html'), name="password_reset_complete"),
     re_path(r'^password-reset/confirm/(?P<uidb64>[\w-]+)/(?P<token>[\w-]+)/$',auth_views.PasswordResetConfirmView.as_view(template_name='registro/password_reset_confirm.html'), name="password_reset_confirm"),
 
-    #escuela
-    path('escuela', gestionescuela.views.index, name='Escuela'),
-    path('escuela/guardar', gestionescuela.views.guardar_escuela, name='guardar_escuela'),
-    re_path(r'^escuela/editar/(?P<escuela_id>\d+)/$', gestionescuela.views.editar_escuela, name='editar_escuela'),
-    re_path(r'^escuela/eliminar/(?P<escuela_id>\d+)/$', gestionescuela.views.eliminar_escuela, name='eliminar_escuela'),
-
     #perfil
     path('perfil/guardar', gestionperfil.views.guardar_perfil, name='guardar_perfil'),
     re_path(r'^perfil/editar/(?P<user_id>\d+)/$', gestionperfil.views.editar_perfil, name='editar_perfil'),
@@ -102,20 +120,18 @@ urlpatterns = [
     re_path(r'^perfil/eliminar/busqueda/(?P<busqueda_id>\d+)/$', gestionperfil.views.eliminar_busqueda, name='eliminar_busqueda'),
 
     #comentario
-    #path('comentario', gestionescuela.views.index, name='Escuela'),
     re_path(r'^comentario/agregar/(?P<planta_id>\d+)/$', gestioncomentario.views.agregar_comentario, name='agregar_comentario'),
-    #re_path(r'^comentario/agregar/(?P<escuela_id>\d+)/$', gestionescuela.views.editar_escuela, name='editar_escuela'),
     re_path(r'^comentario/eliminar/(?P<comentario_id>\d+)/$', gestioncomentario.views.eliminar_comentario, name='eliminar_comentario'),
 
     #planta
     path('planta', gestionplantas.views.index, name='Planta'),
     path('planta/buscar', gestionplantas.views.buscar_plantas, name = 'buscar_planta'),
     path('planta/guardar', gestionplantas.views.guardar_planta, name='guardar_planta'),
-    path('planta/reconocimiento',gestionplantas.views.reconocimeinto, name= 'Reconocimiento'),
-    path('planta/reconocido',gestionplantas.views.reconocimiento, name= 'prueba'),
+    path('planta/reconocimiento',gestionplantas.views.reconocimiento, name= 'Reconocimiento'),
     re_path(r'^planta/editar/(?P<planta_id>\d+)/$', gestionplantas.views.editar_planta, name='editar_planta'),
     re_path(r'^planta/infor/(?P<planta_id>\d+)/$', gestionplantas.views.planta_detalle, name='planta_detalle'),
-    re_path(r'^planta/eliminar/(?P<planta_id>\d+)/$', gestionplantas.views.eliminar_planta, name='eliminar_planta')
+    re_path(r'^planta/eliminar/(?P<planta_id>\d+)/$', gestionplantas.views.eliminar_planta, name='eliminar_planta'),
+    re_path(r'^reconocimiento/eliminar/(?P<reconocimiento_id>\d+)/$', gestionperfil.views.eliminar_reconocimiento, name='eliminar_reconocimiento')
 
 
 ]

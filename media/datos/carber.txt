@@ -1,1 +1,1 @@
-ataco (score=0.99825);oregano (score=0.00058);verdolaga (score=0.00036);geranio (score=0.00029);culantro (score=0.00008);
+diente leon+96.77189588546753;cedron+1.1370573192834854;ajenjo+0.7102150470018387;margarita+0.6867074407637119;clavel+0.3432889003306627;

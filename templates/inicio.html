@@ -1,8 +1,8 @@
 {% extends "soporte.html" %}
-{% block title %} Iniciar Seccion - YURAKU {% endblock %}
+{% block title %} Iniciar Sesión - YURAKU {% endblock %}
 {% block content %}
 {% load staticfiles %}
-<title>Iniciar Seccion - YURAKU </title>
+<title>Iniciar Sesión - YURAKU </title>
 <html class="no-js" lang="es">
     <body class="hold-transition login-page">
         <div class="login-box">
@@ -21,12 +21,12 @@
                 <p class="login-box-msg">Inicia sesión en la aplicación.</p>
                 <form action="" method="post">{% csrf_token %}
                     <div class="form-group has-feedback">
-                        <span class="help-block small">Tu usuario de la apliacion</span>
+                        <span class="help-block small">Tu usuario de la aplicación</span>
                         <input type="text" placeholder="usuario" title="Por favor ingrese su usuarios" class="form-control" required="" value="" name="username" id="id_username">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <span class="help-block small">Tu contraseña de la aplicación</span>
+                        <span class="help-block small">Tu clave de la aplicación</span>
                         <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="id_password" class="form-control">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>

@@ -73,7 +73,7 @@
                                                     </li><!-- Menu Footer-->
                                                     <li class="user-footer">
                                                         <div class="pull-left">
-                                                            <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                            <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                         </div>
                                                         <div class="pull-right">
                                                             <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -133,7 +133,7 @@
                                     <li class="header">Menú de Navegación</li>
                                     <li>
                                         <a href="{% url 'homepage' %}">
-                                            <i class="fa fa-home"></i> <span>Home</span>
+                                            <i class="fa fa-home"></i> <span>Inicio</span>
                                         </a>
                                     </li>
                                     {% if user.groups.all|length > 0 %}
@@ -142,14 +142,14 @@
                                                 <li class="treeview">
                                                     <a href="#">
                                                         <i class="fa fa-pagelines"></i>
-                                                        <span>Plantas</span>
+                                                        <span>Plantas Medicinales</span>
                                                         <span class="pull-right-container">
                                                             <i class="fa fa-angle-left pull-right"></i>
                                                         </span>
                                                     </a>
                                                     <ul class="treeview-menu">
                                                         <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                        <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                        <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                                         <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
                                                     </ul>
                                                 </li>
@@ -157,14 +157,14 @@
                                                 <li class="treeview">
                                                     <a href="#">
                                                         <i class="fa fa-pagelines"></i>
-                                                        <span>Plantas</span>
+                                                        <span>Plantas Medicinales</span>
                                                         <span class="pull-right-container">
                                                             <i class="fa fa-angle-left pull-right"></i>
                                                         </span>
                                                     </a>
                                                     <ul class="treeview-menu">
                                                         <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                        <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                        <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                                     </ul>
                                                 </li>
                                             {% endif %}
@@ -173,39 +173,34 @@
                                         <li class="treeview">
                                             <a href="#">
                                                 <i class="fa fa-pagelines"></i>
-                                                <span>Plantas</span>
+                                                <span>Plantas Medicinales</span>
                                                 <span class="pull-right-container">
                                                     <i class="fa fa-angle-left pull-right"></i>
                                                 </span>
                                             </a>
                                             <ul class="treeview-menu">
                                                 <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                             </ul>
                                         </li>
                                     {% endif %}
                                     <li>
                                         <a href="{% url 'Reconocimiento' %}">
-                                            <i class="fa fa-eye"></i> <span>Reconocimiento de Plantas</span>
+                                            <i class="fa fa-eye"></i>
+                                            <span>Reconocimiento de Plantas</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="treeview">
-                                        <a href="#">
+                                    <li>
+                                        <a href="{% url 'Juego' %}">
                                             <i class="fa fa-puzzle-piece"></i>
                                             <span>Juegos</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i> Lista de Juegos</a></li>
-                                            <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i> Adivina la Planta</a></li>
-                                            <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i> Sopa de letras</a></li>
-                                            <li><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
-                                        </ul>
                                     </li>
                                     {% if user.groups.all|length > 0 %}
                                         {% for u in user.groups.all%}
@@ -258,48 +253,6 @@
                                         {% endfor %}
                                     {% else %}
                                     {% endif %}
-                                    {% if user.groups.all|length > 0 %}
-                                        {% for u in user.groups.all%}
-                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
-                                                <li class="treeview">
-                                                    <a href="#">
-                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                        <span class="pull-right-container">
-                                                            <i class="fa fa-angle-left pull-right"></i>
-                                                        </span>
-                                                    </a>
-                                                    <ul class="treeview-menu">
-                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                                        <li><a href="{% url 'guardar_escuela' %}"><i class="fa fa-circle-o"></i> Agregar Escuela</a></li>
-                                                    </ul>
-                                                </li>
-                                            {% elif u.name == "Profesores" or u.name == "Estudiantes" %}
-                                                <li class="treeview">
-                                                    <a href="#">
-                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                        <span class="pull-right-container">
-                                                            <i class="fa fa-angle-left pull-right"></i>
-                                                        </span>
-                                                    </a>
-                                                    <ul class="treeview-menu">
-                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                                    </ul>
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% else %}
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                <span class="pull-right-container">
-                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                            </ul>
-                                        </li>
-                                    {% endif %}
                                     {% if user.is_authenticated %}
                                         {% for p in perfiles.all %}
                                             {% if p.Usuario_id.id == user.id %}
@@ -343,7 +296,7 @@
                                     <small> YURAKU </small>
                                 </h1>
                                 <ol class="breadcrumb">
-                                    <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                    <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i>Inicio</a></li>
                                     <li class="active">Perfil del Usuario</li>
                                 </ol>
                             </section><!-- Main content -->
@@ -389,7 +342,7 @@
                                             <div class="box-body">
                                                 <strong><i class="fa fa-bank margin-r-5"></i> Escuela</strong>
                                                 <p class="text-muted">
-                                                    <span class="label label-success">{{ perfil.Escuela_perfil.nombre_escuela }}</span>
+                                                    <span class="label label-success">{{ perfil.escuela_perfil }}</span>
                                                 </p>
                                                 <hr>
                                                 <strong><i class="fa fa-book margin-r-5"></i> Grado</strong>
@@ -399,7 +352,7 @@
                                                 <hr>
                                                 <strong><i class="fa fa-pencil margin-r-5"></i> Fecha de Nacimiento</strong>
                                                 <p>
-                                                    <span class="label label-info">{{ perfil.fecha_nacimiento_perfil }}</span>
+                                                    <span class="label label-info">{{ perfil.fecha_nacimiento_perfil|date:"Y-m-d" }}</span>
                                                 </p>
                                             </div><!-- /.box-body -->
                                         </div><!-- /.box -->
@@ -424,8 +377,9 @@
                                             <ul class="nav nav-tabs">
                                                 <li class="active"><a href="#activity" data-toggle="tab">Busquedas</a></li>
                                                 <li><a href="#comment" data-toggle="tab">Comentarios</a></li>
-                                                <li><a href="#information" data-toggle="tab">Editar Informacion</a></li>
-                                                <li><a href="#settings" data-toggle="tab">Configuracion de la Cuenta</a></li>
+                                                <li><a href="#reconomient" data-toggle="tab">Reconocimiento</a></li>
+                                                <li><a href="#information" data-toggle="tab">Editar información</a></li>
+                                                <li><a href="#settings" data-toggle="tab">Configuración de la Cuenta</a></li>
                                                 <li><a href="#change" data-toggle="tab">Cambiar Clave</a></li>
                                             </ul>
                                             <div class="tab-content">
@@ -472,7 +426,7 @@
                                                                                                 </li>
                                                                                                 <li>
                                                                                                     <a href="{% url 'planta_detalle' tag.id %}" class="small-box-footer">
-                                                                                                        Mas Informacion
+                                                                                                        Mas Información
                                                                                                         <span class="pull-right badge bg-green">
                                                                                                             <i class="fa fa-arrow-circle-right"></i>
                                                                                                         </span>
@@ -525,7 +479,11 @@
                                                                             <div class="user-block">
                                                                                 <span class="username">
                                                                                     {% if p.Usuario_id.id == foo.Usuario_id.id %}
-                                                                                        <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
+                                                                                        {% if perfil.imagen_perfil %}
+                                                                                            <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
+                                                                                        {% else %}
+                                                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                                                        {%endif%}
                                                                                     {% else %}
                                                                                         <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
                                                                                     {% endif %}
@@ -538,6 +496,40 @@
                                                                             </div>
                                                                         </div>
                                                                     {% endfor %}<!-- /.user-block -->
+                                                                </div>
+                                                            {% endfor %}<!-- /.post -->
+                                                        {% else %}
+                                                            No hay actividad reciente.
+                                                        {% endif %}
+                                                    </div><!-- /.post -->
+                                                </div><!-- /.tab-pane -->
+                                                <!--Reconocimiento -->
+                                                <div class="tab-pane" id="reconomient"><!-- Post -->
+                                                    <div class="post">
+                                                        {% if reconocimientos %}
+                                                            {% for foo in reconocimientos %}
+                                                                <a href="#" class="btn btn-primary btn-block"><b></b></a>
+                                                                <br>
+                                                                <div class="user-block">
+                                                                    <span class="username">
+                                                                        <a href="#">El reconocmiento fue:</a>
+                                                                        <a onclick="return confirm('¿Seguro que deseas eliminarlo?')" href="{% url "eliminar_reconocimiento" foo.id %}" class="pull-right btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="post">
+                                                                    <div class="user-block">
+                                                                        <div class="user-block">
+                                                                            <span class="username">
+                                                                                <div class="timeline-item">
+                                                                                    <span class="time"><i class="fa fa-pagelines"></i> {{foo.Planta_id.nombre_planta}}</span>
+                                                                                    <div class="timeline-body">
+                                                                                        <img src="{{ foo.Reconociento_id.imagen_reconocimiento.url }}" alt="..." class="margin" style="width:200px;height:137px">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </span>
+                                                                        </div>
+                                                                        <span class="description">Realizado el : {{ foo.fecha_busqueda }}</span>
+                                                                    </div>
                                                                 </div>
                                                             {% endfor %}<!-- /.post -->
                                                         {% else %}
@@ -610,7 +602,7 @@
                                                             <label for="id_username" class="col-sm-2 control-label">Fecha de Nacimiento:</label>
                                                             <div class="col-sm-10">
                                                                 {% if factiva is None %}
-                                                                    {{ formulario.fecha_nacimiento_perfil }}
+                                                                    {{ formulario.fecha_nacimiento_perfil|date:"Y-m-d" }}
                                                                 {% else %}
                                                                     <input id="id_fecha_nacimiento_perfil" name="fecha_nacimiento_perfil" type="date" class="form-control" placeholder="fecha de nacimiento" value="{{perfil.fecha_nacimiento_perfil|date:"Y-m-d"}}">
                                                                 {% endif %}
@@ -623,19 +615,9 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="id_Escuela_perfil" class="col-sm-2 control-label">Escuela:</label>
+                                                            <label for="id_escuela" class="col-sm-2 control-label">Escuela:</label>
                                                             <div class="col-sm-10">
-                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                    <div class="chosen-select-single form-group">
-                                                                        <select name="Escuela_perfil" data-placeholder="Seleccione la Escuela en la que estudia" class="form-control" tabindex="-1" id="id_Escuela_perfil">
-                                                                            <option selected value={{ escuela.id }}>{{ escuela.nombre_escuela }}</option>
-                                                                            <option value="">Seleccione la Escuela</option>
-                                                                            {% for escuela in escuelas %}
-                                                                                <option value={{ escuela.id }}>{{ escuela.nombre_escuela }}</option>
-                                                                            {% endfor %}
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
+                                                                {{ formulario.escuela_perfil }}
                                                             </div>
                                                         </div>
                                                         <div class="form-group" style="text-align: center;">
@@ -782,25 +764,19 @@
                                     <!-- Collect the nav links, forms, and other content for toggling -->
                                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                            <li><a href="{% url 'homepage' %}">Inicio<span class="sr-only"></span></a></li>
                                             <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas Medicinales<span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
-                                                    <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                                    <li><a href="{% url 'Planta' %}">Mis Plantas</a></li>
                                                 </ul>
                                             </li>
                                             <li>
                                                 <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
                                             </li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
-                                                    <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
-                                                    <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
-                                                    <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
-                                                </ul>
+                                            <li>
+                                                <a href="{% url 'Juego' %}">Juegos</a>
                                             </li>
                                             {% if user.is_authenticated %}
                                                 {% if perfiles %}
@@ -917,7 +893,7 @@
                                                         <!-- Menu Footer-->
                                                         <li class="user-footer">
                                                             <div class="pull-left">
-                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                             </div>
                                                             <div class="pull-right">
                                                                 <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -940,7 +916,7 @@
                                         <small> YURAKU </small>
                                     </h1>
                                     <ol class="breadcrumb">
-                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i>Inicio</a></li>
                                         <li class="active">Perfil del Usuario</li>
                                     </ol>
                                 </section><!-- Main content -->
@@ -986,7 +962,7 @@
                                                 <div class="box-body">
                                                     <strong><i class="fa fa-bank margin-r-5"></i> Escuela</strong>
                                                     <p class="text-muted">
-                                                        <span class="label label-success">{{ perfil.Escuela_perfil.nombre_escuela }}</span>
+                                                        <span class="label label-success">{{ perfil.escuela_perfil }}</span>
                                                     </p>
                                                     <hr>
                                                     <strong><i class="fa fa-book margin-r-5"></i> Grado</strong>
@@ -996,7 +972,7 @@
                                                     <hr>
                                                     <strong><i class="fa fa-pencil margin-r-5"></i> Fecha de Nacimiento</strong>
                                                     <p>
-                                                        <span class="label label-info">{{ perfil.fecha_nacimiento_perfil }}</span>
+                                                        <span class="label label-info">{{ perfil.fecha_nacimiento_perfil|date:"Y-m-d" }}</span>
                                                     </p>
                                                 </div><!-- /.box-body -->
                                             </div><!-- /.box -->
@@ -1021,8 +997,9 @@
                                                 <ul class="nav nav-tabs">
                                                     <li class="active"><a href="#activity" data-toggle="tab">Busquedas</a></li>
                                                     <li><a href="#comment" data-toggle="tab">Comentarios</a></li>
-                                                    <li><a href="#information" data-toggle="tab">Editar Informacion</a></li>
-                                                    <li><a href="#settings" data-toggle="tab">Configuracion de la Cuenta</a></li>
+                                                    <li><a href="#reconomient" data-toggle="tab">Reconocimiento</a></li>
+                                                    <li><a href="#information" data-toggle="tab">Editar Información</a></li>
+                                                    <li><a href="#settings" data-toggle="tab">Configuración de la Cuenta</a></li>
                                                     <li><a href="#change" data-toggle="tab">Cambiar Clave</a></li>
                                                 </ul>
                                                 <div class="tab-content">
@@ -1069,7 +1046,7 @@
                                                                                                     </li>
                                                                                                     <li>
                                                                                                         <a href="{% url 'planta_detalle' tag.id %}" class="small-box-footer">
-                                                                                                            Mas Informacion
+                                                                                                            Mas Información
                                                                                                             <span class="pull-right badge bg-green">
                                                                                                                 <i class="fa fa-arrow-circle-right"></i>
                                                                                                             </span>
@@ -1122,7 +1099,11 @@
                                                                                 <div class="user-block">
                                                                                     <span class="username">
                                                                                         {% if p.Usuario_id.id == foo.Usuario_id.id %}
-                                                                                            <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
+                                                                                            {% if perfil.imagen_perfil %}
+                                                                                                <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
+                                                                                            {% else %}
+                                                                                                <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                                                            {%endif%}
                                                                                         {% else %}
                                                                                             <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
                                                                                         {% endif %}
@@ -1135,6 +1116,42 @@
                                                                                 </div>
                                                                             </div>
                                                                         {% endfor %}<!-- /.user-block -->
+                                                                    </div>
+                                                                {% endfor %}<!-- /.post -->
+                                                            {% else %}
+                                                                No hay actividad reciente.
+                                                            {% endif %}
+                                                        </div><!-- /.post -->
+                                                    </div><!-- /.tab-pane -->
+                                                    <!--Reconocimiento -->
+                                                    <div class="tab-pane" id="reconomient"><!-- Post -->
+                                                        <div class="post">
+                                                            {% if reconocimientos %}
+                                                                {% for foo in reconocimientos %}
+                                                                    <a href="#" class="btn btn-primary btn-block"><b></b></a>
+                                                                    <br>
+                                                                    <div class="user-block">
+                                                                        <span class="username">
+                                                                            <a href="#">El reconocmiento fue:</a>
+                                                                            <a onclick="return confirm('¿Seguro que deseas eliminarlo?')" href="{% url "eliminar_reconocimiento" foo.id %}" class="pull-right btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="post">
+                                                                        <div class="post">
+                                                                            <div class="user-block">
+                                                                                <div class="user-block">
+                                                                                    <span class="username">
+                                                                                        <div class="timeline-item">
+                                                                                            <span class="time"><i class="fa fa-pagelines"></i> {{foo.Planta_id.nombre_planta}}</span>
+                                                                                            <div class="timeline-body">
+                                                                                                <img src="{{ foo.Reconociento_id.imagen_reconocimiento.url }}" alt="..." class="margin" style="width:200px;height:137px">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <span class="description">Realizado el : {{ foo.fecha_busqueda }}</span>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 {% endfor %}<!-- /.post -->
                                                             {% else %}
@@ -1207,7 +1224,7 @@
                                                                 <label for="id_username" class="col-sm-2 control-label">Fecha de Nacimiento:</label>
                                                                 <div class="col-sm-10">
                                                                     {% if factiva is None %}
-                                                                        {{ formulario.fecha_nacimiento_perfil }}
+                                                                        {{ formulario.fecha_nacimiento_perfil|date:"Y-m-d" }}
                                                                     {% else %}
                                                                         <input id="id_fecha_nacimiento_perfil" name="fecha_nacimiento_perfil" type="date" class="form-control" placeholder="fecha de nacimiento" value="{{perfil.fecha_nacimiento_perfil|date:"Y-m-d"}}">
                                                                     {% endif %}
@@ -1220,19 +1237,9 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="id_Escuela_perfil" class="col-sm-2 control-label">Escuela:</label>
+                                                                <label for="id_escuela" class="col-sm-2 control-label">Escuela:</label>
                                                                 <div class="col-sm-10">
-                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                        <div class="chosen-select-single form-group">
-                                                                            <select name="Escuela_perfil" data-placeholder="Seleccione la Escuela en la que estudia" class="form-control" tabindex="-1" id="id_Escuela_perfil">
-                                                                                <option selected value={{ escuela.id }}>{{ escuela.nombre_escuela }}</option>
-                                                                                <option value="">Seleccione la Escuela</option>
-                                                                                {% for escuela in escuelas %}
-                                                                                    <option value={{ escuela.id }}>{{ escuela.nombre_escuela }}</option>
-                                                                                {% endfor %}
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
+                                                                    {{ formulario.escuela_perfil }}
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" style="text-align: center;">
@@ -1385,25 +1392,19 @@
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                    <li><a href="{% url 'homepage' %}">Inicio<span class="sr-only"></span></a></li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas Medicinales<span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                            <li><a href="{% url 'Planta' %}">Mis Plantas</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
-                                            <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
-                                            <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
-                                            <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="{% url 'Juego' %}">Juegos</a>
                                     </li>
                                     {% if user.is_authenticated %}
                                         {% if perfiles %}
@@ -1520,7 +1521,7 @@
                                                 <!-- Menu Footer-->
                                                 <li class="user-footer">
                                                     <div class="pull-left">
-                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                     </div>
                                                     <div class="pull-right">
                                                         <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -1543,7 +1544,7 @@
                                 <small> YURAKU </small>
                             </h1>
                             <ol class="breadcrumb">
-                                <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i>Inicio</a></li>
                                 <li class="active">Perfil del Usuario</li>
                             </ol>
                         </section><!-- Main content -->
@@ -1575,402 +1576,432 @@
                                                 <li class="list-group-item">
                                                     <b>Apellidos</b> <a class="pull-right">{{ perfil.apellidos_perfil }}</a>
                                                 </li>
-                                                        <li class="list-group-item">
-                                                          <b>Edad</b> <a class="pull-right">{{ perfil.edad_perfil }}</a>
-                                                        </li>
-                                                    </ul>
-                                                </div><!-- /.box-body -->
-                                            </div><!-- /.box -->
-                                            <!-- About Me Box -->
-                                            <div class="box box-primary">
-                                                <div class="box-header with-border">
-                                                    <h3 class="box-title">Acerca de Mi</h3>
-                                                </div><!-- /.box-header -->
-                                                <div class="box-body">
-                                                    <strong><i class="fa fa-bank margin-r-5"></i> Escuela</strong>
-                                                    <p class="text-muted">
-                                                        <span class="label label-success">{{ perfil.Escuela_perfil.nombre_escuela }}</span>
-                                                    </p>
-                                                    <hr>
-                                                    <strong><i class="fa fa-book margin-r-5"></i> Grado</strong>
-                                                    <p class="text-muted">
-                                                        <span class="label label-warning">{{ perfil.grado_perfil }}</span>
-                                                    </p>
-                                                    <hr>
-                                                    <strong><i class="fa fa-pencil margin-r-5"></i> Fecha de Nacimiento</strong>
-                                                    <p>
-                                                        <span class="label label-info">{{ perfil.fecha_nacimiento_perfil }}</span>
-                                                    </p>
-                                                </div><!-- /.box-body -->
-                                            </div><!-- /.box -->
-                                            <div class="content1">
-                                                {% if message is None %}
-                                                    Bienvenido
-                                                {% elif message is not null %}
-                                                    {% if message == "Editado con éxito" or message == "Eliminado con éxito"%}
-                                                        <div class="alert alert-success alert-mg-b" role="alert">
-                                                            <strong>Datos Corrector</strong> {{ message }}
-                                                        </div>
+                                                <li class="list-group-item">
+                                                    <b>Edad</b> <a class="pull-right">{{ perfil.edad_perfil }}</a>
+                                                </li>
+                                            </ul>
+                                        </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                    <!-- About Me Box -->
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Acerca de Mi</h3>
+                                        </div><!-- /.box-header -->
+                                        <div class="box-body">
+                                            <strong><i class="fa fa-bank margin-r-5"></i> Escuela</strong>
+                                            <p class="text-muted">
+                                                <span class="label label-success">{{ perfil.escuela_perfil }}</span>
+                                            </p>
+                                            <hr>
+                                            <strong><i class="fa fa-book margin-r-5"></i> Grado</strong>
+                                            <p class="text-muted">
+                                                <span class="label label-warning">{{ perfil.grado_perfil }}</span>
+                                            </p>
+                                            <hr>
+                                            <strong><i class="fa fa-pencil margin-r-5"></i> Fecha de Nacimiento</strong>
+                                            <p>
+                                                <span class="label label-info">{{ perfil.fecha_nacimiento_perfil|date:"Y-m-d" }}</span>
+                                            </p>
+                                        </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                    <div class="content1">
+                                        {% if message is None %}
+                                            Bienvenido
+                                        {% elif message is not null %}
+                                            {% if message == "Editado con éxito" or message == "Eliminado con éxito"%}
+                                                <div class="alert alert-success alert-mg-b" role="alert">
+                                                    <strong>Datos Corrector</strong> {{ message }}
+                                                </div>
+                                            {% else %}
+                                                <div class="alert alert-danger alert-mg-b" role="alert">
+                                                    <strong>Datos Erroneos</strong> {{ message }}
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div><!-- /.col -->
+                                <div class="col-md-9">
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#activity" data-toggle="tab">Busquedas</a></li>
+                                            <li><a href="#comment" data-toggle="tab">Comentarios</a></li>
+                                            <li><a href="#reconomient" data-toggle="tab">Reconocimiento</a></li>
+                                            <li><a href="#information" data-toggle="tab">Editar Información</a></li>
+                                            <li><a href="#settings" data-toggle="tab">Configuración de la Cuenta</a></li>
+                                            <li><a href="#change" data-toggle="tab">Cambiar Clave</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="active tab-pane" id="activity"><!-- Post -->
+                                                <div class="post">
+                                                    {% if planta_buscada %}
+                                                        {% for foo in planta_buscada %}
+                                                            <div class="user-block">
+                                                                <span class="username">
+                                                                    <a href="#">Nombre de la busqueda: {{ foo.nombre_busqueda}}</a>
+                                                                    <a onclick="return confirm('¿Seguro que deseas eliminarlo?')" href="{% url "eliminar_busqueda" foo.id %}" class="pull-right btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+                                                                </span>
+                                                                <span class="description">Fecha de la busqueda: {{ foo.fecha_busqueda }}</span>
+                                                            </div><!-- /.user-block -->
+                                                            <div class="user-block">
+                                                                <div class="user-block">
+                                                                    <span class="username">
+                                                                        <a href="#">Datos Econtrados:</a>
+                                                                    </span>
+                                                                </div>
+                                                                {% for tag in foo.Planta.all %}
+                                                                    <div class="col-md-4">
+                                                                        <div class="box box-widget widget-user-2">
+                                                                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                                                                            <div class="user-block">
+                                                                                <span class="username">
+                                                                                    <div class="timeline-item">
+                                                                                        <span class="time"><i class="fa fa-pagelines"></i> {{tag.nombre_planta}}</span>
+                                                                                        <div class="timeline-body">
+                                                                                            <img src="{{ tag.imagen_planta.url }}" alt="..." class="margin" style="width:180px;height:137px">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="user-block">
+                                                                                <span class="username">
+                                                                                    <div class="box-footer no-padding">
+                                                                                        <ul class="nav nav-stacked">
+                                                                                            <li>
+                                                                                                <a href="#">
+                                                                                                    Nombre
+                                                                                                    <span class="pull-right badge bg-yellow">{{ tag.nombre_planta }}</span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                            <li>
+                                                                                                <a href="{% url 'planta_detalle' tag.id %}" class="small-box-footer">
+                                                                                                    Mas Información
+                                                                                                    <span class="pull-right badge bg-green">
+                                                                                                        <i class="fa fa-arrow-circle-right"></i>
+                                                                                                    </span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div><!--/.direct-chat -->
+                                                                    </div><!-- /.col -->
+                                                                {% endfor %}
+                                                            </div><!-- /.row -->
+                                                            <a href="#" class="btn btn-primary btn-block"><b></b></a>
+                                                            <br>
+                                                        {% endfor %}
                                                     {% else %}
-                                                        <div class="alert alert-danger alert-mg-b" role="alert">
-                                                            <strong>Datos Erroneos</strong> {{ message }}
-                                                        </div>
+                                                        No hay actividad reciente.
                                                     {% endif %}
-                                                {% endif %}
-                                            </div>
-                                        </div><!-- /.col -->
-                                        <div class="col-md-9">
-                                            <div class="nav-tabs-custom">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#activity" data-toggle="tab">Busquedas</a></li>
-                                                    <li><a href="#comment" data-toggle="tab">Comentarios</a></li>
-                                                    <li><a href="#information" data-toggle="tab">Editar Informacion</a></li>
-                                                    <li><a href="#settings" data-toggle="tab">Configuracion de la Cuenta</a></li>
-                                                    <li><a href="#change" data-toggle="tab">Cambiar Clave</a></li>
-                                                </ul>
-                                                <div class="tab-content">
-                                                    <div class="active tab-pane" id="activity"><!-- Post -->
-                                                        <div class="post">
-                                                            {% if planta_buscada %}
-                                                                {% for foo in planta_buscada %}
-                                                                    <div class="user-block">
-                                                                        <span class="username">
-                                                                            <a href="#">Nombre de la busqueda: {{ foo.nombre_busqueda}}</a>
-                                                                            <a onclick="return confirm('¿Seguro que deseas eliminarlo?')" href="{% url "eliminar_busqueda" foo.id %}" class="pull-right btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
-                                                                        </span>
-                                                                        <span class="description">Fecha de la busqueda: {{ foo.fecha_busqueda }}</span>
-                                                                    </div><!-- /.user-block -->
+                                                </div><!-- /.post -->
+                                            </div><!-- /.tab-pane -->
+                                            <!--Comentarios -->
+                                            <div class="tab-pane" id="comment"><!-- Post -->
+                                                <div class="post">
+                                                    {% if comentarios %}
+                                                        {% for foo in comentarios %}
+                                                            <a href="#" class="btn btn-primary btn-block"><b></b></a>
+                                                            <br>
+                                                            <div class="user-block">
+                                                                <span class="username">
+                                                                    <a href="#">Los Comentarios del Usuario son:</a>
+                                                                    <a onclick="return confirm('¿Seguro que deseas eliminarlo?')" href="{% url "eliminar_comentario" foo.id %}" class="pull-right btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+                                                                </span>
+                                                            </div>
+                                                            <div class="post">
+                                                                {% for p in perfiles.all %}
                                                                     <div class="user-block">
                                                                         <div class="user-block">
                                                                             <span class="username">
-                                                                                <a href="#">Datos Econtrados:</a>
+                                                                                <div class="timeline-item">
+                                                                                    <span class="time"><i class="fa fa-pagelines"></i> {{foo.Planta_id.nombre_planta}}</span>
+                                                                                    <div class="timeline-body">
+                                                                                        <img src="{{ foo.Planta_id.imagen_planta.url }}" alt="..." class="margin" style="width:180px;height:137px">
+                                                                                    </div>
+                                                                                </div>
                                                                             </span>
                                                                         </div>
-                                                                        {% for tag in foo.Planta.all %}
-                                                                            <div class="col-md-4">
-                                                                                <div class="box box-widget widget-user-2">
-                                                                                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                                                                                    <div class="user-block">
-                                                                                        <span class="username">
-                                                                                            <div class="timeline-item">
-                                                                                                <span class="time"><i class="fa fa-pagelines"></i> {{tag.nombre_planta}}</span>
-                                                                                                <div class="timeline-body">
-                                                                                                    <img src="{{ tag.imagen_planta.url }}" alt="..." class="margin" style="width:180px;height:137px">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div class="user-block">
-                                                                                        <span class="username">
-                                                                                            <div class="box-footer no-padding">
-                                                                                                <ul class="nav nav-stacked">
-                                                                                                    <li>
-                                                                                                        <a href="#">
-                                                                                                            Nombre
-                                                                                                            <span class="pull-right badge bg-yellow">{{ tag.nombre_planta }}</span>
-                                                                                                        </a>
-                                                                                                    </li>
-                                                                                                    <li>
-                                                                                                        <a href="{% url 'planta_detalle' tag.id %}" class="small-box-footer">
-                                                                                                            Mas Informacion
-                                                                                                            <span class="pull-right badge bg-green">
-                                                                                                                <i class="fa fa-arrow-circle-right"></i>
-                                                                                                            </span>
-                                                                                                        </a>
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div><!--/.direct-chat -->
-                                                                            </div><!-- /.col -->
-                                                                        {% endfor %}
-                                                                    </div><!-- /.row -->
-                                                                    <a href="#" class="btn btn-primary btn-block"><b></b></a>
-                                                                    <br>
-                                                                {% endfor %}
-                                                            {% else %}
-                                                                No hay actividad reciente.
-                                                            {% endif %}
-                                                        </div><!-- /.post -->
-                                                    </div><!-- /.tab-pane -->
-                                                    <!--Comentarios -->
-                                                    <div class="tab-pane" id="comment"><!-- Post -->
-                                                        <div class="post">
-                                                            {% if comentarios %}
-                                                                {% for foo in comentarios %}
-                                                                    <a href="#" class="btn btn-primary btn-block"><b></b></a>
-                                                                    <br>
+                                                                    </div>
                                                                     <div class="user-block">
-                                                                        <span class="username">
-                                                                            <a href="#">Los Comentarios del Usuario son:</a>
-                                                                            <a onclick="return confirm('¿Seguro que deseas eliminarlo?')" href="{% url "eliminar_comentario" foo.id %}" class="pull-right btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
-                                                                        </span>
+                                                                        <div class="user-block">
+                                                                            <span class="username">
+                                                                                {% if p.Usuario_id.id == foo.Usuario_id.id %}
+                                                                                    {% if perfil.imagen_perfil %}
+                                                                                        <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
+                                                                                    {% else %}
+                                                                                        <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                                                    {%endif%}
+                                                                                {% else %}
+                                                                                    <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
+                                                                                {% endif %}
+                                                                                <span class="username">
+                                                                                    <a href="#">{{ foo.Usuario_id.first_name }} {{ foo.Usuario_id.last_name }}</a>
+                                                                                </span>
+                                                                                <span class="description">Comentado el: {{ foo.fecha_comentario }}</span>
+                                                                                <b> {{ foo.comentario }}</b>
+                                                                            </span>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="post">
-                                                                        {% for p in perfiles.all %}
-                                                                            <div class="user-block">
-                                                                                 <div class="user-block">
-                                                                                    <span class="username">
-                                                                                        <div class="timeline-item">
-                                                                                            <span class="time"><i class="fa fa-pagelines"></i> {{foo.Planta_id.nombre_planta}}</span>
-                                                                                            <div class="timeline-body">
-                                                                                                <img src="{{ foo.Planta_id.imagen_planta.url }}" alt="..." class="margin" style="width:180px;height:137px">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="user-block">
-                                                                                <div class="user-block">
-                                                                                    <span class="username">
-                                                                                        {% if p.Usuario_id.id == foo.Usuario_id.id %}
-                                                                                            <img src="{{ p.imagen_perfil.url }}" class="img-circle" alt="User Image">
-                                                                                        {% else %}
-                                                                                            <img src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" class="img-circle" alt="User Image">
-                                                                                        {% endif %}
-                                                                                        <span class="username">
-                                                                                            <a href="#">{{ foo.Usuario_id.first_name }} {{ foo.Usuario_id.last_name }}</a>
-                                                                                        </span>
-                                                                                        <span class="description">Comentado el: {{ foo.fecha_comentario }}</span>
-                                                                                        <b> {{ foo.comentario }}</b>
-                                                                                    </span>
-                                                                                </div>
-                                                                            </div>
-                                                                        {% endfor %}<!-- /.user-block -->
-                                                                    </div>
-                                                                {% endfor %}<!-- /.post -->
-                                                            {% else %}
-                                                                No hay actividad reciente.
-                                                            {% endif %}
-                                                        </div><!-- /.post -->
-                                                    </div><!-- /.tab-pane -->
-                                                    <!---Informaicon    -->
-                                                    <div class="tab-pane" id="information">
-                                                        <form action="{% url 'editar_perfil' user.id %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
-                                                            <div class="form-group">
-                                                                {% if perfil.imagen_perfil %}
-                                                                    <img class="profile-user-img img-responsive img-circle" id ="img1" src="{{ perfil.imagen_perfil.url }}" alt="User profile picture" width="60" height="60"/>
-                                                                {%else %}
-                                                                    <img class="profile-user-img img-responsive img-circle" id ="img1" src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="User profile picture" width="60" height="60">
-                                                                {%endif%}
-                                                                <h3 class="profile-username text-center">{{ user.first_name }} {{ user.last_name }}</h3>
-                                                                <p class="text-muted text-center">
-                                                                    {% for u in usuario.groups.all%}
-                                                                        {% if u.name %}
-                                                                            {{ u.name }}
-                                                                        {% else %}
-                                                                            el usuario no tiene asignado un rol.
-                                                                        {% endif %}
-                                                                    {% endfor %}
-                                                                </p>
+                                                                {% endfor %}<!-- /.user-block -->
                                                             </div>
+                                                        {% endfor %}<!-- /.post -->
+                                                    {% else %}
+                                                        No hay actividad reciente.
+                                                    {% endif %}
+                                                </div><!-- /.post -->
+                                            </div><!-- /.tab-pane -->
+                                            <!--Reconocimiento -->
+                                            <div class="tab-pane" id="reconomient"><!-- Post -->
+                                                <div class="post">
+                                                    {% if reconocimientos %}
+                                                        {% for foo in reconocimientos %}
                                                             <a href="#" class="btn btn-primary btn-block"><b></b></a>
-                                                            <div class="form-group">
-                                                                <label for="id_imagen_perfil" class="col-sm-2 control-label">Imagen:</label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="file-button">
-                                                                        Buscar
-                                                                        <input type="file" name="imagen_perfil" id="id_imagen_perfil" onchange="document.getElementById('append-big-btn').value = this.value;">
-                                                                    </div>
-                                                                    <input type="text" id="append-big-btn" value="{{ perfil.imagen_perfil }}" placeholder="no file selected" style="display:none">
-                                                                </div>
+                                                            <br>
+                                                            <div class="user-block">
+                                                                <span class="username">
+                                                                    <a href="#">El reconocmiento fue:</a>
+                                                                    <a onclick="return confirm('¿Seguro que deseas eliminarlo?')" href="{% url "eliminar_reconocimiento" foo.id %}" class="pull-right btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+                                                                </span>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="id_Usuario_id" class="col-sm-2 control-label">Usuario:</label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                        <div class="chosen-select-single form-group">
-                                                                            <select name="Usuario_id" data-placeholder="Seleccione la Escuela en la que estudia" class="form-control" tabindex="-1" id="id_Usuario_id">
-                                                                                <option selected value={{ user.id }}> {{ user.username }}</option>
-                                                                            </select>
+                                                            <div class="post">
+                                                                <div class="post">
+                                                                    <div class="user-block">
+                                                                        <div class="user-block">
+                                                                            <span class="username">
+                                                                                <div class="timeline-item">
+                                                                                    <span class="time"><i class="fa fa-pagelines"></i> {{foo.Planta_id.nombre_planta}}</span>
+                                                                                    <div class="timeline-body">
+                                                                                        <img src="{{ foo.Reconociento_id.imagen_reconocimiento.url }}" alt="..." class="margin" style="width:200px;height:137px">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </span>
                                                                         </div>
+                                                                        <span class="description">Realizado el : {{ foo.fecha_busqueda }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="id_first_name" class="col-sm-2 control-label" >Nombre Completos:</label>
-                                                                <div class="col-sm-10">
-                                                                    {{ formulario.nombres_perfil }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_last_name" class="col-sm-2 control-label" >Apellido Completos:</label>
-                                                                <div class="col-sm-10">
-                                                                    {{ formulario.apellidos_perfil }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_email" class="col-sm-2 control-label">Edad:</label>
-                                                                <div class="col-sm-10">
-                                                                    {{ formulario.edad_perfil }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_username" class="col-sm-2 control-label">Fecha de Nacimiento:</label>
-                                                                <div class="col-sm-10">
-                                                                    {% if factiva is None %}
-                                                                        {{ formulario.fecha_nacimiento_perfil }}
-                                                                    {% else %}
-                                                                        <input id="id_fecha_nacimiento_perfil" name="fecha_nacimiento_perfil" type="date" class="form-control" placeholder="fecha de nacimiento" value="{{perfil.fecha_nacimiento_perfil|date:"Y-m-d"}}">
-                                                                    {% endif %}
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_typeuser" class="col-sm-2 control-label">Grado:</label>
-                                                                <div class="col-sm-10">
-                                                                    {{ formulario.grado_perfil }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_Escuela_perfil" class="col-sm-2 control-label">Escuela:</label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                        <div class="chosen-select-single form-group">
-                                                                            <select name="Escuela_perfil" data-placeholder="Seleccione la Escuela en la que estudia" class="form-control" tabindex="-1" id="id_Escuela_perfil">
-                                                                                <option selected value={{ escuela.id }}>{{ escuela.nombre_escuela }}</option>
-                                                                                <option value="">Seleccione la Escuela</option>
-                                                                                {% for escuela in escuelas %}
-                                                                                    <option value={{ escuela.id }}>{{ escuela.nombre_escuela }}</option>
-                                                                                {% endfor %}
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group" style="text-align: center;">
-                                                                <div class="col-sm-offset-2 col-sm-10">
-                                                                    <button type="submit" class="btn btn-primary">Editar</button>
-                                                                    <a type="button" class="btn btn-danger waves-effect waves-light" href="{% url 'perfil_detallado' user.id %}">Cancelar</a>
-                                                                </div>
-                                                            </div>
-                                                        </form>
+                                                        {% endfor %}<!-- /.post -->
+                                                    {% else %}
+                                                        No hay actividad reciente.
+                                                    {% endif %}
+                                                </div><!-- /.post -->
+                                            </div><!-- /.tab-pane -->
+                                            <!---Informaicon    -->
+                                            <div class="tab-pane" id="information">
+                                                <form action="{% url 'editar_perfil' user.id %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+                                                    <div class="form-group">
+                                                        {% if perfil.imagen_perfil %}
+                                                            <img class="profile-user-img img-responsive img-circle" id ="img1" src="{{ perfil.imagen_perfil.url }}" alt="User profile picture" width="60" height="60"/>
+                                                        {%else %}
+                                                            <img class="profile-user-img img-responsive img-circle" id ="img1" src="{% static '/AdminLTE-2.4.2/img/product/usuario.jpg' %}" alt="User profile picture" width="60" height="60">
+                                                        {%endif%}
+                                                        <h3 class="profile-username text-center">{{ user.first_name }} {{ user.last_name }}</h3>
+                                                        <p class="text-muted text-center">
+                                                            {% for u in usuario.groups.all%}
+                                                                {% if u.name %}
+                                                                    {{ u.name }}
+                                                                {% else %}
+                                                                    el usuario no tiene asignado un rol.
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </p>
                                                     </div>
-                                                    <!-- /.tab-pane -->
-                                                    <div class="tab-pane" id="settings">
-                                                        <form action="{% url 'editar_usuario' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
-                                                            <div class="form-group">
-                                                                <label for="id_first_name" class="col-sm-2 control-label" >Nombre:</label>
-                                                                <div class="col-sm-10">
-                                                                    <input class="form-control" name="first_name" id="id_first_name" title="first_name" type="text" placeholder="Ejemplo: Ricardo" value="{{ usuario.first_name }}">
-                                                                </div>
+                                                    <a href="#" class="btn btn-primary btn-block"><b></b></a>
+                                                    <div class="form-group">
+                                                        <label for="id_imagen_perfil" class="col-sm-2 control-label">Imagen:</label>
+                                                        <div class="col-sm-10">
+                                                            <div class="file-button">
+                                                                Buscar
+                                                                <input type="file" name="imagen_perfil" id="id_imagen_perfil" onchange="document.getElementById('append-big-btn').value = this.value;">
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="id_last_name" class="col-sm-2 control-label" >Apellido:</label>
-                                                                <div class="col-sm-10">
-                                                                  <input class="form-control" name="last_name" id="id_last_name" title="last_name" type="text" placeholder="Ejemplo: Pardo" value="{{ usuario.last_name }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_email" class="col-sm-2 control-label">Email:</label>
-                                                                <div class="col-sm-10">
-                                                                  <input class="form-control" name="email" id="id_email" type="email" title="email" placeholder="Ejemplo: usuario@hotmail.com" value="{{ usuario.email }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_username" class="col-sm-2 control-label">Usuario:</label>
-                                                                <div class="col-sm-10">
-                                                                  <input class="form-control" name="username" id="id_username" title="username" type="text" placeholder="Ejemplo: usuario1" value="{{ usuario.username }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_typeuser" class="col-sm-2 control-label">Tipo de Usuario:</label>
-                                                                <div class="col-sm-10">
-                                                                    <input class="form-control" name="typeuser" id="id_typeuser" title="typeuser" type="text" placeholder="Ejemplo: Estudiante"
-                                                                         value="{% for u in usuario.groups.all%}
-                                                                                    {% if u.name %}
-                                                                                        {{ u.name }}
-                                                                                    {% else %}
-                                                                                        el usuario no tiene asignado un rol.
-                                                                                    {% endif %}
-                                                                                {% endfor %}" disabled>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-offset-2 col-sm-10">
-                                                                    <button type="submit" class="btn btn-primary">Editar</button>
-                                                                    <a type="button" class="btn btn-danger waves-effect waves-light" href="{% url 'perfil_detallado' user.id %}">Cancelar</a>
-                                                                </div>
-                                                            </div>
-                                                        </form>
+                                                            <input type="text" id="append-big-btn" value="{{ perfil.imagen_perfil }}" placeholder="no file selected" style="display:none">
+                                                        </div>
                                                     </div>
-                                                    <div class="tab-pane" id="change">
-                                                        <form action="{% url 'editar_clave' user.id %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
-                                                            <div class="form-group">
-                                                                <label for="id_first_name" class="col-sm-2 control-label" >Nombre:</label>
-                                                                <div class="col-sm-10">
-                                                                    <input class="form-control" name="first_name" id="id_first_name" title="first_name" type="text" placeholder="Ejemplo: Ricardo" value="{{ usuario.first_name }}" disabled>
+                                                    <div class="form-group">
+                                                        <label for="id_Usuario_id" class="col-sm-2 control-label">Usuario:</label>
+                                                        <div class="col-sm-10">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                <div class="chosen-select-single form-group">
+                                                                    <select name="Usuario_id" data-placeholder="Seleccione la Escuela en la que estudia" class="form-control" tabindex="-1" id="id_Usuario_id">
+                                                                        <option selected value={{ user.id }}> {{ user.username }}</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="id_last_name" class="col-sm-2 control-label" >Apellido:</label>
-                                                                <div class="col-sm-10">
-                                                                  <input class="form-control" name="last_name" id="id_last_name" title="last_name" type="text" placeholder="Ejemplo: Pardo" value="{{ usuario.last_name }}" disabled>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_email" class="col-sm-2 control-label">Email:</label>
-                                                                <div class="col-sm-10">
-                                                                  <input class="form-control" name="email" id="id_email" type="email" title="email" placeholder="Ejemplo: usuario@hotmail.com" value="{{ usuario.email }}" disabled>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_username" class="col-sm-2 control-label">Usuario:</label>
-                                                                <div class="col-sm-10">
-                                                                  <input class="form-control" name="username" id="id_username" title="username" type="text" placeholder="Ejemplo: usuario1" value="{{ usuario.username }}" disabled>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_typeuser" class="col-sm-2 control-label">Tipo de Usuario:</label>
-                                                                <div class="col-sm-10">
-                                                                    <input class="form-control" name="typeuser" id="id_typeuser" title="typeuser" type="text" placeholder="Ejemplo: Estudiante"
-                                                                         value="{% for u in usuario.groups.all%}
-                                                                                    {% if u.name %}
-                                                                                        {{ u.name }}
-                                                                                    {% else %}
-                                                                                        el usuario no tiene asignado un rol.
-                                                                                    {% endif %}
-                                                                                {% endfor %}" disabled>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_password1" class="col-sm-2 control-label">Clave:</label>
-                                                                <div class="col-sm-10">
-                                                                    <input class="form-control" name="password1" id="id_password1" type="password" title="password1">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="id_password2" class="col-sm-2 control-label">Repita la Clave:</label>
-                                                                <div class="col-sm-10">
-                                                                    <input class="form-control" name="password2" id="id_password2" type="password" title="password2">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-offset-2 col-sm-10">
-                                                                    <button type="submit" class="btn btn-primary">Editar</button>
-                                                                    <a type="button" class="btn btn-danger waves-effect waves-light" href="{% url 'perfil_detallado' user.id %}">Cancelar</a>
-                                                                </div>
-                                                            </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
-                                                </div><!-- /.tab-content -->
-                                            </div><!-- /.nav-tabs-custom -->
-                                        </div><!-- /.col -->
-                                    </div><!-- /.row -->
-                                </section><!-- /.content -->
-                            </div><!-- /.container -->
-                        </div><!-- /.content-wrapper -->
-                        <footer class="main-footer">
-                            <div class="container">
-                                <div class="pull-right hidden-xs">
-                                    <b>Versión</b> 1.0.0
-                                </div>
-                                <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
-                            </div><!-- /.container -->
-                        </footer>
-                        <div class="control-sidebar-bg"></div>
-                    </div><!-- ./wrapper -->
-                </body>
+                                                    <div class="form-group">
+                                                        <label for="id_first_name" class="col-sm-2 control-label" >Nombre Completos:</label>
+                                                        <div class="col-sm-10">
+                                                            {{ formulario.nombres_perfil }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_last_name" class="col-sm-2 control-label" >Apellido Completos:</label>
+                                                        <div class="col-sm-10">
+                                                            {{ formulario.apellidos_perfil }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_email" class="col-sm-2 control-label">Edad:</label>
+                                                        <div class="col-sm-10">
+                                                            {{ formulario.edad_perfil }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_username" class="col-sm-2 control-label">Fecha de Nacimiento:</label>
+                                                        <div class="col-sm-10">
+                                                            {% if factiva is None %}
+                                                                {{ formulario.fecha_nacimiento_perfil|date:"Y-m-d" }}
+                                                            {% else %}
+                                                                <input id="id_fecha_nacimiento_perfil" name="fecha_nacimiento_perfil" type="date" class="form-control" placeholder="fecha de nacimiento" value="{{perfil.fecha_nacimiento_perfil|date:"Y-m-d"}}">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_typeuser" class="col-sm-2 control-label">Grado:</label>
+                                                        <div class="col-sm-10">
+                                                            {{ formulario.grado_perfil }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_escuela" class="col-sm-2 control-label">Escuela:</label>
+                                                        <div class="col-sm-10">
+                                                            {{ formulario.escuela_perfil }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" style="text-align: center;">
+                                                        <div class="col-sm-offset-2 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Editar</button>
+                                                            <a type="button" class="btn btn-danger waves-effect waves-light" href="{% url 'perfil_detallado' user.id %}">Cancelar</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                            <div class="tab-pane" id="settings">
+                                                <form action="{% url 'editar_usuario' %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+                                                    <div class="form-group">
+                                                        <label for="id_first_name" class="col-sm-2 control-label" >Nombre:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="first_name" id="id_first_name" title="first_name" type="text" placeholder="Ejemplo: Ricardo" value="{{ usuario.first_name }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_last_name" class="col-sm-2 control-label" >Apellido:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="last_name" id="id_last_name" title="last_name" type="text" placeholder="Ejemplo: Pardo" value="{{ usuario.last_name }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_email" class="col-sm-2 control-label">Email:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="email" id="id_email" type="email" title="email" placeholder="Ejemplo: usuario@hotmail.com" value="{{ usuario.email }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_username" class="col-sm-2 control-label">Usuario:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="username" id="id_username" title="username" type="text" placeholder="Ejemplo: usuario1" value="{{ usuario.username }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_typeuser" class="col-sm-2 control-label">Tipo de Usuario:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="typeuser" id="id_typeuser" title="typeuser" type="text" placeholder="Ejemplo: Estudiante"
+                                                                   value="{% for u in usuario.groups.all%}
+                                                                                   {% if u.name %}
+                                                                                       {{ u.name }}
+                                                                                   {% else %}
+                                                                                       el usuario no tiene asignado un rol.
+                                                                                   {% endif %}
+                                                                               {% endfor %}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-2 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Editar</button>
+                                                            <a type="button" class="btn btn-danger waves-effect waves-light" href="{% url 'perfil_detallado' user.id %}">Cancelar</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane" id="change">
+                                                <form action="{% url 'editar_clave' user.id %}" method="post" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+                                                    <div class="form-group">
+                                                        <label for="id_first_name" class="col-sm-2 control-label" >Nombre:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="first_name" id="id_first_name" title="first_name" type="text" placeholder="Ejemplo: Ricardo" value="{{ usuario.first_name }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_last_name" class="col-sm-2 control-label" >Apellido:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="last_name" id="id_last_name" title="last_name" type="text" placeholder="Ejemplo: Pardo" value="{{ usuario.last_name }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_email" class="col-sm-2 control-label">Email:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="email" id="id_email" type="email" title="email" placeholder="Ejemplo: usuario@hotmail.com" value="{{ usuario.email }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_username" class="col-sm-2 control-label">Usuario:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="username" id="id_username" title="username" type="text" placeholder="Ejemplo: usuario1" value="{{ usuario.username }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_typeuser" class="col-sm-2 control-label">Tipo de Usuario:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="typeuser" id="id_typeuser" title="typeuser" type="text" placeholder="Ejemplo: Estudiante"
+                                                                   value="{% for u in usuario.groups.all%}
+                                                                                   {% if u.name %}
+                                                                                       {{ u.name }}
+                                                                                   {% else %}
+                                                                                       el usuario no tiene asignado un rol.
+                                                                                   {% endif %}
+                                                                               {% endfor %}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_password1" class="col-sm-2 control-label">Clave:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="password1" id="id_password1" type="password" title="password1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="id_password2" class="col-sm-2 control-label">Repita la Clave:</label>
+                                                        <div class="col-sm-10">
+                                                            <input class="form-control" name="password2" id="id_password2" type="password" title="password2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-2 col-sm-10">
+                                                            <button type="submit" class="btn btn-primary">Editar</button>
+                                                            <a type="button" class="btn btn-danger waves-effect waves-light" href="{% url 'perfil_detallado' user.id %}">Cancelar</a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div><!-- /.tab-content -->
+                                    </div><!-- /.nav-tabs-custom -->
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+                        </section><!-- /.content -->
+                    </div><!-- /.container -->
+                </div><!-- /.content-wrapper -->
+                <footer class="main-footer">
+                    <div class="container">
+                        <div class="pull-right hidden-xs">
+                            <b>Versión</b> 1.0.0
+                        </div>
+                        <strong>Copyright &copy; 2019 <a href="https://www.ups.edu.ec/">UPS Cuenca-Ecuador</a>.</strong> Todos los derechos reservados.
+                    </div><!-- /.container -->
+                </footer>
+            </div><!-- ./wrapper -->
+        </body>
     {% endif %}
     <script>
     function init() {

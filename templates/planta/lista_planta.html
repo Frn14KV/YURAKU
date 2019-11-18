@@ -96,7 +96,7 @@
                                                       <!-- Menu Footer-->
                                                       <li class="user-footer">
                                                           <div class="pull-left">
-                                                              <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                              <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                           </div>
                                                           <div class="pull-right">
                                                               <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -162,7 +162,7 @@
                                     <li class="header">Menú de Navegación</li>
                                     <li>
                                         <a href="{% url 'homepage' %}">
-                                            <i class="fa fa-home"></i> <span>Home</span>
+                                            <i class="fa fa-home"></i> <span>Inicio</span>
                                         </a>
                                     </li>
                                     {% if user.groups.all|length > 0 %}
@@ -171,14 +171,14 @@
                                                 <li class="treeview active">
                                                     <a href="#">
                                                         <i class="fa fa-pagelines"></i>
-                                                        <span>Plantas</span>
+                                                        <span>Plantas Medicinales</span>
                                                         <span class="pull-right-container">
                                                             <i class="fa fa-angle-left pull-right"></i>
                                                         </span>
                                                     </a>
                                                     <ul class="treeview-menu">
                                                         <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                        <li class="active"><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                        <li class="active"><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                                         <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
                                                     </ul>
                                                 </li>
@@ -186,14 +186,14 @@
                                                 <li class="treeview active">
                                                     <a href="#">
                                                         <i class="fa fa-pagelines"></i>
-                                                        <span>Plantas</span>
+                                                        <span>Plantas Medicianles</span>
                                                         <span class="pull-right-container">
                                                             <i class="fa fa-angle-left pull-right"></i>
                                                         </span>
                                                     </a>
                                                     <ul class="treeview-menu">
                                                         <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                        <li class="active"><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                        <li class="active"><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                                     </ul>
                                                 </li>
                                             {% endif %}
@@ -202,39 +202,34 @@
                                         <li class="treeview active">
                                             <a href="#">
                                                 <i class="fa fa-pagelines"></i>
-                                                <span>Plantas</span>
+                                                <span>Plantas Medicinales</span>
                                                 <span class="pull-right-container">
                                                     <i class="fa fa-angle-left pull-right"></i>
                                                 </span>
                                             </a>
                                             <ul class="treeview-menu">
                                                 <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                                <li class="active"><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                                <li class="active"><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                             </ul>
                                         </li>
                                     {% endif %}
                                     <li>
                                         <a href="{% url 'Reconocimiento' %}">
-                                            <i class="fa fa-eye"></i> <span>Reconocimiento de Plantas</span>
+                                            <i class="fa fa-eye"></i>
+                                            <span>Reconocimiento de Plantas</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
                                     </li>
-                                    <li class="treeview">
-                                        <a href="#">
+                                    <li>
+                                        <a href="{% url 'Juego' %}">
                                             <i class="fa fa-puzzle-piece"></i>
                                             <span>Juegos</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i> Lista de Juegos</a></li>
-                                            <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i> Adivina la Planta</a></li>
-                                            <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i> Sopa de letras</a></li>
-                                            <li><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
-                                        </ul>
                                     </li>
                                     {% if user.groups.all|length > 0 %}
                                         {% for u in user.groups.all%}
@@ -286,48 +281,6 @@
                                             {% endif %}
                                         {% endfor %}
                                     {% else %}
-                                    {% endif %}
-                                    {% if user.groups.all|length > 0 %}
-                                        {% for u in user.groups.all%}
-                                            {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
-                                                <li class="treeview">
-                                                    <a href="#">
-                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                        <span class="pull-right-container">
-                                                            <i class="fa fa-angle-left pull-right"></i>
-                                                        </span>
-                                                    </a>
-                                                    <ul class="treeview-menu">
-                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                                        <li><a href="{% url 'guardar_escuela' %}"><i class="fa fa-circle-o"></i> Agregar Escuela</a></li>
-                                                    </ul>
-                                                </li>
-                                            {% elif u.name == "Profesores" or u.name == "Estudiantes" %}
-                                                <li class="treeview">
-                                                    <a href="#">
-                                                        <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                        <span class="pull-right-container">
-                                                            <i class="fa fa-angle-left pull-right"></i>
-                                                        </span>
-                                                    </a>
-                                                    <ul class="treeview-menu">
-                                                        <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                                    </ul>
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% else %}
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                                <span class="pull-right-container">
-                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                            </ul>
-                                        </li>
                                     {% endif %}
                                     {% if user.is_authenticated %}
                                         {% if perfiles %}
@@ -385,8 +338,8 @@
                                     <small>YURAKU</small>
                                 </h1>
                                     <ol class="breadcrumb">
-                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home active"></i> Home</a></li>
-                                        <li class="active"><a>Listado de Plantas</a></li>
+                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home active"></i>Inicio</a></li>
+                                        <li class="active"><a>Mis Plantas</a></li>
                                     </ol>
                             </section>
                             <!-- Main content -->
@@ -395,21 +348,20 @@
                                     <div class="col-xs-12">
                                         <div class="box">
                                             <div class="box-header">
-                                                <h3 class="box-title">Lista de Plantas </h3>
+                                                <h3 class="box-title">Mis Plantas </h3>
                                             </div>
                                             <!-- /.box-header -->
                                             <div class="box-body">
-                                                <table id="example1" class="table table-bordered table-striped">
+                                                <table id="example2" class="table table-bordered table-striped">
                                                     <thead>
                                                     <tr>
-                                                        <th data-field="id">ID</th>
                                                         <th data-field="Reino">Imagen</th>
                                                         <th data-field="nombre" >Nombre</th>
                                                         <th data-field="nombre comun">Nombre Comun</th>
-                                                        <th data-field="nombre cientifico">Nombre Cientifico</th>
-                                                        <th data-field="Lugar de adaptacion">Lugar de Adaptacion</th>
+                                                        <th data-field="nombre cientifico">Nombre Científico</th>
+                                                        <th data-field="Lugar de adaptacion">Lugar de Adaptación</th>
                                                         <th data-field="Lugar de donde proviene">Lugar de donde Proviene</th>
-                                                        <th data-field="informacion">Informacion</th>
+                                                        <th data-field="informacion">Información</th>
                                                         <th data-field="editar">Editar</th>
                                                         <th data-field="eliminar">Eliminar</th>
                                                     </tr>
@@ -417,17 +369,20 @@
                                                     <tbody>
                                                     {% for planta in plantas %}
                                                         <tr>
-                                                            <td>{{ planta.id }}</td>
                                                             <td>
                                                                 {% if planta.imagen_planta%}
-                                                                    <img alt="" src="{{ planta.imagen_planta.url }}"  width="250" height="200"/>
+                                                                    <a data-toggle="tooltip" title="{{ planta.nombre_planta }}" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                                        <img alt="" src="{{ planta.imagen_planta.url }}"  width="250" height="200" />
+                                                                    </a>
                                                                 {%else %}
                                                                     No hay imagen de la planta.
                                                                 {%endif%}
                                                             </td>
                                                             <td>
                                                                 {% if planta.nombre_planta %}
-                                                                    {{ planta.nombre_planta }}
+                                                                    <a data-toggle="tooltip" title="{{ planta.nombre_planta }}" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                                        {{ planta.nombre_planta }}
+                                                                    </a>
                                                                 {% else %}
                                                                     No se tiene asignado.
                                                                 {% endif %}
@@ -461,7 +416,7 @@
                                                                 {% endif %}
                                                             </td>
                                                             <td>
-                                                                <a data-toggle="tooltip" title="Informacion" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                                <a data-toggle="tooltip" title="Información" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
                                                                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                                                                 </a>
                                                             </td>
@@ -480,14 +435,13 @@
                                                     </tbody>
                                                     <tfoot>
                                                     <tr>
-                                                        <th data-field="id">ID</th>
                                                         <th data-field="Reino">Imagen</th>
                                                         <th data-field="nombre" >Nombre</th>
                                                         <th data-field="nombre comun">Nombre Comun</th>
                                                         <th data-field="nombre cientifico">Nombre Cientifico</th>
-                                                        <th data-field="Lugar de adaptacion">Lugar de Adaptacion</th>
+                                                        <th data-field="Lugar de adaptacion">Lugar de Adaptación</th>
                                                         <th data-field="Lugar de donde proviene">Lugar de donde Proviene</th>
-                                                        <th data-field="informacion">Informacion</th>
+                                                        <th data-field="informacion">Información</th>
                                                         <th data-field="editar">Editar</th>
                                                         <th data-field="eliminar">Eliminar</th>
                                                     </tr>
@@ -522,25 +476,19 @@
                                     <!-- Collect the nav links, forms, and other content for toggling -->
                                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                                         <ul class="nav navbar-nav">
-                                            <li><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                            <li><a href="{% url 'homepage' %}">Inicio<span class="sr-only"></span></a></li>
                                             <li class="dropdown active">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas Medicinales<span class="caret"></span></a>
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
-                                                    <li class="active"><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                                    <li class="active"><a href="{% url 'Planta' %}">Mis Plantas</a></li>
                                                 </ul>
                                             </li>
                                             <li>
                                                 <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
                                             </li>
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
-                                                    <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
-                                                    <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
-                                                    <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
-                                                </ul>
+                                            <li>
+                                                <a href="{% url 'Juego' %}">Juegos</a>
                                             </li>
                                             {% if user.is_authenticated %}
                                                 {% if perfiles %}
@@ -657,7 +605,7 @@
                                                         <!-- Menu Footer-->
                                                         <li class="user-footer">
                                                             <div class="pull-left">
-                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                                <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                             </div>
                                                             <div class="pull-right">
                                                                 <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -680,7 +628,7 @@
                                         <small>YURAKU</small>
                                     </h1>
                                     <ol class="breadcrumb">
-                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i>Inicio</a></li>
                                         <li class="active">Listado de Plantas</li>
 
                                     </ol>
@@ -689,36 +637,38 @@
                                 <section class="content">
                                     <div class="box box-default">
                                         <div class="box-header">
-                                            <h3 class="box-title">Lista de Plantas </h3>
+                                            <h3 class="box-title">Mis Plantas </h3>
                                         </div><!-- /.box-header -->
                                         <div class="box-body">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="example2" class="table table-bordered table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th data-field="id">ID</th>
                                                     <th data-field="Reino">Imagen</th>
                                                     <th data-field="nombre" >Nombre</th>
-                                                    <th data-field="nombre comun">Nombre Comun</th>
-                                                    <th data-field="nombre cientifico">Nombre Cientifico</th>
-                                                    <th data-field="Lugar de adaptacion">Lugar de Adaptacion</th>
+                                                    <th data-field="nombre comun">Nombre Común</th>
+                                                    <th data-field="nombre cientifico">Nombre Científico</th>
+                                                    <th data-field="Lugar de adaptacion">Lugar de Adaptación</th>
                                                     <th data-field="Lugar de donde proviene">Lugar de donde Proviene</th>
-                                                    <th data-field="informacion">Informacion</th>
+                                                    <th data-field="informacion">Información</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 {% for planta in plantas %}
                                                     <tr>
-                                                        <td>{{ planta.id }}</td>
                                                         <td>
                                                             {% if planta.imagen_planta%}
-                                                                <img alt="" src="{{ planta.imagen_planta.url }}"  width="250" height="200"/>
+                                                                <a data-toggle="tooltip" title="{{ planta.nombre_planta }}" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                                    <img alt="" src="{{ planta.imagen_planta.url }}"  width="250" height="200" />
+                                                                </a>
                                                             {%else %}
                                                                 No hay imagen de la planta.
                                                             {%endif%}
                                                         </td>
                                                         <td>
                                                             {% if planta.nombre_planta %}
-                                                                {{ planta.nombre_planta }}
+                                                                <a data-toggle="tooltip" title="{{ planta.nombre_planta }}" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                                    {{ planta.nombre_planta }}
+                                                                </a>
                                                             {% else %}
                                                                 No se tiene asignado.
                                                             {% endif %}
@@ -752,7 +702,7 @@
                                                             {% endif %}
                                                         </td>
                                                         <td>
-                                                            <a data-toggle="tooltip" title="Informacion" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                            <a data-toggle="tooltip" title="Información" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
                                                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                                             </a>
                                                         </td>
@@ -761,14 +711,13 @@
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        <th data-field="id">ID</th>
                                                         <th data-field="Reino">Imagen</th>
                                                         <th data-field="nombre" >Nombre</th>
-                                                        <th data-field="nombre comun">Nombre Comun</th>
-                                                        <th data-field="nombre cientifico">Nombre Cientifico</th>
-                                                        <th data-field="Lugar de adaptacion">Lugar de Adaptacion</th>
+                                                        <th data-field="nombre comun">Nombre Común</th>
+                                                        <th data-field="nombre cientifico">Nombre Científico</th>
+                                                        <th data-field="Lugar de adaptacion">Lugar de Adaptación</th>
                                                         <th data-field="Lugar de donde proviene">Lugar de donde Proviene</th>
-                                                        <th data-field="informacion">Informacion</th>
+                                                        <th data-field="informacion">Información</th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -805,25 +754,19 @@
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="{% url 'homepage' %}">Home <span class="sr-only"></span></a></li>
+                                    <li><a href="{% url 'homepage' %}">Inicio<span class="sr-only"></span></a></li>
                                     <li class="dropdown active">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas <span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plantas Medicinales<span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="{% url 'buscar_planta' %}">Busqueda de Plantas</a></li>
-                                            <li class="active"><a href="{% url 'Planta' %}">Listado de Plantas</a></li>
+                                            <li class="active"><a href="{% url 'Planta' %}">Mis Plantas</a></li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="{% url 'Reconocimiento' %}">Reconocimiento</a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="{% url 'Juego' %}">Lista de Juegos</a></li>
-                                            <li><a href="{% url 'juego_adivina' %}">Adivina la Planta</a></li>
-                                            <li><a href="{% url 'juego_sopa_de_letras' %}">Sopa de Letras</a></li>
-                                            <li><a href="{% url 'juego_memorama' %}">Memorama</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="{% url 'Juego' %}">Juegos</a>
                                     </li>
                                     {% if user.is_authenticated %}
                                         {% if perfiles %}
@@ -940,7 +883,7 @@
                                                 <!-- Menu Footer-->
                                                 <li class="user-footer">
                                                     <div class="pull-left">
-                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                        <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                                     </div>
                                                     <div class="pull-right">
                                                         <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -963,7 +906,7 @@
                                 <small>YURAKU</small>
                             </h1>
                             <ol class="breadcrumb">
-                                <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                                <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i>Inicio</a></li>
                                 <li class="active">Listado de Plantas</li>
                             </ol>
                         </section>
@@ -971,36 +914,38 @@
                         <section class="content">
                             <div class="box box-default">
                                 <div class="box-header">
-                                    <h3 class="box-title">Lista de Plantas </h3>
+                                    <h3 class="box-title">Mis Plantas </h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example2" class="table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <th data-field="id">ID</th>
                                             <th data-field="Reino">Imagen</th>
                                             <th data-field="nombre" >Nombre</th>
-                                            <th data-field="nombre comun">Nombre Comun</th>
-                                            <th data-field="nombre cientifico">Nombre Cientifico</th>
-                                            <th data-field="Lugar de adaptacion">Lugar de Adaptacion</th>
+                                            <th data-field="nombre comun">Nombre Común</th>
+                                            <th data-field="nombre cientifico">Nombre Científico</th>
+                                            <th data-field="Lugar de adaptacion">Lugar de Adaptación</th>
                                             <th data-field="Lugar de donde proviene">Lugar de donde Proviene</th>
-                                            <th data-field="informacion">Informacion</th>
+                                            <th data-field="informacion">Información</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         {% for planta in plantas %}
                                             <tr>
-                                                <td>{{ planta.id }}</td>
                                                 <td>
                                                     {% if planta.imagen_planta%}
-                                                        <img alt="" src="{{ planta.imagen_planta.url }}"  width="250" height="200"/>
+                                                        <a data-toggle="tooltip" title="{{ planta.nombre_planta }}" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                            <img alt="" src="{{ planta.imagen_planta.url }}"  width="250" height="200" />
+                                                        </a>
                                                     {%else %}
                                                         No hay imagen de la planta.
                                                     {%endif%}
                                                 </td>
                                                 <td>
                                                     {% if planta.nombre_planta %}
-                                                        {{ planta.nombre_planta }}
+                                                        <a data-toggle="tooltip" title="{{ planta.nombre_planta }}" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                            {{ planta.nombre_planta }}
+                                                        </a>
                                                     {% else %}
                                                         No se tiene asignado.
                                                     {% endif %}
@@ -1034,7 +979,7 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>
-                                                    <a data-toggle="tooltip" title="Informacion" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
+                                                    <a data-toggle="tooltip" title="Información" class="pd-setting-ed" href={% url 'planta_detalle' planta.id %}>
                                                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
@@ -1043,14 +988,13 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th data-field="id">ID</th>
                                                 <th data-field="Reino">Imagen</th>
                                                 <th data-field="nombre" >Nombre</th>
-                                                <th data-field="nombre comun">Nombre Comun</th>
-                                                <th data-field="nombre cientifico">Nombre Cientifico</th>
-                                                <th data-field="Lugar de adaptacion">Lugar de Adaptacion</th>
+                                                <th data-field="nombre comun">Nombre Común</th>
+                                                <th data-field="nombre cientifico">Nombre Científico</th>
+                                                <th data-field="Lugar de adaptacion">Lugar de Adaptación</th>
                                                 <th data-field="Lugar de donde proviene">Lugar de donde Proviene</th>
-                                                <th data-field="informacion">Informacion</th>
+                                                <th data-field="informacion">Información</th>
                                             </tr>
                                         </tfoot>
                                     </table>

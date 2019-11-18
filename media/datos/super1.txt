@@ -1,1 +1,1 @@
-ataco (score=0.99964);apio (score=0.00029);lengua de tigre (score=0.00007);malva (score=0.00000);stevia (score=0.00000);
+ajenjo+56.711798906326294;ruda+33.715030550956726;cedron+3.144213929772377;culantro+1.5875188633799553;romero+1.375363115221262;

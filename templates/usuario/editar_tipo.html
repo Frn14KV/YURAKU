@@ -95,7 +95,7 @@
                                           <!-- Menu Footer-->
                                           <li class="user-footer">
                                               <div class="pull-left">
-                                                  <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesion</a>
+                                                  <a href="{% url 'login' %}" class="btn btn-default btn-flat">Inciar Sesión</a>
                                               </div>
                                               <div class="pull-right">
                                                   <a href="{% url 'registro' %}" class="btn btn-default btn-flat">Registrarse</a>
@@ -161,7 +161,7 @@
                         <li class="header">Menú de Navegación</li>
                         <li>
                             <a href="{% url 'homepage' %}">
-                                <i class="fa fa-home"></i> <span>Home</span>
+                                <i class="fa fa-home"></i> <span>Inicio</span>
                             </a>
                         </li>
                         {% if user.groups.all|length > 0 %}
@@ -170,14 +170,14 @@
                                     <li class="treeview">
                                         <a href="#">
                                             <i class="fa fa-pagelines"></i>
-                                            <span>Plantas</span>
+                                            <span>Plantas Medicinales</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
                                         <ul class="treeview-menu">
                                             <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                             <li><a href="{% url 'guardar_planta' %}"><i class="fa fa-circle-o"></i> Registro Planta</a></li>
                                         </ul>
                                     </li>
@@ -185,14 +185,14 @@
                                     <li class="treeview">
                                         <a href="#">
                                             <i class="fa fa-pagelines"></i>
-                                            <span>Plantas</span>
+                                            <span>Plantas Medicinales</span>
                                             <span class="pull-right-container">
                                                 <i class="fa fa-angle-left pull-right"></i>
                                             </span>
                                         </a>
                                         <ul class="treeview-menu">
                                             <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                            <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                         </ul>
                                     </li>
                                 {% endif %}
@@ -201,39 +201,34 @@
                             <li class="treeview">
                                 <a href="#">
                                     <i class="fa fa-pagelines"></i>
-                                    <span>Plantas</span>
+                                    <span>Plantas Medicinales</span>
                                     <span class="pull-right-container">
                                         <i class="fa fa-angle-left pull-right"></i>
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="{% url 'buscar_planta' %}"><i class="fa fa-circle-o"></i> Busqueda de Plantas</a></li>
-                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i> Listado de Platntas</a></li>
+                                    <li><a href="{% url 'Planta' %}"><i class="fa fa-circle-o"></i>Mis Plantas</a></li>
                                 </ul>
                             </li>
                         {% endif %}
                         <li>
                             <a href="{% url 'Reconocimiento' %}">
-                                <i class="fa fa-eye"></i> <span>Reconocimiento de Plantas</span>
+                                <i class="fa fa-eye"></i>
+                                <span>Reconocimiento de Plantas</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
+                        <li>
+                            <a href="{% url 'Juego' %}">
                                 <i class="fa fa-puzzle-piece"></i>
                                 <span>Juegos</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{% url 'Juego' %}"><i class="fa fa-circle-o"></i> Lista de Juegos</a></li>
-                                <li><a href="{% url 'juego_adivina' %}"><i class="fa fa-circle-o"></i> Adivina la Planta</a></li>
-                                <li><a href="{% url 'juego_sopa_de_letras' %}"><i class="fa fa-circle-o"></i> Sopa de letras</a></li>
-                                <li><a href="{% url 'juego_memorama' %}"><i class="fa fa-circle-o"></i>Memorama</a></li>
-                            </ul>
                         </li>
                         <li class="treeview active">
                             <a href="#">
@@ -278,48 +273,6 @@
                                 {% endif %}
                             {% endfor %}
                         {% else %}
-                        {% endif %}
-                        {% if user.groups.all|length > 0 %}
-                            {% for u in user.groups.all%}
-                                {% if u.name == "SuperUsuarios" or u.name == "Administradores" %}
-                                    <li class="treeview">
-                                        <a href="#">
-                                            <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                            <span class="pull-right-container">
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </span>
-                                        </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                            <li><a href="{% url 'guardar_escuela' %}"><i class="fa fa-circle-o"></i> Agregar Escuela</a></li>
-                                        </ul>
-                                    </li>
-                                {% elif u.name == "Profesores" or u.name == "Estudiantes" %}
-                                    <li class="treeview">
-                                        <a href="#">
-                                            <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                            <span class="pull-right-container">
-                                                <i class="fa fa-angle-left pull-right"></i>
-                                            </span>
-                                        </a>
-                                        <ul class="treeview-menu">
-                                            <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                        </ul>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="fa fa-fw fa-bank"></i> <span>Escuelas</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{% url 'Escuela' %}"><i class="fa fa-circle-o"></i> Lista de Escuelas</a></li>
-                                </ul>
-                            </li>
                         {% endif %}
                         {% if user.is_authenticated %}
                             {% if perfiles %}
@@ -377,7 +330,7 @@
                         <small> YURAKU </small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="{% url 'homepage' %}"><i class="fa fa-home"></i>Inicio</a></li>
                         <li><a href="{% url 'usuarios' %}">Listado de Usuarios</a></li>
                         <li class="active">Editar Usuario</li>
                     </ol>
@@ -411,20 +364,6 @@
                                             <label class="form-horizontal" for="id_username">Usuario:</label>
                                             <input class="form-control" name="username" id="id_username" title="username" placeholder="Ejemplo: usuario1" value="{{ usuario.username }}" disabled>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form-horizontal" for="id_email">Correo:</label>
-                                            <input class="form-control" name="email" id="id_email" title="email" placeholder="Ejemplo: usuario@hotmail.com" value="{{ usuario.email }}" disabled>
-                                        </div>
-                                        <div class="form-group col-lg-12">
-                                            <div class="sparkline12-graph">
-                                                <div id="pwd-container1">
-                                                    <div class="form-group mg-b-pass">
-                                                        <div class="pwstrength_viewport_progress"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /.form-group -->
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-md-6">
@@ -433,42 +372,41 @@
                                             <input class="form-control" name="last_name" type="text" id="id_last_name" title="last_name" placeholder="Ejemplo: Carrion" value="{{ usuario.last_name }}" disabled>
                                         </div>
                                         <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                                    <label class="form-horizontal" for="id_typeuser">Seleccione el Tipo de Usuario:</label>
-                                                </div>
-                                                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                                                    <div class="chosen-select-single form-group">
-                                                        <select name="typeuser" data-placeholder="Seleccione el Tipo de Usuario" class="form-control" tabindex="-1" id="id_typeuser" title="">
-                                                            {% for u in usuario.groups.all%}
-                                                                {% if u.name %}
-                                                                    <option value={{ u.name }}>{{ u.name }}</option>
-                                                                {% else %}
-                                                                    el usuario no tiene asignado un rol.
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                            <option value="Estudiantes">Estudiantes</option>
-                                                            <option value="Profesores">Profesores</option>
-                                                            <option value="Administradores">Administradores</option>
-                                                            <option value="Superusuarios">SuperUsuarios</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <label class="form-horizontal" for="id_email">Correo:</label>
+                                            <input class="form-control" name="email" id="id_email" title="email" placeholder="Ejemplo: usuario@hotmail.com" value="{{ usuario.email }}" disabled>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form-horizontal" for="id_email1">Repita el Correo:</label>
-                                            <input class="form-control" name="email1" id="id_email1" title="email" placeholder="Ejemplo: usuario@hotmail.com" value="{{ usuario.last_name }}" disabled>
-                                        </div>
-                                        <br>
                                     </div>
-                                    <!-- /.form-group -->
-                                    <div style="text-align: center;">
-                                        <div class="col-lg-12">
-                                            <div class="payment-adress">
-                                                <button type="submit" class="btn btn-primary">Editar</button>
-                                                <a type="button" class="btn btn-danger waves-effect waves-light" href="{% url 'usuarios' %}">Cancelar</a>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                            <label class="form-horizontal" for="id_typeuser">Seleccione el Tipo de Usuario:</label>
+                                        </div>
+                                        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="chosen-select-single form-group">
+                                                <select name="typeuser" data-placeholder="Seleccione el Tipo de Usuario" class="form-control" tabindex="-1" id="id_typeuser" title="">
+                                                    {% for u in usuario.groups.all%}
+                                                        {% if u.name %}
+                                                            <option value={{ u.name }}>{{ u.name }}</option>
+                                                        {% else %}
+                                                            el usuario no tiene asignado un rol.
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    <option value="Estudiantes">Estudiantes</option>
+                                                    <option value="Profesores">Profesores</option>
+                                                    <option value="Administradores">Administradores</option>
+                                                    <option value="Superusuarios">SuperUsuarios</option>
+                                                </select>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div class="col-lg-12">
+                                        <div class="payment-adress">
+                                            <button type="submit" class="btn btn-primary">Editar</button>
+                                            <a type="button" class="btn btn-danger waves-effect waves-light" href="{% url 'usuarios' %}">Cancelar</a>
                                         </div>
                                     </div>
                                 </div>

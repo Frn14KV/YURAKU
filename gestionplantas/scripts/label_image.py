@@ -68,14 +68,17 @@ def load_labels(label_file):
   return label
 
 if __name__ == "__main__":
+  #f = open('/home/franklin/YURAKU/media/datos/pb.txt', 'r')
   f = open('media/datos/pb.txt', 'r')
   mensaje = f.read()
   nopl = mensaje.split(';')
   f.close()
   nombrep = nopl[0]
   nombreu = nopl[1]
+  #file_name = "/home/franklin/YURAKU/media/" + nombrep
   file_name = "D:/Tesis/YURAKU/media/" + nombrep
-  # "tf_files/flower_photos/daisy/3475870145_685a19116d.jpg"
+  #model_file = "/home/franklin/YURAKU/gestionplantas/tf_files/retrained_graph.pb"
+  #label_file = "/home/franklin/YURAKU/gestionplantas/tf_files/retrained_labels.txt"
   model_file = "D:/Tesis/YURAKU/gestionplantas/tf_files/retrained_graph.pb"
   label_file = "D:/Tesis/YURAKU/gestionplantas/tf_files/retrained_labels.txt"
   input_height = 224
@@ -138,12 +141,13 @@ if __name__ == "__main__":
   top_k = results.argsort()[-5:][::-1]
   labels = load_labels(label_file)
 
-  #print('\nEvaluation time (1-image): {:.3f}s\n'.format(end - start))
   template = "{} (score={:0.5f})"
-  # archivo-salida.py
+  #f = open('/home/franklin/YURAKU/media/datos/'+ nombreu + '.txt', 'w')
   f = open('media/datos/'+ nombreu + '.txt', 'w')
   for i in top_k:
-    print(template.format(labels[i], results[i]))
-    f.write(template.format(labels[i], results[i]) + ";")
+    #print(template.format(labels[i], results[i]))
+    #print(labels[i], (results[i])*100)
+    f.write(str(labels[i]) +"+"+ str((results[i])*100) + ";")
+    #f.write(template.format(labels[i], results[i]) + ";")
 
   f.close()
