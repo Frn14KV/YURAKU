@@ -1,9 +1,9 @@
 # YURAKU
-
 ![Aquí la descripción de la imagen por si no carga](https://github.com/Frn14KV/YURAKU/blob/master/static/AdminLTE-2.4.2/img/logo%20yuraku-01.png)
 
-_Proyecto de tesis para la obtención del título de ingeniería de sistemas en la Universidad Politécnica Salesiana sede Cuenca 2019
-Trata de una Plataforma desarrollada en Python y Android para el reconocimiento de plantas medicinales utilizadas para la medicina ancestral andina en la provincia del Azuay llamada YURAKU._
+_Proyecto de tesis para la obtención del título de ingeniería de sistemas en la Universidad Politécnica Salesiana sede Cuenca 2019._
+
+_Trata de una Plataforma desarrollada en Python y Android para el reconocimiento de plantas medicinales utilizadas para la medicina ancestral andina en la provincia del Azuay llamada YURAKU._
 
 ## Comenzando 🚀
 
